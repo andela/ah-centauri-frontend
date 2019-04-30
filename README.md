@@ -1,3 +1,4 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/07de311d4602f86a3842/maintainability)](https://codeclimate.com/github/andela/ah-centauri-frontend/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/07de311d4602f86a3842/test_coverage)](https://codeclimate.com/github/andela/ah-centauri-frontend/test_coverage)
 
 Authors Haven - A Social platform for the creative at heart.
 
