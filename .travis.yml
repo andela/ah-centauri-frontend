@@ -1,7 +1,7 @@
 language:
   node_js
-  
-node_js: 
+
+node_js:
   "11.12.0"
 
 cache:
@@ -14,7 +14,9 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - npm run test -- --coverage
+  - npm run coverage
+  - npm run test
+  - npm run coveralls
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

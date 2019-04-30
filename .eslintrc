@@ -1,20 +1,22 @@
 {
-    "extends": [
-        "react-app",
-        "airbnb",
-        "plugin:jsx-a11y/recommended"
-    ],
-    "plugins": [
-        "jsx-a11y"
-    ],
-    "rules": {
-        "react/jsx-filename-extension": [
-            1,
-            {
-                "extensions": [
-                    ".js"
-                ]
-            }
+  "extends": [
+    "react-app",
+    "airbnb",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": [
+    "jsx-a11y"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".json"
         ]
-    }
+      }
+    ]
+  }
 }
