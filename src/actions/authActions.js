@@ -25,22 +25,9 @@ export const successMessage = (data) => {
 };
 
 export const signUpAction = formProps => (dispatch) => {
-  dispatch(loadingMessage());
-  api.user.signup(formProps)
+  axios.post('/users/', formProps)
     .then((response) => {
-      dispatch(successMessage(response.data.user));
-    })
-    .catch((error) => {
-      dispatch(failureMessage(error.response.data));
-    });
-};
-
-
-export const loginAction = formProps => (dispatch) => {
-  dispatch(loadingMessage());
-  api.user.login(formProps)
-    .then((response) => {
-      dispatch(successMessage(response.data.user));
+      dispatch(successMessage(response.data));
     })
     .catch((error) => {
       dispatch(failureMessage(error.response.data));

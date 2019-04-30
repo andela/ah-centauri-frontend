@@ -32,7 +32,7 @@ const App = () => (
           ))
         }
         </Switch>
-        <Footer/>
+        <Footer />
       </Container>
     </Router>
   </Provider>
