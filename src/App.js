@@ -1,11 +1,17 @@
 import React from 'react';
+
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore } from 'redux';
 import reduxThunk from 'redux-thunk';
 
+import { Container } from 'semantic-ui-react';
 import reducers from './reducers';
 import setAuthToken from './utils/setAuthToken';
 
+import Header from "./components/layout/Header";
+import Footer from './components/layout/Footer';
+import routes from './routes/index'
 
 // eslint-disable-next-line valid-typeof,no-underscore-dangle
 const composeEnhancers = typeof window === 'objects' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -30,7 +36,23 @@ if (token) {
 
 const App = () => (
   <Provider store={store}>
-    <div>Niaje wasee ndio hii hapa!</div>
+    <BrowserRouter>
+      <Container className="bg-gray">
+        <Header/>
+        <Switch>
+
+          {
+            routes.map( (route)=>{
+              return <Route
+              exact path={route.path}
+              component={route.component}/>
+            })
+          }
+
+        </Switch>
+        <Footer/>
+      </Container>
+    </BrowserRouter>
   </Provider>
 );
 
