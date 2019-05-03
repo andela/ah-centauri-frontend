@@ -105,6 +105,9 @@ export class Login extends Component {
               Don&apos;t have an account?&nbsp;
               <a href="/register"> Sign Up </a>
               &nbsp;instead.
+              <div>
+                <a href="/reset"> Forgot your password? </a>
+              </div>
             </Message>
           </GridItem>
         </GridContainer>

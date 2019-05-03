@@ -38,4 +38,34 @@ describe('Api service function test: ', () => {
           .toEqual(data);
       });
   });
+  
+
+  it(' returns data when resetPasswordLink is called', () => {
+    const mock = new MockAdapter(axios);
+    const data = { response: true }; 
+
+    mock.onPost('users/reset')
+      .reply(200, data);
+
+    api.user.resetPasswordLink({ email: 'test@mail.com' })
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when resetPassword is called', () => {
+    const mock = new MockAdapter(axios);
+    const data = { response: true }; 
+
+    mock.onPost('users/reset')
+      .reply(200, data);
+
+    api.user.resetPassword({ new_password: "Abc123@!", confirm_password: "Abc123@!" })
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
 });
