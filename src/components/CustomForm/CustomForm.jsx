@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Form,
-  Message,
-} from 'semantic-ui-react';
+import {Form, Message,} from 'semantic-ui-react';
 
 import isEmpty from '../../utils/is_empty';
 
@@ -17,6 +14,7 @@ const CustomForm = (props) => {
     handleSubmit,
     inputFields,
     buttonName,
+    readOnly,
   } = props;
 
   const errorList = [];
@@ -32,20 +30,39 @@ const CustomForm = (props) => {
         header="There was some errors with your submission"
         list={errorList}
       />
-      {inputFields.map((input, index) => (
-        <Form.Input
-          {...input}
-          key={index}
-        />
-      ))}
+      {inputFields.map((input, index) => {
+        if (!Array.isArray(input)) {
+          return (
+              <Form.Input
+                  {...input}
+                  key={index}
+              />
+          );
+        }
+        // If the input field is an array then make a form group field
+        // This is so we encase the items in the input array
+        return (
+            <Form.Group widths="equal">
+              {input.map((formGroupInput, formGroupIndex) => {
+                return (
+                    <Form.Input
+                        {...formGroupInput}
+                        key={formGroupIndex}
+                    />
+                );
+              })}
+            </Form.Group>
+        );
+      })}
 
 
       <Form.Button
-        fluid
-        primary
-        size="large"
-        type="submit"
-        id={`${buttonName}Button`}
+          fluid
+          primary
+          inverted
+          size="large"
+          type="submit"
+          id={`${buttonName}Button`}
       >
         {buttonName}
       </Form.Button>
