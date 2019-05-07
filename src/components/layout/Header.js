@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   Button,
   Input,
@@ -20,6 +21,8 @@ export class Header extends Component {
 
   render() {
     const { activeItem } = this.state;
+    const { authenticated } = this.props;
+
     return (
       <Menu pointing secondary className="header-menu">
         <Menu.Item
@@ -49,23 +52,30 @@ export class Header extends Component {
         >
           Testimonials
         </Menu.Item>
-        <Menu.Menu position="right">
-          <Menu.Item>
-            <Input icon="search" placeholder="Search..."/>
-          </Menu.Item>
-          <Menu.Item
-            as={Link}
-            to="/register"
-            name="sign-in"
-            active={activeItem === 'sign-in'}
-            onClick={this.handleItemClick}
-          >
-            <Button primary>Sign in / Sign-up</Button>
-          </Menu.Item>
-        </Menu.Menu>
+        {
+          !authenticated ?
+            (
+              <Menu.Menu position="right">
+                <Menu.Item>
+                  <Input icon="search" placeholder="Search..." />
+                </Menu.Item>
+                <Menu.Item
+                  as={Link}
+                  to="/register"
+                  name="sign-in"
+                  active={activeItem === 'sign-in'}
+                  onClick={this.handleItemClick}
+                >
+                  <Button primary>Sign in / Sign-up</Button>
+                </Menu.Item>
+              </Menu.Menu>
+            ) : ' '
+        }
       </Menu>
     );
   }
 }
 
-export default Header;
+const mapStateToProps = ({ auth }) => ({ authenticated: auth.authenticated });
+
+export default connect(mapStateToProps)(Header);

@@ -34,3 +34,15 @@ export const signUpAction = formProps => (dispatch) => {
       dispatch(failureMessage(error.response.data));
     });
 };
+
+
+export const loginAction = formProps => (dispatch) => {
+  dispatch(loadingMessage());
+  api.user.login(formProps)
+    .then((response) => {
+      dispatch(successMessage(response.data.user));
+    })
+    .catch((error) => {
+      dispatch(failureMessage(error.response.data));
+    });
+};
