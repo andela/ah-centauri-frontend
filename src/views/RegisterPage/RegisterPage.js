@@ -13,6 +13,9 @@ import CustomForm from '../../components/CustomForm/CustomForm';
 import isEmpty from '../../utils/is_empty';
 import GridContainer from '../../components/CustomGrid/GridContainer';
 import GridItem from '../../components/CustomGrid/GridItem';
+import { googleLogin, twitterLogin, facebookLogin } from '../../actions/socialAuthActions';
+import Socialall from '../../components/layout/login/socialAuth';
+import { socialAuthentication } from '../../firebase';
 
 
 export class RegisterPage extends Component {
@@ -34,9 +37,22 @@ export class RegisterPage extends Component {
         errorMessage: nextProps.errorMessage,
       };
     }
-
     return null;
   }
+
+  componentDidMount() {
+    socialAuthentication.onAuthStateChanged((user) => {
+      if (user) {
+        // eslint-disable-next-line react/destructuring-assignment
+        this.props.history.push('/');
+        console.log(user.providerData);
+        // this.setState({
+        //   user_: user.providerData,
+        // });
+      }
+    });
+  }
+
 
   handleInputChange = (event) => {
     this.setState({
@@ -130,6 +146,7 @@ export class RegisterPage extends Component {
                 },
               ]}
             />
+            <Socialall {...this.props} />
             <Message warning>
               <Icon name="help" />
               Already have an account?&nbsp;
@@ -167,5 +184,5 @@ export const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  { signUpAction },
+  { signUpAction, twitterLogin, facebookLogin, googleLogin },
 )(RegisterPage);
