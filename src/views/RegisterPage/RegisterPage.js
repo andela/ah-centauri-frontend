@@ -74,16 +74,14 @@ export class RegisterPage extends Component {
               as="h2"
               textAlign="center"
             >
-                Sign In with Email.
-
-
+              Sign Up.
             </Header>
             <Header
               as="h4"
               textAlign="center"
             >
-                Enter the email address associated with your account,
-                and we’ll send a magic link to your inbox.
+              Enter the email address associated with your account,
+              and we’ll send a magic link to your inbox.
             </Header>
             {successMessage
               ? (
@@ -133,10 +131,10 @@ export class RegisterPage extends Component {
               ]}
             />
             <Message warning>
-              <Icon name="help"/>
-                Already signed up?&nbsp;
-                login
-                &nbsp;instead.
+              <Icon name="help" />
+              Already have an account?&nbsp;
+              <a href="/login">login</a>
+              &nbsp;instead.
             </Message>
           </GridItem>
         </GridContainer>

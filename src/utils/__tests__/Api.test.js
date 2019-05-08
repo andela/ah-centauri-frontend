@@ -5,10 +5,11 @@ import { api } from '../Api';
 
 
 describe('Api service function test: ', () => {
+  const mock = new MockAdapter(axios);
+
   it(' returns data when signup is called', () => {
     // setup
     // This sets the mock adapter on the default instance
-    const mock = new MockAdapter(axios);
     const data = { response: true };
 
     // `config` is the axios config and contains things like the url
@@ -20,6 +21,19 @@ describe('Api service function test: ', () => {
     api.user.signup({ username: 'test' })
       .then((response) => {
         // expect
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it('returns user data when login is called', () => {
+    const data = { response: true };
+
+    mock.onPost('users/login/')
+      .reply(201, data);
+
+    api.user.login({ username: 'test' })
+      .then((response) => {
         expect(response.data)
           .toEqual(data);
       });
