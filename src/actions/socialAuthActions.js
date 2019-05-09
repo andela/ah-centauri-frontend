@@ -1,5 +1,5 @@
 import { api } from '../utils/Api';
-import { successMessage, failureMessage } from './authActions';
+import { successMessage, failureMessage, signoutAction } from './authActions';
 import {
   socialAuthentication, googleProvider,
   facebookProvider, twitterProvider,
@@ -86,3 +86,9 @@ export const facebookLogin = () => dispatch => socialAuthentication.signInWithPo
       credential: error.credential,
     };
   });
+
+
+export const socialSignOut = () => (dispatch) => {
+  socialAuthentication.signOut();
+  dispatch(signoutAction());
+};

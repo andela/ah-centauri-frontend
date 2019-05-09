@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Button,
@@ -6,6 +7,8 @@ import {
   Menu,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { socialSignOut } from '../../actions/socialAuthActions';
+
 
 export class Header extends Component {
   constructor(props) {
@@ -19,8 +22,13 @@ export class Header extends Component {
     this.setState({ activeItem: name });
   };
 
+  handleSignout = () => {
+    this.props.socialSignOut();
+  }
+
   render() {
     const { activeItem } = this.state;
+    // eslint-disable-next-line react/prop-types
     const { authenticated } = this.props;
 
     return (
@@ -53,8 +61,8 @@ export class Header extends Component {
           Testimonials
         </Menu.Item>
         {
-          !authenticated ?
-            (
+          !authenticated
+            ? (
               <Menu.Menu position="right">
                 <Menu.Item>
                   <Input icon="search" placeholder="Search..." />
@@ -69,13 +77,32 @@ export class Header extends Component {
                   <Button primary>Sign in / Sign-up</Button>
                 </Menu.Item>
               </Menu.Menu>
-            ) : ' '
+            ) : (
+                <Menu.Menu position="right">
+                  <Menu.Item>
+                    <Input icon="search" placeholder="Search..." />
+                  </Menu.Item>
+                  <Menu.Item
+                    as={Link}
+                    to="/"
+                    name="sign-out"
+                    active={activeItem === 'sign-out'}
+                    onClick={this.handleItemClick}
+                  >
+                    <Button onClick={this.handleSignout}>Sign out</Button>
+                  </Menu.Item>
+                </Menu.Menu>
+            )
         }
       </Menu>
     );
   }
 }
 
+Header.propTypes = {
+  socialSignOut: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = ({ auth }) => ({ authenticated: auth.authenticated });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { socialSignOut })(Header);

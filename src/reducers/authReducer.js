@@ -1,6 +1,7 @@
 import {
   AUTH_ERROR,
   AUTH_SUCCESS,
+  AUTH_SIGNOUT,
   LOADING_PROGRESS,
 } from '../actions/types';
 import isEmpty from '../utils/is_empty';
@@ -32,6 +33,12 @@ export default function (state = INITIAL_STATE, actions) {
         ...state,
         authenticated: false,
         errorMessage: actions.payload,
+        loading: false,
+      };
+    case AUTH_SIGNOUT:
+      return {
+        ...state,
+        authenticated: false,
         loading: false,
       };
     default:
