@@ -1,3 +1,3 @@
-import { api } from '../utils/Api';
+import { api } from '../services/Api';
 
 export const verifyEmailAction = authData => () => api.user.verifyEmail(authData);

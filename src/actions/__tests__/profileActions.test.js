@@ -2,8 +2,13 @@ import expect from 'expect/build/index';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
-import {API_HOST} from '../../utils/Api';
-import {failureMessage, getMyProfileAction, successMessage, updateMyProfileAction,} from '../profileActions';
+import { API_HOST } from '../../services/Api';
+import {
+  failureMessage,
+  getMyProfileAction,
+  successMessage,
+  updateMyProfileAction,
+} from '../profileActions';
 import {
   GET_MY_PROFILE_ERROR,
   GET_MY_PROFILE_SUCCESS,

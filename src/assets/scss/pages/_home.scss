@@ -1,0 +1,131 @@
+#home{
+  margin: 0;
+  padding: 0;
+}
+.home{
+  position: relative;
+  max-width: $bp-largest;
+  margin: 2rem auto;
+  padding: 1rem;
+
+  @media only screen and (max-width: $bp-largest) {
+    margin: 2rem;
+  }
+}
+
+.articles{
+  margin-right: 2rem;
+
+  @media only screen and (max-width: $dp-medium-small) {
+    margin-right: auto;
+  }
+
+}
+
+.sidebar {
+  padding: 3rem;
+  margin: 2rem auto;
+
+  &-subscribe{
+    padding-bottom: 60px;
+
+    &--title{
+      margin-bottom: 30px;
+      border-bottom: 2px solid #f0f0f0;
+
+      & h3{
+        color: #505050;
+        font-size: 16px;
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: top;
+        bottom: -2px;
+        padding-bottom: 15px;
+        margin-bottom: 0;
+        border-bottom: 2px solid #505050;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 900;
+        text-transform: uppercase;
+        transition: all .3s ease-in-out;
+      }
+    }
+
+    &--form{
+      padding: 0 1px;
+      position: relative;
+
+      &-fields{
+        margin-bottom: 10px;
+
+        & p{
+          margin-bottom: 15px;
+          line-height: 1.9;
+        }
+      }
+
+      & input{
+        padding: 0 30px;
+        border-radius: 100px;
+        line-height: 54px;
+        color: #8d8d8d;
+        display: block;
+        margin-bottom: 10px;
+        box-shadow: 0px 0px 2px 1px rgba(0,0,0,.1);
+
+        &[type=email] {
+          width: 100%;
+          box-shadow: none;
+          border: 1px solid rgba(0,0,0,.08);
+          font-size: 13px;
+          padding-right: 70px;
+        }
+
+        &[type=submit]{
+
+          padding: 0 25px;
+          background-color: #f63a4c;
+          display: block;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          line-height: 44px;
+          margin: 5px!important;
+          font-size: 11px;
+          text-transform: uppercase;
+          font-weight: 700;
+          color: #fff;
+          transition: .3s all ease-in-out;
+          -webkit-appearance: button;
+          cursor: pointer;
+
+          @media screen and (max-width: $dp-medium-small) {
+            width: 20%;
+          }
+        }
+      }
+
+      & button{
+        box-shadow: 0px 0px 2px 1px rgba(0,0,0,.1);
+        -webkit-appearance: button;
+        cursor: pointer;
+
+        &[type=submit] {
+          padding: 0 25px;
+        }
+      }
+
+    }
+
+    &--description{
+      color: #bcbcbc;
+      font-size: 12px;
+      font-style: italic;
+      line-height: 1.5;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

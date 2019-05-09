@@ -1,0 +1,162 @@
+.blog_item {
+  margin-bottom: 5.0rem;
+  margin-top: 3rem;
+  &_img {
+    position: relative;
+  }
+
+  &_img &_date {
+    position: absolute;
+    bottom: -1.0rem;
+    left: 1.0rem;
+    display: block;
+    color: #fff;
+    background: #14303a;
+    padding: .8rem 1.5rem;
+    border-radius: .5rem;
+
+    & h3 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0;
+      line-height: 1.2;
+    }
+  }
+
+  @media (min-width: 76.8rem) {
+    &_img &_date {
+      bottom: -2.0rem;
+      left: 4.0rem;
+      padding: 1.3rem 3.0rem;
+
+      & p {
+        font-size: 1.8rem;
+        margin-bottom: 0;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.rounded-0 {
+  border-radius: 0 !important;
+}
+
+.card-img {
+  width: 100%;
+  border-radius: calc(.25rem - .1rem);
+}
+
+p {
+  color: #797979;
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.625;
+  font-size: 1.4rem;
+  margin-bottom: .0rem;
+}
+
+
+.blog_details {
+  padding: 3.0rem 0 2.0rem 1.0rem;
+  box-shadow: .0rem 1.0rem 2.0rem .0rem rgba(221, 221, 221, 0.3);
+
+  @media (min-width: 76.8rem) {
+    & {
+      padding: 6.0rem 3.0rem 3.5rem 3.5rem;
+    }
+
+    & h2 {
+      font-size: 2.4rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  & a {
+    color: #2a2a2a;
+  }
+
+  & h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: .8rem;
+  }
+
+  & p {
+    margin-bottom: 3.0rem;
+  }
+
+}
+
+.d-inline-block {
+  display: inline-block !important;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-info-link li {
+  float: left;
+  font-size: 1.4rem;
+
+  & a {
+    color: #999999;
+  }
+
+  & i, & span {
+    font-size: 1.3rem;
+    margin-right: .5rem;
+  }
+}
+
+
+@media (min-width: 76.8rem) {
+  .blog_details {
+    padding: 6.0rem 3.0rem 3.5rem 3.5rem;
+  }
+}
+
+.blog_details {
+  padding: 3.0rem 0 2.0rem 1.0rem;
+  box-shadow: .0rem 1.0rem 2.0rem .0rem rgba(221, 221, 221, 0.3);
+}
+
+.fa {
+  font-family: "Font Awesome 5 Free";
+}
+
+.far {
+  font-weight: 400;
+}
+
+.fa {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+.fa-user::before {
+  content: "\f007";
+}
+
+.fa-comments::before {
+  content: "\f086";
+}
+
+.blog-info-link li::after {
+  content: "";
+  padding-left: 1.0rem;
+  padding-right: 1.0rem;
+}
+
+.blog-info-link li {
+  float: left;
+  font-size: 1.4rem;
+}

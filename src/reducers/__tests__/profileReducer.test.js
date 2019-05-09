@@ -45,7 +45,7 @@ describe('profileReducer', () => {
   it('should return the initial state of the Profile reducer', () => {
     expect(reducer(undefined, {})).toEqual(
       {
-        current_profile: undefined,
+        current_profile: {},
         errorMessage: {},
         message: '',
         loading: false,

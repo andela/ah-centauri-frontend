@@ -24,7 +24,7 @@ describe('Login page test', () => {
   const { wrapper } = setUp();
 
   it(' renders login component', () => {
-    const loginDiv = wrapper.find('.login-form');
+    const loginDiv = wrapper.find('.register-form');
 
     expect(loginDiv.exists())
       .toBe(true);

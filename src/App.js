@@ -1,25 +1,18 @@
 import React from 'react';
-import { createBrowserHistory } from 'history';
 import {
   Route,
-  Router,
+  BrowserRouter as Router,
   Switch,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { Container } from 'semantic-ui-react';
+
 import routes from './routes';
 import store from './store';
 
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
-
-const hist = createBrowserHistory();
-
 const App = () => (
   <Provider store={store}>
-    <Router history={hist}>
-      <Container className="bg-gray">
-        <Header />
+    <Router>
+      <div>
         <Switch>
           {
           routes.map(route => (
@@ -32,8 +25,7 @@ const App = () => (
           ))
         }
         </Switch>
-        <Footer />
-      </Container>
+      </div>
     </Router>
   </Provider>
 );
