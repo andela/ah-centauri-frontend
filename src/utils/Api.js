@@ -5,6 +5,6 @@ export const api = {
   user: {
     signup: data => axios.post('users/', data),
     login: data => axios.post('users/login/', data),
-    loginSocial: data => axios.post('/users/social/', data),
+    loginSocial: data => axios.post(`/users/${data.url}/`, data.payload),
   },
 };

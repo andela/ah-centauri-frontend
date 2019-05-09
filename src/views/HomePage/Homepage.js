@@ -5,7 +5,7 @@ import { socialAuthentication } from '../../firebase';
 class HomePage extends Component {
   render() {
     return (
-      <div id="home">
+      <div>
         home page
         <Button onClick={() => socialAuthentication.signOut()}>Sign out</Button>
       </div>
