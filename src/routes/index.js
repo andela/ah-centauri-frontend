@@ -31,7 +31,7 @@ const routes = [
     path: '/reset/:token',
     name: 'ResetPassword',
     component: ResetPassword,
-  }
+  },
 ];
 
 export default routes;
