@@ -6,9 +6,13 @@ import { Header } from '../Header';
 
 
 const setUp = () => {
+  const props = {
+    socialSignOut: jest.fn(),
+  };
+
   const wrapper = mount(
     <Router>
-      <Header/>
+      <Header {...props} />
     </Router>,
   );
 

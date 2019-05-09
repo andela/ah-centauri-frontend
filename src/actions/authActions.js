@@ -1,6 +1,7 @@
 import {
   AUTH_ERROR,
   AUTH_SUCCESS,
+  AUTH_SIGNOUT,
   LOADING_PROGRESS,
 } from './types';
 import { api } from '../utils/Api';
@@ -21,6 +22,13 @@ export const successMessage = (data) => {
   return {
     type: AUTH_SUCCESS,
     payload: data,
+  };
+};
+
+export const signoutAction = () => {
+  localStorage.removeItem('AUTH_TOKEN');
+  return {
+    type: AUTH_SIGNOUT,
   };
 };
 
