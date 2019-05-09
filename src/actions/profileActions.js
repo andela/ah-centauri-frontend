@@ -1,11 +1,11 @@
-import {api} from '../utils/Api';
+import { api } from '../services/Api';
 import {
   GET_MY_PROFILE_ERROR,
   GET_MY_PROFILE_SUCCESS,
   UPDATE_MY_PROFILE_ERROR,
   UPDATE_MY_PROFILE_SUCCESS,
 } from './types';
-import {loadingMessage} from './authActions';
+import { loadingMessage } from './authActions';
 import getResponseErrors from '../utils/errorMessage';
 
 export function successMessage(responseData, type = GET_MY_PROFILE_SUCCESS) {

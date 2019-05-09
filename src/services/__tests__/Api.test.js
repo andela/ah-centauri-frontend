@@ -1,7 +1,7 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import expect from 'expect';
-import {api} from '../Api';
+import axios from 'axios/index';
+import MockAdapter from 'axios-mock-adapter/types';
+import expect from 'expect/build/index';
+import { api } from '../Api';
 
 
 describe('Api service function test: ', () => {

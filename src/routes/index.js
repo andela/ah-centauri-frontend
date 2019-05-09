@@ -1,10 +1,11 @@
 import HomePage from '../views/HomePage/Homepage';
-import Login from '../views/Login/Login';
 import RegisterPage from '../views/RegisterPage/RegisterPage';
 import ProfilePage from '../views/ProfilePage/ProfilePage';
 import ResetPassword from '../views/ResetPassword/ResetPassword';
 import ResetPasswordLink from '../views/ResetPassword/ResetPasswordLink';
 import VerifyEmail from '../components/VerifyEmail/VerifyEmail';
+import CreateArticlesPage from '../views/CreateArticlesPage/CreateArticlesPage';
+import ArticlesPage from '../views/ArticlesPage/ArticlesPage';
 
 const routes = [
   {
@@ -14,8 +15,8 @@ const routes = [
   },
   {
     id: 2,
-    path: '/login',
-    component: Login,
+    path: '/article/:slug',
+    component: ArticlesPage,
   },
   {
     id: 3,
@@ -43,6 +44,11 @@ const routes = [
     id: 6,
     path: '/verify/:token/:uid',
     component: VerifyEmail,
+  },
+  {
+    id: 7,
+    path: '/create-article',
+    component: CreateArticlesPage,
   },
 ];
 

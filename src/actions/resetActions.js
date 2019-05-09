@@ -1,5 +1,8 @@
-import {RESET_PASSWORD_FAILURE, RESET_PASSWORD_SUCCESS} from './types';
-import {api} from '../utils/Api';
+import {
+  RESET_PASSWORD_FAILURE,
+  RESET_PASSWORD_SUCCESS
+} from './types';
+import { api } from '../services/Api';
 
 export const failureMessage = error => ({
   type: RESET_PASSWORD_FAILURE,

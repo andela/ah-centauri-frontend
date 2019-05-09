@@ -1,13 +1,16 @@
-import { api } from '../utils/Api';
-import { 
-  successMessage, 
-  failureMessage, 
+// eslint-disable-next-line import/no-unresolved
+import { api } from '../services/Api';
+import {
+  failureMessage,
+  loadingMessage,
   signoutAction,
-  loadingMessage, 
+  successMessage,
 } from './authActions';
 import {
-  socialAuthentication, googleProvider,
-  facebookProvider, twitterProvider,
+  facebookProvider,
+  googleProvider,
+  socialAuthentication,
+  twitterProvider,
 } from '../firebase';
 
 
@@ -28,15 +31,14 @@ export const googleLogin = () => dispatch => socialAuthentication.signInWithPopu
       .catch((error) => {
         dispatch(failureMessage(error.response.data));
       });
-  }).catch((error) => {
+  }).catch(error =>
   // Handle Errors here.
-    return {
+    ({
       errorCode: error.code,
       errorMessage: error.message,
       email: error.email,
       credential: error.credential,
-    };
-  });
+    }));
 
 export const twitterLogin = () => dispatch => socialAuthentication.signInWithPopup(twitterProvider)
   .then((result) => {
@@ -58,15 +60,14 @@ export const twitterLogin = () => dispatch => socialAuthentication.signInWithPop
       .catch((error) => {
         dispatch(failureMessage(error.response.data));
       });
-  }).catch((error) => {
+  }).catch(error =>
     // Handle Errors here.
-    return {
+    ({
       errorCode: error.code,
       errorMessage: error.message,
       email: error.email,
       credential: error.credential,
-    };
-  });
+    }));
 
 // eslint-disable-next-line max-len
 export const facebookLogin = () => dispatch => socialAuthentication.signInWithPopup(facebookProvider)
@@ -86,15 +87,14 @@ export const facebookLogin = () => dispatch => socialAuthentication.signInWithPo
       .catch((error) => {
         dispatch(failureMessage(error.response.data));
       });
-  }).catch((error) => {
+  }).catch(error =>
   // Handle Errors here.
-    return {
+    ({
       errorCode: error.code,
       errorMessage: error.message,
       email: error.email,
       credential: error.credential,
-    };
-  });
+    }));
 
 
 export const socialSignOut = () => (dispatch) => {
