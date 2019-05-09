@@ -15,7 +15,6 @@ import GridContainer from '../../components/CustomGrid/GridContainer';
 import GridItem from '../../components/CustomGrid/GridItem';
 import { googleLogin, twitterLogin, facebookLogin } from '../../actions/socialAuthActions';
 import SocialButtons from '../../components/layout/login/socialAuth';
-import { socialAuthentication } from '../../firebase';
 
 
 export class RegisterPage extends Component {
@@ -39,17 +38,6 @@ export class RegisterPage extends Component {
     }
     return null;
   }
-
-  componentDidMount() {
-    socialAuthentication.onAuthStateChanged((user) => {
-      if (user) {
-        // eslint-disable-next-line react/destructuring-assignment
-        this.props.history.push('/');
-        console.log(user.providerData);
-      }
-    });
-  }
-
 
   handleInputChange = (event) => {
     this.setState({
