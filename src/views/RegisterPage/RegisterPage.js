@@ -143,5 +143,10 @@ export const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  { signUpAction, twitterLogin, facebookLogin, googleLogin },
+  {
+    signUpAction,
+    twitterLogin,
+    facebookLogin,
+    googleLogin,
+  },
 )(RegisterPage);
