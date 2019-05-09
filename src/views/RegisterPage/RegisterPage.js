@@ -14,7 +14,7 @@ import isEmpty from '../../utils/is_empty';
 import GridContainer from '../../components/CustomGrid/GridContainer';
 import GridItem from '../../components/CustomGrid/GridItem';
 import { googleLogin, twitterLogin, facebookLogin } from '../../actions/socialAuthActions';
-import Socialall from '../../components/layout/login/socialAuth';
+import SocialButtons from '../../components/layout/login/socialAuth';
 import { socialAuthentication } from '../../firebase';
 
 
@@ -46,9 +46,6 @@ export class RegisterPage extends Component {
         // eslint-disable-next-line react/destructuring-assignment
         this.props.history.push('/');
         console.log(user.providerData);
-        // this.setState({
-        //   user_: user.providerData,
-        // });
       }
     });
   }
@@ -146,7 +143,11 @@ export class RegisterPage extends Component {
                 },
               ]}
             />
-            <Socialall {...this.props} />
+            <Message> 
+              Or sign up using your social media account
+              <SocialButtons {...this.props} />
+            </Message>
+            
             <Message warning>
               <Icon name="help" />
               Already have an account?&nbsp;

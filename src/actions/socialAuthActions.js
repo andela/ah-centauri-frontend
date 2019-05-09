@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { api } from '../utils/Api';
 
 import { socialAuthentication, googleProvider,
   facebookProvider, twitterProvider } from '../firebase';
@@ -9,15 +9,13 @@ export const googleLogin = () => (dispatch) => {
     .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
       const token = result.credential.accessToken;
-      const { secret } = result.credential;
-      console.log(result);
-      axios.post('/users/social/',
-        { provider: 'google-oauth2', access_token: token, access_token_secret: secret })
+      api.user.loginSocial(
+        { provider: 'google-oauth2', access_token: token, access_token_secret: '' })
         .then((response) => {
           console.log({ response: response.data });
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     }).catch((error) => {
     // Handle Errors here.
@@ -38,7 +36,7 @@ export const twitterLogin = () => {
       const token = result.credential.accessToken;
       const { secret } = result.credential;
       console.log(result);
-      axios.post('/users/social/',
+      api.user.loginSocial(
         { provider: 'twitter', access_token: token, access_token_secret: secret })
         .then((response) => {
           console.log({ response: response.data });
@@ -63,8 +61,7 @@ export const facebookLogin = () => {
     .then((result) => {
     // This gives you a Facebook  Access Token. You can use it to access the Facebook API.
       const token = result.credential.accessToken;
-      console.log(result);
-      axios.post('/users/social/',
+      api.user.loginSocial(
         { provider: 'facebook', access_token: token, access_token_secret: '' })
         .then((response) => {
           console.log({ response: response.data });
