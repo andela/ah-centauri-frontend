@@ -1,5 +1,11 @@
 import reducer from '../profileReducer';
-import {GET_MY_PROFILE_ERROR, GET_MY_PROFILE_SUCCESS} from '../../actions/types';
+import {
+  GET_MY_PROFILE_ERROR,
+  GET_MY_PROFILE_SUCCESS,
+  UPDATE_MY_PROFILE_ERROR,
+  UPDATE_MY_PROFILE_SUCCESS,
+} from '../../actions/types';
+import setUpProfileTests from '../../setupTests';
 
 const testResponseData = {
   message: 'Your Profile details.',
@@ -35,6 +41,7 @@ const testResponseData = {
 };
 
 describe('profileReducer', () => {
+  const {  updateProfileSuccessResponse, initialProfileState, } = setUpProfileTests();
   it('should return the initial state of the Profile reducer', () => {
     expect(reducer(undefined, {})).toEqual(
       {
@@ -61,6 +68,29 @@ describe('profileReducer', () => {
   it(`Profile reducer should handle ${GET_MY_PROFILE_ERROR}`, () => {
     expect(reducer({}, {
       type: GET_MY_PROFILE_ERROR,
+      payload: { errors: { detail: 'Authentication credentials were not provided.' } },
+    })).toEqual({
+      current_profile: undefined,
+      errorMessage: { errors: { detail: 'Authentication credentials were not provided.' } },
+      message: '',
+      loading: false,
+    });
+  });
+  it(`Profile reducer should handle ${UPDATE_MY_PROFILE_SUCCESS}`, () => {
+    expect(reducer({}, {
+      type: UPDATE_MY_PROFILE_SUCCESS,
+      payload: updateProfileSuccessResponse,
+    })).toEqual({
+      current_profile: updateProfileSuccessResponse.user.profile,
+      message: updateProfileSuccessResponse.message,
+      errorMessage: {},
+      loading: false,
+    });
+  });
+
+  it(`Profile reducer should handle ${UPDATE_MY_PROFILE_ERROR}`, () => {
+    expect(reducer({}, {
+      type: UPDATE_MY_PROFILE_ERROR,
       payload: { errors: { detail: 'Authentication credentials were not provided.' } },
     })).toEqual({
       current_profile: undefined,

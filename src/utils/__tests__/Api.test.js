@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import expect from 'expect';
-import { api } from '../Api';
+import {api} from '../Api';
 
 
 describe('Api service function test: ', () => {
@@ -38,11 +38,11 @@ describe('Api service function test: ', () => {
           .toEqual(data);
       });
   });
-  
+
 
   it(' returns data when resetPasswordLink is called', () => {
     const mock = new MockAdapter(axios);
-    const data = { response: true }; 
+    const data = { response: true };
 
     mock.onPost('users/reset')
       .reply(200, data);
@@ -56,16 +56,43 @@ describe('Api service function test: ', () => {
 
   it(' returns data when resetPassword is called', () => {
     const mock = new MockAdapter(axios);
-    const data = { response: true }; 
+    const data = { response: true };
 
     mock.onPost('users/reset')
       .reply(200, data);
 
-    api.user.resetPassword({ new_password: "Abc123@!", confirm_password: "Abc123@!" })
+    api.user.resetPassword({ new_password: 'Abc123@!', confirm_password: 'Abc123@!' })
       .then((response) => {
         expect(response.data)
           .toEqual(data);
       });
   });
 
+  it(' returns data when get my profile endpoint is called', () => {
+    const mock = new MockAdapter(axios);
+    const data = { response: true };
+
+    mock.onGet('profile/me')
+      .reply(200, data);
+
+    api.profile.getMyProfile()
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when update my profile endpoint is called', () => {
+    const mock = new MockAdapter(axios);
+    const data = { response: true };
+
+    mock.onGet('user/')
+      .reply(200, data);
+
+    api.profile.updateMyProfile({ bio: 'My bio' })
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
 });

@@ -1,15 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Divider, Dropdown, Grid, Message, Tab, TextArea,} from 'semantic-ui-react';
+import {Button, Divider, Dropdown, Grid, Icon, Message, Tab, TextArea,} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import CustomForm from '../../components/CustomForm/CustomForm';
-import HighlightsList from '../../components/Profile/HighlightsList';
 import countryOptions from '../../utils/profile.constants';
 import {getMyProfileAction, updateMyProfileAction} from '../../actions/profileActions';
 import Avatar from '../../components/Profile/Avatar';
 import CountLabel from '../../components/Profile/CountLabel';
-import isEmpty from '../../utils/is_empty';
 
 // Create component class to load user highlight details in an accordion.
 
@@ -22,13 +20,14 @@ export class ProfilePage extends React.Component {
       first_name: '',
       last_name: '',
       bio: '',
-      email: '',
       website: '',
       country: '',
       phone: '',
       city: '',
       readOnly: true,
       buttonName: 'Edit',
+      visible: false,
+      message: undefined,
     };
 
     this.handleInputChange.bind(this);
@@ -40,11 +39,16 @@ export class ProfilePage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    const { profile } = nextProps;
+    const { profile, message } = nextProps;
     this.setState({
       ...profile,
+      message,
     });
   }
+
+  handleDismiss = () => {
+    this.setState({ visible: false, message: undefined });
+  };
 
   handleInputChange = (event) => {
     this.setState({
@@ -54,15 +58,28 @@ export class ProfilePage extends React.Component {
   };
 
   handleDropdownInputChange = statePropertyKey => (event) => {
-    this.setState({
-      [statePropertyKey]: event.target.querySelector('.text').textContent,
-      buttonName: 'Done',
-    });
+    if (event.target.querySelector('.text') && event.target.querySelector('.text').textContent) {
+      this.setState({
+        [statePropertyKey]: event.target.querySelector('.text').textContent,
+        buttonName: 'Done',
+      });
+    }
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.updateMyProfileAction();
+    const {
+      first_name, last_name, bio, website, country, phone, city,
+    } = this.state;
+    this.props.updateMyProfileAction({
+      first_name,
+      last_name,
+      bio,
+      website,
+      country,
+      phone,
+      city,
+    });
   };
 
   render() {
@@ -74,13 +91,11 @@ export class ProfilePage extends React.Component {
         labelCount: (profile.my_follow_count ? profile.my_follow_count.followerCount : 0),
         labelName: 'followers',
         iconName: 'users',
-        as: Link,
       },
       {
         labelCount: (profile.my_follow_count ? profile.my_follow_count.followerCount : 0),
         labelName: 'following',
         iconName: 'users',
-        as: Link,
       },
     ];
     const FollowCountLabels = myFollowCountLabelData.map(
@@ -91,6 +106,7 @@ export class ProfilePage extends React.Component {
         />
       ),
     );
+
 
     // Make sure to set the readOnly to true
     const profileFormInputFields = [
@@ -103,7 +119,7 @@ export class ProfilePage extends React.Component {
         type: 'text',
         value: this.state.first_name,
         onChange: this.handleInputChange,
-        error: !isEmpty(profile.errorMessage ? profile.errorMessage.first_name : ''),
+        error: errorMessage && errorMessage.first_name,
       },
       {
         fluid: true,
@@ -114,7 +130,7 @@ export class ProfilePage extends React.Component {
         type: 'text',
         value: this.state.last_name,
         onChange: this.handleInputChange,
-        error: !isEmpty(profile.errorMessage ? profile.errorMessage.last_name : ''),
+        error: errorMessage && errorMessage.last_name,
       }],
       {
         name: 'bio',
@@ -126,7 +142,7 @@ export class ProfilePage extends React.Component {
         type: 'text',
         value: this.state.bio,
         onChange: this.handleInputChange,
-        error: !isEmpty(profile.errorMessage ? profile.errorMessage.bio : ''),
+        error: errorMessage && errorMessage.bio,
       },
       [{
         fluid: true,
@@ -137,7 +153,18 @@ export class ProfilePage extends React.Component {
         type: 'text',
         value: this.state.phone,
         onChange: this.handleInputChange,
-        error: !isEmpty(profile.errorMessage ? profile.errorMessage.phone : ''),
+        error: errorMessage && errorMessage.phone,
+      },
+      {
+        fluid: true,
+        name: 'city',
+        id: 'profileCity',
+        placeholder: 'City',
+        label: 'City',
+        type: 'text',
+        value: this.state.city,
+        onChange: this.handleInputChange,
+        error: errorMessage && errorMessage.city,
       },
       {
         fluid: true,
@@ -152,7 +179,7 @@ export class ProfilePage extends React.Component {
         deburr: true,
         options: countryOptions,
         placeholder: 'Select Your Country',
-        error: !isEmpty(profile.errorMessage ? profile.errorMessage.country : ''),
+        error: errorMessage && errorMessage.country,
       }],
       {
         fluid: true,
@@ -163,7 +190,7 @@ export class ProfilePage extends React.Component {
         type: 'text',
         value: this.state.website,
         onChange: this.handleInputChange,
-        error: !isEmpty(profile.errorMessage ? profile.errorMessage.website : ''),
+        error: errorMessage && errorMessage.website,
       },
     ];
     const profileForm = (
@@ -180,7 +207,7 @@ export class ProfilePage extends React.Component {
     );
     const panes = [
       { menuItem: 'Basic Info', render: () => <Tab.Pane attached={false}>{profileForm}</Tab.Pane> },
-      { menuItem: 'Highlights', render: () => <Tab.Pane attached={false}><HighlightsList /></Tab.Pane> },
+      { menuItem: 'Highlights', render: () => <Tab.Pane attached={false} /> },
       { menuItem: 'Bookmarks', render: () => <Tab.Pane attached={false}>Bookmarks Content</Tab.Pane> },
     ];
     if (authenticated) {
@@ -197,14 +224,30 @@ export class ProfilePage extends React.Component {
           </Grid>
           <Divider />
           {/* User Profile form tab that has all the user Profile data loaded from the Profile */}
+          {this.state.message
+            ? (
+              <Message
+                onDismiss={this.handleDismiss}
+                success
+                header={this.state.message}
+              />
+            ) : ''}
           <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
         </div>
       );
     }
     return (
       <Message negative>
-        <Message.Header>You're not signed in</Message.Header>
+        <Message.Header>You're not signed in!</Message.Header>
         <p>We can't load your details cause you're not signed in :( </p>
+        <p>
+          <Button as={Link} to="/login" icon primary labelPosition="right">
+          Login Here
+            <Icon name="right arrow" />
+          </Button>
+          {' '}
+
+        </p>
       </Message>
     );
   }
@@ -223,12 +266,14 @@ ProfilePage.defaultProps = {
     city: '',
     my_follow_count: { followerCount: 0, followingCount: 0 },
   },
+  errorMessage: {},
   user: { username: '', email: '' },
 };
 
 ProfilePage.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  errorMessage: PropTypes.object.isRequired,
+  message: PropTypes.string,
+  errorMessage: PropTypes.object,
   // eslint-disable-next-line react/no-unused-prop-types
   getMyProfileAction: PropTypes.func.isRequired,
   updateMyProfileAction: PropTypes.func.isRequired,

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Form, Message,} from 'semantic-ui-react';
+import {Form, Message} from 'semantic-ui-react';
 
 import isEmpty from '../../utils/is_empty';
 
@@ -14,12 +14,16 @@ const CustomForm = (props) => {
     handleSubmit,
     inputFields,
     buttonName,
-    readOnly,
   } = props;
 
   const errorList = [];
   Object.keys(errorMessage)
-    .forEach((key, index) => errorList.push(errorMessage[key][0]));
+    .forEach((key, index) => {
+      if (Array.isArray(errorMessage[key])){
+        errorList.push(errorMessage[key][0]);
+      }
+      errorList.push(errorMessage[key]);
+    });
 
   return (
     <Form loading={loading} size={size} className={className} onSubmit={handleSubmit}>
@@ -27,42 +31,40 @@ const CustomForm = (props) => {
       <Message
         visible={!isEmpty(errorMessage)}
         error
-        header="There was some errors with your submission"
+        header="There were some errors in your submission"
         list={errorList}
       />
       {inputFields.map((input, index) => {
         if (!Array.isArray(input)) {
           return (
-              <Form.Input
-                  {...input}
-                  key={index}
-              />
+            <Form.Input
+              {...input}
+              key={index}
+            />
           );
         }
         // If the input field is an array then make a form group field
         // This is so we encase the items in the input array
         return (
-            <Form.Group widths="equal">
-              {input.map((formGroupInput, formGroupIndex) => {
-                return (
-                    <Form.Input
-                        {...formGroupInput}
-                        key={formGroupIndex}
-                    />
-                );
-              })}
-            </Form.Group>
+          <Form.Group widths="equal">
+            {input.map((formGroupInput, formGroupIndex) => (
+              <Form.Input
+                {...formGroupInput}
+                key={formGroupIndex}
+              />
+            ))}
+          </Form.Group>
         );
       })}
 
 
       <Form.Button
-          fluid
-          primary
-          inverted
-          size="large"
-          type="submit"
-          id={`${buttonName}Button`}
+        fluid
+        primary
+        inverted
+        size="large"
+        type="submit"
+        id={`${buttonName}Button`}
       >
         {buttonName}
       </Form.Button>

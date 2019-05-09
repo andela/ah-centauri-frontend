@@ -1,5 +1,6 @@
 import {configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import PropTypes from 'prop-types';
 
 configure({ adapter: new Adapter() });
 
@@ -23,10 +24,20 @@ export default function setUpProfileTests() {
   const getProfileSuccessResponse = {
     message: 'Your Profile details.',
     profile: validProfile,
+    user: { profile: validProfile },
+  };
+
+  const updateProfileSuccessResponse = {
+    message: 'Success!',
+    user: { profile: validProfile },
+  };
+
+  const updateProfileErrorResponse = {
+    errors: { profile: { phone: ['Phone number must have only digits'] } },
   };
 
   const getProfileErrorResponse = {
-    errors: {detail: 'Authorization credentials were not provided'},
+    errors: { detail: 'Authorization credentials were not provided' },
   };
 
   const initialProfileState = {
@@ -45,11 +56,20 @@ export default function setUpProfileTests() {
     },
   };
 
-
+  const initialProps = {
+    errorMessage: PropTypes.object.isRequired,
+    // eslint-disable-next-line react/no-unused-prop-types
+    getMyProfileAction: PropTypes.func.isRequired,
+    updateMyProfileAction: PropTypes.func.isRequired,
+    authenticated: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
+  };
   return {
     initialProfileState,
     validProfile,
     getProfileSuccessResponse,
     getProfileErrorResponse,
+    updateProfileSuccessResponse,
+    updateProfileErrorResponse,
   };
 }

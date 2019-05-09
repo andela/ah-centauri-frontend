@@ -1,6 +1,5 @@
 import {Icon, Label} from 'semantic-ui-react';
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function CountLabel(props) {
@@ -9,7 +8,7 @@ export default function CountLabel(props) {
   } = props;
 
   return (
-      <Label className="count-label" color={color} as={Link}>
+      <Label className="count-label" color={color}>
         <Icon name={iconName}/>
         {labelName}
         <Label.Detail>{labelCount}</Label.Detail>

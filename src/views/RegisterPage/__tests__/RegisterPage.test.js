@@ -1,11 +1,8 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import {mount} from 'enzyme';
 import expect from 'expect';
 
-import {
-  mapStateToProps,
-  RegisterPage,
-} from '../RegisterPage';
+import {mapStateToProps, RegisterPage,} from '../RegisterPage';
 
 
 const setUp = () => {
@@ -98,7 +95,7 @@ describe('Register page Rendered: ', () => {
       .toEqual(initialState.auth.errorMessage);
   });
 
-  it(' should will recieve signup props', () => {
+  it(' should will receive signup props', () => {
     const initialState = {
       errorMessage: { username: 'Username field is required.' },
     };
