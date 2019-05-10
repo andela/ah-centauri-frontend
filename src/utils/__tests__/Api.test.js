@@ -41,7 +41,6 @@ describe('Api service function test: ', () => {
 
 
   it(' returns data when resetPasswordLink is called', () => {
-    const mock = new MockAdapter(axios);
     const data = { response: true };
 
     mock.onPost('users/reset')
@@ -55,7 +54,6 @@ describe('Api service function test: ', () => {
   });
 
   it(' returns data when resetPassword is called', () => {
-    const mock = new MockAdapter(axios);
     const data = { response: true };
 
     mock.onPost('users/reset')
@@ -69,7 +67,6 @@ describe('Api service function test: ', () => {
   });
 
   it(' returns data when get my profile endpoint is called', () => {
-    const mock = new MockAdapter(axios);
     const data = { response: true };
 
     mock.onGet('profile/me')
@@ -82,14 +79,13 @@ describe('Api service function test: ', () => {
       });
   });
 
-  it(' returns data when update my profile endpoint is called', () => {
-    const mock = new MockAdapter(axios);
+  it(' returns data when verify email is called ', () => {
     const data = { response: true };
 
-    mock.onGet('user/')
+    mock.onGet('verify-email/faketoken/fakeuid')
       .reply(200, data);
 
-    api.profile.updateMyProfile({ bio: 'My bio' })
+    api.user.verifyEmail({ token: 'faketoken', uid: 'fakeuid' })
       .then((response) => {
         expect(response.data)
           .toEqual(data);

@@ -4,6 +4,7 @@ import RegisterPage from '../views/RegisterPage/RegisterPage';
 import ProfilePage from '../views/ProfilePage/ProfilePage';
 import ResetPassword from '../views/ResetPassword/ResetPassword';
 import ResetPasswordLink from '../views/ResetPassword/ResetPasswordLink';
+import VerifyEmail from '../components/VerifyEmail/VerifyEmail';
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     id: 6,
     path: '/profile',
     component: ProfilePage,
+  },
+  {
+    id: 6,
+    path: '/verify/:token/:uid',
+    component: VerifyEmail,
   },
 ];
 
