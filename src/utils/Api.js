@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Backend API URL
-const API_HOST = process.env.API_HOST;
+const API_HOST = process.env.REACT_APP_API_HOST;
 // eslint-disable-next-line import/prefer-default-export
 export const api = {
   user: {
