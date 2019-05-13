@@ -190,6 +190,10 @@
 
     &-share {
 
+      &-mobile{
+        text-align: center;
+      }
+
       &:not(&-side):not(&-mobile) {
         width: 8.0rem;
         margin-left: -8.0rem;
@@ -407,4 +411,17 @@ p{
 
 .sh-clear {
   clear: both;
+}
+
+.social-share-circles {
+  margin-top: 3rem;
+}
+
+.social-share-circles {
+  display: none;
+}
+@media only screen and (max-width: $bp-largest) {
+  .social-share-circles {
+    display: block;
+  }
 }

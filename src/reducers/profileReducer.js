@@ -1,4 +1,5 @@
 import {
+  AUTH_SIGNOUT,
   GET_MY_PROFILE_ERROR,
   GET_MY_PROFILE_SUCCESS,
   LOADING_PROGRESS,
@@ -58,6 +59,11 @@ export default function (state = INITIAL_STATE, actions) {
         loading: false,
         errorMessage: actions.payload,
         message: '',
+      };
+    case AUTH_SIGNOUT:
+      return {
+        ...state,
+        current_profile: undefined,
       };
     default:
       return state;

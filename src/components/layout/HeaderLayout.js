@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Header } from 'semantic-ui-react';
-import { Login } from '../../views/Login/Login';
-import { RegisterPage } from '../../views/RegisterPage/RegisterPage';
-import {
-  loginAction,
-  signUpAction,
-} from '../../actions/authActions';
-import { getMyProfileAction } from '../../actions/profileActions';
+import {Link} from 'react-router-dom';
+import {Header} from 'semantic-ui-react';
+import {Login} from '../../views/Login/Login';
+import {RegisterPage} from '../../views/RegisterPage/RegisterPage';
+import {loginAction, signoutAction, signUpAction,} from '../../actions/authActions';
+import {getMyProfileAction} from '../../actions/profileActions';
 
 
 export class HeaderLayout extends Component {
@@ -25,15 +22,11 @@ export class HeaderLayout extends Component {
     };
   }
 
-  componentDidMount() {
-    // Set the token for use in accessing the protected get Profile endpoint
-    this.props.getMyProfileAction();
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.username !== nextProps.profile.username
-      || prevState.first_name !== nextProps.profile.first_name
-      || prevState.last_name !== nextProps.profile.last_name) {
+        || prevState.first_name !== nextProps.profile.first_name
+        || prevState.opened !== nextProps.opened
+        || prevState.last_name !== nextProps.profile.last_name) {
       return {
         username: nextProps.profile.username,
         first_name: nextProps.profile.first_name,
@@ -43,6 +36,15 @@ export class HeaderLayout extends Component {
 
     return null;
   }
+
+  componentDidMount() {
+    // Set the token for use in accessing the protected get Profile endpoint
+    this.props.getMyProfileAction();
+  }
+
+  handleSignOut = (e) => {
+    this.props.signoutAction();
+  };
 
   handleToggle = () => {
     this.setState(prevState => ({
@@ -95,7 +97,7 @@ export class HeaderLayout extends Component {
                     <li><Link to="/create-article">New Story</Link></li>
                     <li><Link to={`/me/stories/drafts/${username}`}>Stories</Link></li>
                     <li><Link to="/profile">Profile</Link></li>
-                    <li><a href="#">Signout</a></li>
+                    <li><a onClick={this.handleSignOut} href="#">Signout</a></li>
                   </ul>
                 </li>
               ) : (
@@ -108,8 +110,8 @@ export class HeaderLayout extends Component {
         </header>
 
         {/* Authentication */}
-        <div className={classNames({ 'modal-overlay': opened })} id="modal-overlay" />
-        <div className={classNames({ modal: true, opened })} id="modal">
+        <div className={classNames({ 'modal-overlay': (!authenticated && opened) })} id="modal-overlay" />
+        <div className={classNames({ modal: true, opened: (!authenticated && opened) })} id="modal">
           <button className="close-button" id="close-button" onClick={this.handleModal}>X</button>
           <div className="modal-tabs">
             <input className="state" type="radio" title="tab-one" name="tabs-state" id="tab-one" defaultChecked />
@@ -125,7 +127,7 @@ export class HeaderLayout extends Component {
                   as="h1"
                   textAlign="center"
                 >
-                  Login
+                    Login
                 </Header>
                 <Login loginAction={this.props.loginAction} />
               </div>
@@ -134,7 +136,7 @@ export class HeaderLayout extends Component {
                   as="h1"
                   textAlign="center"
                 >
-                  Register
+                    Register
                 </Header>
                 <RegisterPage signUpAction={this.props.signUpAction} />
               </div>
@@ -169,7 +171,10 @@ HeaderLayout.propTypes = {
 
 export const mapStateToProps = ({ auth, profile }) => ({
   authenticated: auth.authenticated,
+  opened: auth.opened,
   profile: profile.current_profile,
 });
 
-export default connect(mapStateToProps, { loginAction, signUpAction, getMyProfileAction })(HeaderLayout);
+export default connect(mapStateToProps, {
+  loginAction, signUpAction, getMyProfileAction, signoutAction,
+})(HeaderLayout);
