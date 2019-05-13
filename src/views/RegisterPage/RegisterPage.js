@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
   Header,
   Icon,
@@ -56,10 +57,10 @@ export class RegisterPage extends Component {
       username, email, password, errorMessage,
     } = this.state;
     const {
-      loading, successMessage,
+      loading, successMessage, authenticated,
     } = this.props;
 
-    return (
+    return authenticated ? <Redirect to="/" /> : (
       <div className="signup-form">
         <GridContainer
           textAlign="center"
@@ -169,6 +170,7 @@ export const mapStateToProps = ({ auth }) => ({
   errorMessage: auth.errorMessage,
   loading: auth.loading,
   successMessage: auth.successMessage,
+  authenticated: auth.authenticated,
 });
 
 export default connect(

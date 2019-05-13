@@ -1,5 +1,10 @@
 import { api } from '../utils/Api';
-import { successMessage, failureMessage, signoutAction } from './authActions';
+import { 
+  successMessage, 
+  failureMessage, 
+  signoutAction,
+  loadingMessage, 
+} from './authActions';
 import {
   socialAuthentication, googleProvider,
   facebookProvider, twitterProvider,
@@ -9,6 +14,7 @@ import {
 export const googleLogin = () => dispatch => socialAuthentication.signInWithPopup(googleProvider)
   .then((result) => {
   // This gives you a Google Access Token. You can use it to access the Google API.
+    dispatch(loadingMessage());
     const token = result.credential.idToken;
     api.user.loginSocial(
       {
@@ -35,6 +41,7 @@ export const googleLogin = () => dispatch => socialAuthentication.signInWithPopu
 export const twitterLogin = () => dispatch => socialAuthentication.signInWithPopup(twitterProvider)
   .then((result) => {
     // This gives you a Twitter  Access Token. You can use it to access the Twitter API.
+    dispatch(loadingMessage());
     const { secret, accessToken } = result.credential;
     api.user.loginSocial({
       url: 'twitter',
@@ -61,9 +68,11 @@ export const twitterLogin = () => dispatch => socialAuthentication.signInWithPop
     };
   });
 
+// eslint-disable-next-line max-len
 export const facebookLogin = () => dispatch => socialAuthentication.signInWithPopup(facebookProvider)
   .then((result) => {
   // This gives you a Facebook  Access Token. You can use it to access the Facebook API.
+    dispatch(loadingMessage());
     const token = result.credential.accessToken;
     api.user.loginSocial(
       {
