@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
   Header,
   Icon,
@@ -13,6 +14,8 @@ import CustomForm from '../../components/CustomForm/CustomForm';
 import isEmpty from '../../utils/is_empty';
 import GridContainer from '../../components/CustomGrid/GridContainer';
 import GridItem from '../../components/CustomGrid/GridItem';
+import { googleLogin, twitterLogin, facebookLogin } from '../../actions/socialAuthActions';
+import SocialButtons from '../../components/layout/login/socialAuth';
 
 
 export class RegisterPage extends Component {
@@ -34,7 +37,6 @@ export class RegisterPage extends Component {
         errorMessage: nextProps.errorMessage,
       };
     }
-
     return null;
   }
 
@@ -55,10 +57,10 @@ export class RegisterPage extends Component {
       username, email, password, errorMessage,
     } = this.state;
     const {
-      loading, successMessage,
+      loading, successMessage, authenticated,
     } = this.props;
 
-    return (
+    return authenticated ? <Redirect to="/" /> : (
       <div className="signup-form">
         <GridContainer
           textAlign="center"
@@ -130,6 +132,11 @@ export class RegisterPage extends Component {
                 },
               ]}
             />
+            <Message> 
+              Or sign up using your social media account
+              <SocialButtons {...this.props} />
+            </Message>
+            
             <Message warning>
               <Icon name="help" />
               Already have an account?&nbsp;
@@ -163,9 +170,10 @@ export const mapStateToProps = ({ auth }) => ({
   errorMessage: auth.errorMessage,
   loading: auth.loading,
   successMessage: auth.successMessage,
+  authenticated: auth.authenticated,
 });
 
 export default connect(
   mapStateToProps,
-  { signUpAction },
+  { signUpAction, twitterLogin, facebookLogin, googleLogin },
 )(RegisterPage);

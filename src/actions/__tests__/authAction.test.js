@@ -3,6 +3,7 @@ import * as actions from '../authActions';
 import {
   AUTH_ERROR,
   AUTH_SUCCESS,
+  AUTH_SIGNOUT,
   LOADING_PROGRESS,
 } from '../types';
 
@@ -40,5 +41,15 @@ describe('Auth actions ', () => {
     expect(successAction).toEqual(expectedAction);
     expect(payload.token)
       .toEqual(localStorage.getItem('AUTH_TOKEN'));
+  });
+
+  it('render signout action', () => {
+    const signoutAction = actions.signoutAction();
+    const expectedAction = {
+      type: AUTH_SIGNOUT,
+    };
+    
+    expect(signoutAction)
+      .toEqual(expectedAction);
   });
 });

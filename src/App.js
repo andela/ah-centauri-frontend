@@ -19,7 +19,7 @@ const App = () => (
   <Provider store={store}>
     <Router history={hist}>
       <Container className="bg-gray">
-        <Header history={hist}/>
+        <Header />
         <Switch>
           {
           routes.map(route => (
@@ -32,7 +32,7 @@ const App = () => (
           ))
         }
         </Switch>
-        <Footer/>
+        <Footer />
       </Container>
     </Router>
   </Provider>

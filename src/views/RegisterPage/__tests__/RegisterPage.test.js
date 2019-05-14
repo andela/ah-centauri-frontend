@@ -1,8 +1,8 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import expect from 'expect';
 
-import {mapStateToProps, RegisterPage,} from '../RegisterPage';
+import { mapStateToProps, RegisterPage, } from '../RegisterPage';
 
 
 const setUp = () => {

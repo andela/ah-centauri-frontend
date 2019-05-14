@@ -6,19 +6,25 @@ import { Header } from '../Header';
 
 
 const setUp = () => {
+  const props = {
+    socialSignOut: jest.fn(),
+    handleSignout: jest.fn(),
+  };
+
   const wrapper = mount(
     <Router>
-      <Header/>
+      <Header {...props} />
     </Router>,
   );
 
   return {
+    props,
     wrapper,
   };
 };
 
 describe('Register User test::', () => {
-  const { wrapper } = setUp();
+  const { wrapper, props } = setUp();
   it(' render header component', () => {
     const headerMenu = wrapper.find('.header-menu');
 

@@ -4,6 +4,7 @@ import {
   failureMessage,
   loadingMessage,
   successMessage,
+  signoutAction,
 } from '../../actions/authActions';
 import isEmpty from '../../utils/is_empty';
 
@@ -57,6 +58,17 @@ describe('Testing AUTHREDUCER', () => {
       ...INITIAL_STATE,
       authenticated: false,
       errorMessage: { username: 'Username field is required.' },
+      loading: false,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle AUTH_SIGNOUT', () => {
+    const authSignoutAction = signoutAction();
+    const state = reducer(INITIAL_STATE, authSignoutAction);
+    const expectedState = {
+      ...INITIAL_STATE,
+      authenticated: false,
       loading: false,
     };
     expect(state).toEqual(expectedState);

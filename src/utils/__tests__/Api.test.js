@@ -79,6 +79,32 @@ describe('Api service function test: ', () => {
       });
   });
 
+  it(' returns data when loginSocial is called', () => {
+    const data = { response: true };
+
+    mock.onPost('users/social')
+      .reply(200, data);
+
+    api.user.loginSocial({ url: "Abc123@!", payload: "Abc123@!" })
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when update my profile endpoint is called', () => {
+    const data = { response: true };
+
+    mock.onPatch('profile/me')
+      .reply(200, data);
+
+    api.profile.getMyProfile()
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+  
   it(' returns data when verify email is called ', () => {
     const data = { response: true };
 
