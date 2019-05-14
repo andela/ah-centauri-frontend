@@ -3,17 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
-  Header,
   Icon,
   Message,
 } from 'semantic-ui-react';
 
-import './Login.scss';
 import { loginAction } from '../../actions/authActions';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import isEmpty from '../../utils/is_empty';
-import GridContainer from '../../components/CustomGrid/GridContainer';
-import GridItem from '../../components/CustomGrid/GridItem';
 
 
 export class Login extends Component {
@@ -60,58 +56,46 @@ export class Login extends Component {
     const { loading, authenticated } = this.props;
 
     return authenticated ? <Redirect to="/" /> : (
-      <div className="login-form">
-        <GridContainer
-          textAlign="center"
-          className="login"
-          style={{ height: '100%' }}
-          verticalAlign="middle"
-          divided="vertically"
-          columns={2}
-        >
-
-          <GridItem>
-            <Header as="h2" textAlign="center"> Sign In </Header>
-            <CustomForm
-              className="register-form"
-              loading={loading}
-              size="large"
-              errorMessage={errorMessage}
-              handleSubmit={this.handleSubmit}
-              buttonName="login"
-              inputFields={[
-                {
-                  fluid: true,
-                  name: 'email',
-                  placeholder: 'E-mail address',
-                  type: 'email',
-                  value: email,
-                  onChange: this.handleInputChange,
-                  error: !isEmpty(errorMessage ? errorMessage.email : ''),
-                },
-                {
-                  fluid: true,
-                  name: 'password',
-                  placeholder: 'Password',
-                  type: 'password',
-                  value: password,
-                  onChange: this.handleInputChange,
-                  error: !isEmpty(errorMessage ? errorMessage.password : ''),
-                },
-              ]}
-            />
-            <Message warning>
-              <Icon name="help" />
-              Don&apos;t have an account?&nbsp;
-              <a href="/register"> Sign Up </a>
-              &nbsp;instead.
-              <div>
-                <a href="/reset"> Forgot your password? </a>
-              </div>
-            </Message>
-          </GridItem>
-        </GridContainer>
+      <div>
+        <CustomForm
+          className="register-form"
+          loading={loading}
+          size="large"
+          errorMessage={errorMessage}
+          handleSubmit={this.handleSubmit}
+          buttonName="login"
+          inputFields={[
+            {
+              fluid: true,
+              name: 'email',
+              placeholder: 'E-mail address',
+              type: 'email',
+              value: email,
+              onChange: this.handleInputChange,
+              error: !isEmpty(errorMessage ? errorMessage.email : ''),
+            },
+            {
+              fluid: true,
+              name: 'password',
+              placeholder: 'Password',
+              type: 'password',
+              value: password,
+              onChange: this.handleInputChange,
+              error: !isEmpty(errorMessage ? errorMessage.password : ''),
+            },
+          ]}
+        />
+        <Message warning>
+          <Icon name="help" />
+          Don&apos;t have an account?&nbsp;
+          <a href="/register"> Sign Up </a>
+          &nbsp;instead.
+          <div>
+            <a href="/reset"> Forgot your password? </a>
+          </div>
+        </Message>
       </div>
+
     );
   }
 }

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios/index';
 
 // Backend API URL
 export const API_HOST = 'https://ah-centauri-backend-staging.herokuapp.com/api';
@@ -15,5 +15,8 @@ export const api = {
   profile: {
     getMyProfile: () => axios.get(`${API_HOST}/profiles/me/`),
     updateMyProfile: data => axios.patch(`${API_HOST}/user/`, data),
+  },
+  articles: {
+    getAllArticles: () => axios.get(`${API_HOST}/articles/`),
   },
 };

@@ -8,13 +8,14 @@ import {
   Message,
 } from 'semantic-ui-react';
 
-import './RegisterPage.scss';
 import { signUpAction } from '../../actions/authActions';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import isEmpty from '../../utils/is_empty';
-import GridContainer from '../../components/CustomGrid/GridContainer';
-import GridItem from '../../components/CustomGrid/GridItem';
-import { googleLogin, twitterLogin, facebookLogin } from '../../actions/socialAuthActions';
+import {
+  facebookLogin,
+  googleLogin,
+  twitterLogin
+} from '../../actions/socialAuthActions';
 import SocialButtons from '../../components/layout/login/socialAuth';
 
 
@@ -62,37 +63,21 @@ export class RegisterPage extends Component {
 
     return authenticated ? <Redirect to="/" /> : (
       <div className="signup-form">
-        <GridContainer
+        <Header
+          as="h4"
           textAlign="center"
-          className="register"
-          style={{ height: '100%' }}
-          verticalAlign="middle"
-          divided="vertically"
-          columns={2}
         >
-
-          <GridItem>
-            <Header
-              as="h2"
-              textAlign="center"
-            >
-              Sign Up.
-            </Header>
-            <Header
-              as="h4"
-              textAlign="center"
-            >
               Enter the email address associated with your account,
               and we’ll send a magic link to your inbox.
-            </Header>
-            {successMessage
-              ? (
-                <Message
-                  success
-                  header="Your user registration was successful"
-                  content={successMessage}
-                />
-              ) : ''}
+        </Header>
+        {successMessage
+          ? (
+            <Message
+              success
+              header="Your user registration was successful"
+              content={successMessage}
+            />
+          ) : ''}
 
             <CustomForm
               className="register-form"
@@ -132,19 +117,17 @@ export class RegisterPage extends Component {
                 },
               ]}
             />
-            <Message> 
+            <Message>
               Or sign up using your social media account
               <SocialButtons {...this.props} />
             </Message>
-            
+
             <Message warning>
               <Icon name="help" />
               Already have an account?&nbsp;
-              <a href="/login">login</a>
+          <a href="/login">login</a>
               &nbsp;instead.
-            </Message>
-          </GridItem>
-        </GridContainer>
+        </Message>
       </div>
     );
   }
@@ -175,5 +158,10 @@ export const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  { signUpAction, twitterLogin, facebookLogin, googleLogin },
+  {
+    signUpAction,
+    twitterLogin,
+    facebookLogin,
+    googleLogin,
+  },
 )(RegisterPage);

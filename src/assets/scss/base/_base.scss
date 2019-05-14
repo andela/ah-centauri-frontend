@@ -1,0 +1,73 @@
+// COLOR VARIABLES
+:root {
+  --color-primary: #c69963;
+  --color-primary-dark: #B28451;
+
+  --color-secondary: #101d2c;
+
+  --color-grey-light-1: #f9f7f6;
+  --color-grey-light-2: #aaa;
+
+  --color-grey-dark-1: #54483A;
+  --color-grey-dark-2: #6D5D4B;
+}
+
+// FONT VARIABLES
+$font-primary: 'Poppins', sans-serif;
+$font-display: 'Josefin Sans', sans-serif;
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em;   // 1200px
+$bp-large: 62.5em;   // 1000px
+$bp-medium-large: 62em; // 992px
+$bp-medium: 50em;    // 800px;
+$dp-medium-small: 48em; // 768px
+$bp-small: 37.5em;    // 600px;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+
+  @media only screen and (max-width: $bp-largest) {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: $font-primary;
+  color: var(--color-grey-dark-2);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+
+/* Grid */
+
+.column {
+  flex-basis: 100%;
+}
+
+@media screen and (min-width: $bp-medium) {
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .column {
+    flex: 1;
+  }
+  ._25 {
+    flex: 2.5;
+  }
+  ._5 {
+    flex: 5;
+  }
+}

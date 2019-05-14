@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ArticleFeed from '../../components/CustomArticle/ArticleFeed';
-import Header from '../../components/layout/HeaderLayout';
+import HeaderLayout from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
-
+import ArticleFeed from '../../components/CustomArticle/ArticleFeed';
 import { getAllArticles } from '../../actions/articlesActions';
 
-class HomePage extends Component {
+class ArticlesPage extends Component {
   componentDidMount() {
     this.props.getAllArticles();
   }
@@ -18,25 +17,10 @@ class HomePage extends Component {
 
     return (
       <section id="home">
-        <Header />
+        <HeaderLayout/>
         <div className="row home">
           <div className="column _25">
-            <div className="articles">
-              <div className="sidebar-subscribe--title">
-                <h3>RECENT POSTS</h3>
-              </div>
-              <ArticleFeed articles={articles} />
-              <div className="pagination">
-                <ul className="page-numbers">
-                  <li><a className="page-numbers current" href="#">1</a></li>
-                  <li><a className="page-numbers" href="#">2</a></li>
-                  <li><a className="page-numbers" href="#">3</a></li>
-                  <li><a className="page-numbers" href="#">4</a></li>
-                  <li><a className="page-numbers" href="#">5</a></li>
-                  <li><a className="next page-numbers" href="#">Next</a></li>
-                </ul>
-              </div>
-            </div>
+            Articles
           </div>
           <div className="column _75">
             <div className="sidebar">
@@ -47,10 +31,10 @@ class HomePage extends Component {
                 <form className="sidebar-subscribe--form">
                   <div className="sidebar-subscribe--form-fields">
                     <p>
-                      <input type="email" name="EMAIL" placeholder="Your email address" required="" />
+                      <input type="email" name="EMAIL" placeholder="Your email address" required=""/>
                     </p>
                     <p>
-                      <input type="submit" value="Sign up" />
+                      <input type="submit" value="Sign up"/>
                     </p>
                   </div>
                 </form>
@@ -68,19 +52,20 @@ class HomePage extends Component {
             </div>
           </div>
         </div>
-        <Footer />
+        <Footer/>
       </section>
     );
   }
 }
 
-HomePage.defautProps = {
-  articles: [],
-};
-
-HomePage.propTypes = {
+ArticlesPage.propTypes = {
   articles: PropTypes.array,
   getAllArticles: PropTypes.func.isRequired,
+};
+
+
+ArticlesPage.defautProps = {
+  articles: [],
 };
 
 export const mapStateToProps = ({ articles }) => ({
@@ -90,4 +75,4 @@ export const mapStateToProps = ({ articles }) => ({
 export default connect(
   mapStateToProps,
   { getAllArticles },
-)(HomePage);
+)(ArticlesPage);
