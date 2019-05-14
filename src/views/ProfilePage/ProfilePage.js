@@ -206,9 +206,9 @@ export class ProfilePage extends React.Component {
       />
     );
     const panes = [
-      { menuItem: 'Basic Info', render: () => <Tab.Pane attached={false}>{profileForm}</Tab.Pane> },
-      { menuItem: 'Highlights', render: () => <Tab.Pane attached={false} /> },
-      { menuItem: 'Bookmarks', render: () => <Tab.Pane attached={false}>Bookmarks Content</Tab.Pane> },
+      { menuItem: 'Basic Info', render: () => <Tab.Pane id="ProfileBasicInfoTab" attached={false}>{profileForm}</Tab.Pane> },
+      { menuItem: 'Highlights', render: () => <Tab.Pane id="ProfileHighlightsTab" attached={false} /> },
+      { menuItem: 'Bookmarks', render: () => <Tab.Pane id="ProfileBookmarksTab" attached={false}>Bookmarks Content</Tab.Pane> },
     ];
     if (authenticated) {
       return (

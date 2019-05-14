@@ -44,7 +44,7 @@ describe(' ProfilePage --- Test for profile page loading', () => {
 
   beforeEach(() => {
     store = mockStore(initialProfileState);
-    profilePageComponent = shallow(
+    profilePageComponent = mount(
       <ProfilePage
         getMyProfileAction={profilePageProps.getMyProfileAction}
         updateMyProfileAction={profilePageProps.updateMyProfileAction}
@@ -101,20 +101,6 @@ describe(' ProfilePage --- Test for profile page loading', () => {
     expect(errorProfilePageComponent.find(Message).exists()).toBe(true);
   });
 
-  it('render error message for the component', () => {
-
-    const errorProfilePageComponent = mount(
-      <ProfilePage
-        getMyProfileAction={profilePageProps.getMyProfileAction}
-        updateMyProfileAction={profilePageProps.updateMyProfileAction}
-        authenticated
-        loading={false}
-      />,
-    );
-    const spy = jest.spyOn(profilePageComponent.instance(), 'handleDropdownInputChange');
-    errorProfilePageComponent.instance().handleDropdownInputChange('country');
-  });
-
   it(' test handle onsubmit event and default state', () => {
     profilePageComponent.instance()
       .handleSubmit({
@@ -164,6 +150,13 @@ describe(' ProfilePage --- Test for profile page loading', () => {
           value: 'Writing the future by reading about the past',
         },
       });
+    const spy = jest.spyOn(profilePageComponent.instance(), 'handleDropdownInputChange');
+    profilePageComponent
+      .instance()
+      .handleDropdownInputChange({
+        target: { querySelector: jest.fn() },
+      });
+    expect(spy).toHaveBeenCalledTimes(1);
     expect(profilePageComponent.state('first_name'))
       .toEqual('todd');
     expect(profilePageComponent.state('last_name'))

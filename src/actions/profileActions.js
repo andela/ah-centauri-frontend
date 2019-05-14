@@ -18,7 +18,7 @@ export function failureMessage(error, type = GET_MY_PROFILE_ERROR) {
 
 export const getMyProfileAction = () => (dispatch) => {
   dispatch(loadingMessage());
-  api.profile.getMyProfile()
+  return api.profile.getMyProfile()
     .then((response) => {
       dispatch(successMessage(response.data));
     })
@@ -34,7 +34,7 @@ export const getMyProfileAction = () => (dispatch) => {
 
 export const updateMyProfileAction = profileFormData => (dispatch) => {
   dispatch(loadingMessage());
-  api.profile.updateMyProfile(profileFormData)
+  return api.profile.updateMyProfile(profileFormData)
     .then((response) => {
       dispatch(successMessage(response.data, UPDATE_MY_PROFILE_SUCCESS));
     })
