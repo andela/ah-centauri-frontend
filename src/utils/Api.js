@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Backend API URL
-const API_HOST = 'https://ah-centauri-backend-staging.herokuapp.com/api';
+export const API_HOST = 'https://ah-centauri-backend-staging.herokuapp.com/api';
 // eslint-disable-next-line import/prefer-default-export
 export const api = {
   user: {

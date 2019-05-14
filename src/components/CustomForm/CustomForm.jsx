@@ -46,7 +46,7 @@ const CustomForm = (props) => {
         // If the input field is an array then make a form group field
         // This is so we encase the items in the input array
         return (
-          <Form.Group widths="equal">
+          <Form.Group widths="equal" key={index}>
             {input.map((formGroupInput, formGroupIndex) => (
               <Form.Input
                 {...formGroupInput}

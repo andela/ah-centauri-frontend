@@ -1,18 +1,22 @@
 import {RESET_PASSWORD_FAILURE, RESET_PASSWORD_SUCCESS} from './types';
 import {api} from '../utils/Api';
 
-export const failureMessage = error => ({
-  type: RESET_PASSWORD_FAILURE,
-  payload: error,
-});
+export const failureMessage = error => {
+  return {
+    type: RESET_PASSWORD_FAILURE,
+    payload: error,
+  }
+};
 
-export const successMessage = message => ({
-  type: RESET_PASSWORD_SUCCESS,
-  payload: message,
-});
+export const successMessage = message => {
+  return {
+    type: RESET_PASSWORD_SUCCESS,
+    payload: message,
+  };
+};
 
 export const resetPasswordLinkService = ({ email }) => (dispatch) => {
-  api.user.resetPasswordLink(email)
+  return api.user.resetPasswordLink(email)
     .then((response) => {
       dispatch(successMessage(response.data));
     })
@@ -27,7 +31,7 @@ export const resetPasswordLinkService = ({ email }) => (dispatch) => {
 };
 
 export const resetPasswordService = ({ data }) => (dispatch) => {
-  api.user.resetPassword(data)
+  return api.user.resetPassword(data)
     .then((response) => {
       dispatch(successMessage(response.data));
     })
