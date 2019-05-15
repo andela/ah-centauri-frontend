@@ -6,6 +6,7 @@ import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from 'draft-js';
 import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import SocialShareLinksVertical from '../SocialShareLinks/SocialShareLinksVertical';
+import ArticleRating from '../ArticleRating/ArticleRating';
 
 const SingleArticleItem = ({ article }) => (
   <div className="blog-single blog-style-single">
@@ -55,6 +56,53 @@ const SingleArticleItem = ({ article }) => (
               </a>
             </div>
             <SocialShareLinksVertical shareLinks={article.share_links ? article.share_links : {}} />
+            <div className="jssocials-share jssocials-share-twitter">
+              <a
+                target="_blank"
+                href=""
+                className="jssocials-share-link"
+              >
+                <i
+                  className="fa fa-twitter jssocials-share-logo"
+                />
+              </a>
+            </div>
+            <div className="jssocials-share jssocials-share-facebook">
+              <a
+                target="_blank"
+                href=""
+                className="jssocials-share-link"
+              >
+                <i
+                  className="fa fa-facebook jssocials-share-logo"
+                />
+              </a>
+            </div>
+            <div className="jssocials-share jssocials-share-googleplus">
+              <a
+                target="_blank"
+                href=""
+                className="jssocials-share-link"
+              >
+                <i
+                  className="fa fa-envelope-o jssocials-share-logo"
+                />
+              </a>
+            </div>
+            <div className="jssocials-share jssocials-share-like">
+              <a
+                target="_blank"
+                href=""
+                className="jssocials-share-link"
+              >
+                <i
+                  className="fa fa-star jssocials-share-logo"
+                />
+                <span>
+                    {article.average_rating}
+                </span>
+              </a>
+            </div>
           </div>
         </div>
         <div className="post-single-meta">
@@ -129,6 +177,10 @@ const SingleArticleItem = ({ article }) => (
           <div style={{ color: 'black' }}>
             {article.body ? parse(`<p>${article.body}</p>`) : 'Loading  😀 .....'}
           </div>
+          <p>{article.description}</p>
+
+          <br />
+          <ArticleRating article={article} />
           <div className="sh-clear" />
           <div className="post-tags-container">
             <div className="post-tags">
