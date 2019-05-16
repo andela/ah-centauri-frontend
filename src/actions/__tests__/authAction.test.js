@@ -1,4 +1,8 @@
 import expect from 'expect';
+import moxios from 'moxios';
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
+import { API_HOST } from '../../utils/Api';
 import * as actions from '../authActions';
 import {
   AUTH_ERROR,
@@ -7,8 +11,19 @@ import {
   LOADING_PROGRESS,
 } from '../types';
 
+const middleware = [thunk];
+const mockStore = configureMockStore(middleware);
+const store = mockStore();
 
 describe('Auth actions ', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
+
+  afterEach(() => {
+    moxios.uninstall();
+  });
+
   it('render loading message action', () => {
     const loadingAction = actions.loadingMessage();
     const expectedAction = {
@@ -48,8 +63,100 @@ describe('Auth actions ', () => {
     const expectedAction = {
       type: AUTH_SIGNOUT,
     };
-    
+
     expect(signoutAction)
       .toEqual(expectedAction);
+  });
+
+  it('test it creates AUTH_SUCCESS when login successful', async (done) => {
+    const data = {
+      token: 'token',
+      message: 'Success!',
+    };
+
+    const expectedActions = actions.successMessage(data);
+
+    moxios.stubRequest(`${API_HOST}/users/login/`, {
+      status: 200,
+      response: {
+        user: {
+          token: 'token',
+          message: 'Success!',
+        },
+      },
+    });
+
+    await store.dispatch(actions.loginAction());
+    expect(store.getActions()).toContainEqual(expectedActions);
+    done();
+  });
+
+  it('test it creates AUTH_ERROR when login fails', async (done) => {
+    const data = {
+      errors: [
+        'found something wrong',
+      ],
+    };
+
+    const expectedActions = actions.failureMessage(data);
+
+    moxios.stubRequest(`${API_HOST}/users/login/`, {
+      status: 400,
+      response: {
+        errors: [
+          'found something wrong',
+        ],
+      },
+    });
+
+    await store.dispatch(actions.loginAction());
+    expect(store.getActions()).toContainEqual(expectedActions);
+    done();
+  });
+
+  it('test it creates AUTH_SUCCESS when registration successful', async (done) => {
+    const data = {
+      token: 'token',
+      message: 'Success!',
+    };
+
+    const expectedActions = actions.successMessage(data);
+
+    moxios.stubRequest(`${API_HOST}/users/`, {
+      status: 200,
+      response: {
+        user: {
+          token: 'token',
+          message: 'Success!',
+        },
+      },
+    });
+
+    await store.dispatch(actions.signUpAction());
+    expect(store.getActions()).toContainEqual(expectedActions);
+    done();
+  });
+
+  it('test it creates AUTH_ERROR when registration fails', async (done) => {
+    const data = {
+      errors: [
+        'found something wrong',
+      ],
+    };
+
+    const expectedActions = actions.failureMessage(data);
+
+    moxios.stubRequest(`${API_HOST}/users/`, {
+      status: 400,
+      response: {
+        errors: [
+          'found something wrong',
+        ],
+      },
+    });
+
+    await store.dispatch(actions.signUpAction());
+    expect(store.getActions()).toContainEqual(expectedActions);
+    done();
   });
 });

@@ -1,18 +1,16 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { verifyEmailAction } from '../../actions/emailVerification';
 import getPayload from '../../utils/emailVerification';
 
-function VerifyEmail(props) {
+export function VerifyEmail(props) {
   const { pathname } = props.location;
+  const { verifyEmailAction, history } = props;
 
-  props.verifyEmailAction(getPayload(pathname));
+  verifyEmailAction(getPayload(pathname));
+  history.push('/');
 
-  return (
-    <Redirect to="/" />
-  );
+  return null;
 }
 
 VerifyEmail.propTypes = {
