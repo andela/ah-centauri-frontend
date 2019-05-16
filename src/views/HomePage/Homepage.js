@@ -7,10 +7,7 @@ import Header from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
 
 import { getAllArticles } from '../../actions/articlesActions';
-<<<<<<< HEAD
-=======
 import SideBar from '../../components/layout/SideBar';
->>>>>>> aeb4fd03728d7c29fb5c2178872a609cc401f340
 
 class HomePage extends Component {
   componentDidMount() {
@@ -43,37 +40,7 @@ class HomePage extends Component {
             </div>
           </div>
           <div className="column _75">
-<<<<<<< HEAD
-            <div className="sidebar">
-              <div className="sidebar-subscribe">
-                <div className="sidebar-subscribe--title">
-                  <h3>Subscribe</h3>
-                </div>
-                <form className="sidebar-subscribe--form">
-                  <div className="sidebar-subscribe--form-fields">
-                    <p>
-                      <input type="email" name="EMAIL" placeholder="Your email address" required="" />
-                    </p>
-                    <p>
-                      <input type="submit" value="Sign up" />
-                    </p>
-                  </div>
-                </form>
-                <p className="sidebar-subscribe--description">
-                  * You will receive the latest news and updates on
-                  your favorite celebrities!
-                </p>
-              </div>
-              <div className="sidebar-subscribe">
-                <div className="sidebar-subscribe--title">
-                  <h3>EDITORS PICK</h3>
-                </div>
-                <ArticleFeed articles={articles.slice(0, 3)}/>
-              </div>
-            </div>
-=======
             <SideBar articles={articles}/>
->>>>>>> aeb4fd03728d7c29fb5c2178872a609cc401f340
           </div>
         </div>
         <Footer />

@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
-<<<<<<< HEAD
-  Icon,
-=======
->>>>>>> aeb4fd03728d7c29fb5c2178872a609cc401f340
   Message,
 } from 'semantic-ui-react';
 
