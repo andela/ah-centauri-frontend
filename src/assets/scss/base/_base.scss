@@ -3,6 +3,9 @@
   --color-primary: #c69963;
   --color-primary-dark: #B28451;
 
+  --color-primary-8: rgba(198, 153,99, 0.8);
+
+
   --color-secondary: #101d2c;
 
   --color-grey-light-1: #f9f7f6;
@@ -10,6 +13,8 @@
 
   --color-grey-dark-1: #54483A;
   --color-grey-dark-2: #6D5D4B;
+
+  --color-grey-dark-2-8: rgba(108,93,79, 0.8);
 }
 
 // FONT VARIABLES
@@ -53,6 +58,8 @@ body {
 
 .column {
   flex-basis: 100%;
+  max-width: 100%;
+  width: 100%;
 }
 
 @media screen and (min-width: $bp-medium) {
@@ -63,6 +70,7 @@ body {
   }
   .column {
     flex: 1;
+    max-width: $bp-largest;
   }
   ._25 {
     flex: 2.5;
@@ -70,4 +78,17 @@ body {
   ._5 {
     flex: 5;
   }
+}
+
+
+
+.sticky{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.p-3{
+  padding-top: 3rem;
 }

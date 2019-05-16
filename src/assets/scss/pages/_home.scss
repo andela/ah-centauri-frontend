@@ -74,6 +74,7 @@
         box-shadow: 0px 0px 2px 1px rgba(0,0,0,.1);
 
         &[type=email] {
+          width: 100%;
           box-shadow: none;
           border: 1px solid rgba(0,0,0,.08);
           font-size: 13px;
@@ -96,6 +97,10 @@
           transition: .3s all ease-in-out;
           -webkit-appearance: button;
           cursor: pointer;
+
+          @media screen and (max-width: $dp-medium-small) {
+            width: 20%;
+          }
         }
       }
 

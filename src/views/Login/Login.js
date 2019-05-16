@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
+<<<<<<< HEAD
   Icon,
+=======
+>>>>>>> aeb4fd03728d7c29fb5c2178872a609cc401f340
   Message,
 } from 'semantic-ui-react';
 
 import { loginAction } from '../../actions/authActions';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import isEmpty from '../../utils/is_empty';
+import SocialButtons from '../../components/layout/login/socialAuth';
 
 
 export class Login extends Component {
@@ -85,14 +89,12 @@ export class Login extends Component {
             },
           ]}
         />
+        <Message>
+          Or sign up using your social media account
+          <SocialButtons {...this.props} />
+        </Message>
         <Message warning>
-          <Icon name="help" />
-          Don&apos;t have an account?&nbsp;
-          <a href="/register"> Sign Up </a>
-          &nbsp;instead.
-          <div>
-            <a href="/reset"> Forgot your password? </a>
-          </div>
+          <a href="/reset" style={{ display: 'flex', justifyContent: 'center' }}> Forgot your password? </a>
         </Message>
       </div>
 

@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Header, } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import { Login } from '../../views/Login/Login';
 import { RegisterPage } from '../../views/RegisterPage/RegisterPage';
 import {
   loginAction,
   signUpAction,
 } from '../../actions/authActions';
+import { getMyProfileAction } from '../../actions/profileActions';
 
 
 class HeaderLayout extends Component {
@@ -18,9 +19,30 @@ class HeaderLayout extends Component {
     this.state = {
       toggle: false,
       opened: false,
+      username: '',
+      first_name: '',
+      last_name: '',
     };
   }
 
+  componentDidMount() {
+    // Set the token for use in accessing the protected get Profile endpoint
+    this.props.getMyProfileAction();
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.username !== nextProps.profile.username
+      || prevState.first_name !== nextProps.profile.first_name
+      || prevState.last_name !== nextProps.profile.last_name) {
+      return {
+        username: nextProps.profile.username,
+        first_name: nextProps.profile.first_name,
+        last_name: nextProps.profile.last_name,
+      };
+    }
+
+    return null;
+  }
 
   handleToggle = () => {
     this.setState(prevState => ({
@@ -35,14 +57,14 @@ class HeaderLayout extends Component {
   };
 
   render() {
-    const { toggle, opened } = this.state;
+    const { toggle, opened, username } = this.state;
     const { authenticated } = this.props;
 
 
     return (
-      <div>
+      <div className="sticky">
         <header>
-          <Link to="#" className="logo">AH</Link>
+          <Link to="/" className="logo">AH</Link>
           <div
             className={classNames({ 'menu-toggle': true, active: toggle })}
             onClick={this.handleToggle}
@@ -54,7 +76,32 @@ class HeaderLayout extends Component {
               <li><Link to="/services">Services</Link></li>
               <li><Link to="/team">Team</Link></li>
               <li><Link to="/contact">Contact</Link></li>
-              <li><button onClick={this.handleModal}>Login</button></li>
+              {authenticated ? (
+                <li className="menu-item-has-children">
+                  <a href="#">
+                    <img
+                      src="https://img.icons8.com/bubbles/2x/user.png"
+                      alt="logo"
+                      style={{
+                        width: '5rem',
+                        height: '5rem',
+                        marginTop: ' -1.5rem',
+                        marginBottom: '-2rem',
+                      }}
+                    />
+                    {username}
+                  </a>
+                  <ul className="sub-menu">
+                    <li><Link to="/create-article">New Story</Link></li>
+                    <li><Link to={`/me/stories/drafts/${username}`}>Stories</Link></li>
+                    <li><Link to="/profile">Profile</Link></li>
+                    <li><a href="#">Signout</a></li>
+                  </ul>
+                </li>
+              ) : (
+                <li><button onClick={this.handleModal}>Login</button></li>
+              )}
+
             </ul>
           </nav>
           <div className="clearfix" />
@@ -65,7 +112,7 @@ class HeaderLayout extends Component {
         <div className={classNames({ modal: true, opened })} id="modal">
           <button className="close-button" id="close-button" onClick={this.handleModal}>X</button>
           <div className="modal-tabs">
-            <input className="state" type="radio" title="tab-one" name="tabs-state" id="tab-one" checked />
+            <input className="state" type="radio" title="tab-one" name="tabs-state" id="tab-one" defaultChecked />
             <input className="state" type="radio" title="tab-two" name="tabs-state" id="tab-two" />
 
             <div className="tabs flex-tabs">
@@ -74,37 +121,24 @@ class HeaderLayout extends Component {
 
 
               <div id="tab-one-panel" className="panel active">
-                <h3>Responsive CSS Tabs - Flexbox</h3>
-                <Login loginAction={loginAction} />
+                <Header
+                  as="h1"
+                  textAlign="center"
+                >
+                  Login
+                </Header>
+                <Login loginAction={this.props.loginAction} />
               </div>
               <div id="tab-two-panel" className="panel">
-                <RegisterPage signUpAction={signUpAction} />
+                <Header
+                  as="h1"
+                  textAlign="center"
+                >
+                  Register
+                </Header>
+                <RegisterPage signUpAction={this.props.signUpAction} />
               </div>
             </div>
-
-          </div>
-        </div>
-        <div className={classNames({ 'modal-overlay': opened })} id="modal-overlay"/>
-        <div className={classNames({ modal: true, opened })} id="modal">
-          <button className="close-button" id="close-button" onClick={this.handleModal}>X</button>
-          <div className="modal-tabs">
-            <input className="state" type="radio" title="tab-one" name="tabs-state" id="tab-one" checked/>
-            <input className="state" type="radio" title="tab-two" name="tabs-state" id="tab-two"/>
-
-            <div className="tabs flex-tabs">
-              <label htmlFor="tab-one" id="tab-one-label" className="tab">Login</label>
-              <label htmlFor="tab-two" id="tab-two-label" className="tab">Register</label>
-
-
-              <div id="tab-one-panel" className="panel active">
-                <h3>Responsive CSS Tabs - Flexbox</h3>
-                <Login loginAction={loginAction}/>
-              </div>
-              <div id="tab-two-panel" className="panel">
-                <RegisterPage signUpAction={signUpAction}/>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
@@ -112,14 +146,28 @@ class HeaderLayout extends Component {
   }
 }
 
-Header.defaultProps = {
+HeaderLayout.defaultProps = {
   authenticated: false,
+  profile: {
+    username: '',
+    first_name: '',
+    last_name: '',
+  },
 };
 
-Header.propTypes = {
+HeaderLayout.propTypes = {
   authenticated: PropTypes.bool,
+  profile: PropTypes.shape({
+    username: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+  }),
+  getMyProfileAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ auth }) => ({ authenticated: auth.authenticated });
+const mapStateToProps = ({ auth, profile }) => ({
+  authenticated: auth.authenticated,
+  profile: profile.current_profile,
+});
 
-export default connect(mapStateToProps)(HeaderLayout);
+export default connect(mapStateToProps, { loginAction, signUpAction, getMyProfileAction })(HeaderLayout);

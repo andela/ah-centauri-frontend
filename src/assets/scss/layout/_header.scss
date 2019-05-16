@@ -130,7 +130,7 @@ nav{
   display: none;
   width: 75.0rem;
   max-width: 100%;
-  height: 40.0rem;
+  height: 50.0rem;
   max-height: 100%;
   position: fixed;
   z-index: 100;
@@ -152,7 +152,7 @@ nav{
   height: 100%;
   z-index: 50;
 
-  background: rgba(31, 28, 28, 0.9);
+  background: rgba(31, 28, 28, 0.8);
 }
 
 .modal .close-button {
@@ -185,44 +185,44 @@ nav{
   padding: 2.0rem 5.0rem 2.0rem 2.0rem;
   margin: 20px;
 
-         .state{
-           position: absolute;
-           left: -10000px;
-         }
+   .state{
+     position: absolute;
+     left: -10000px;
+   }
 
-.flex-tabs{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  .flex-tabs{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
-  .tab{
-    flex-grow: 1;
-    max-height: 40px;
-  }
+        .tab{
+          flex-grow: 1;
+          max-height: 40px;
+        }
 
-  .panel {
-    background-color: #fff;
-    padding: 20px;
-    min-height: 300px;
-    display: none;
-    width: 100%;
-    flex-basis: auto;
-  }
-}
+        .panel {
+          background-color: #fff;
+          padding: 20px;
+          min-height: 300px;
+          display: none;
+          width: 100%;
+          flex-basis: auto;
+        }
+    }
 
-.tab {
-  display: inline-block;
-  padding: 10px;
-  vertical-align: top;
-  background-color: #eee;
-  cursor: hand;
-  cursor: pointer;
-  border-left: 10px solid #ccc;
+    .tab {
+      display: inline-block;
+      padding: 10px;
+      vertical-align: top;
+      background-color: #eee;
+      cursor: hand;
+      cursor: pointer;
+      border-left: 10px solid #ccc;
 
-  &:hover{
-    background-color: #fff;
-  }
-}
+      &:hover{
+        background-color: #fff;
+      }
+    }
 }
 
 
@@ -268,5 +268,54 @@ nav{
   }
 }
 
+// Drop Down
+nav ul ul {
+  display: none;
+}
+
+@media (min-width: $dp-medium-small) {
+  nav ul ul {
+    display: none;
+    position:absolute;
+  }
+}
+
+nav ul li:hover > ul {
+  display:block;
+  color:#fff;
+  padding-left:2rem;
+}
+
+@media (min-width: $dp-medium-small) {
+  nav ul li:hover > ul {
+    padding-left:0;
+    background:#777;
+  }
+
+  nav ul li:hover > ul a{
+    color:#fff;
+  }
+
+  .sub-menu{
+    li{
+      display:flex;
+      padding-right:2em;
+    }
+
+    li:hover, li a:hover{
+      background:#ddd;
+      color:#777;
+    }
+  }
+
+}
 
 
+ul.sub-menu li {
+  padding: 0;
+  margin: 0;
+}
+
+ul.sub-menu a {
+  font-size: 1.4rem;
+}

@@ -4,8 +4,9 @@ import ProfilePage from '../views/ProfilePage/ProfilePage';
 import ResetPassword from '../views/ResetPassword/ResetPassword';
 import ResetPasswordLink from '../views/ResetPassword/ResetPasswordLink';
 import VerifyEmail from '../components/VerifyEmail/VerifyEmail';
-import CreateArticlesPage from '../views/CreateArticlesPage/CreateArticlesPage';
-import ArticlesPage from '../views/ArticlesPage/ArticlesPage';
+import ArticlesPage from '../views/ArticlesPage/ArticlesDescription';
+import CreateArticlesPage from '../views/ArticlesPage/CreateArticlesPage';
+import MyArticlesDraftPage from '../views/ArticlesPage/MyArticlesDraftPage';
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
     id: 7,
     path: '/create-article',
     component: CreateArticlesPage,
+  },
+  {
+    id: 8,
+    path: '/me/stories/drafts/:username',
+    component: MyArticlesDraftPage,
   },
 ];
 

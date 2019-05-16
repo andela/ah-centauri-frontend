@@ -30,7 +30,7 @@ const Footer = () => (
           <List link inverted>
             <Header as="h2" inverted>Vision</Header>
             <List.Item as="h2"> A Social platform for the creative at heart.</List.Item>
-            <List.Item as="h3" inverted>
+            <List.Item as="h3" inverted="true">
               Create a community of like minded authors to foster inspiration
               and innovation by leveraging the modern web.
             </List.Item>

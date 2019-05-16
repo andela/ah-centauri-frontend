@@ -18,5 +18,10 @@ export const api = {
   },
   articles: {
     getAllArticles: () => axios.get(`${API_HOST}/articles/`),
+    getSingleArticles: slug => axios.get(`${API_HOST}/articles/${slug}`),
+    createArticles: data => axios.post(`${API_HOST}/articles/`, data),
+    filterByAuthorArticles: username => axios.get(`${API_HOST}/articles/q?author=${username}`),
+    deleteArticle: slug => axios.delete(`${API_HOST}/articles/${slug}`),
   },
+
 };

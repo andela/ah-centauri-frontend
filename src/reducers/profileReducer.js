@@ -3,11 +3,11 @@ import {
   GET_MY_PROFILE_SUCCESS,
   LOADING_PROGRESS,
   UPDATE_MY_PROFILE_ERROR,
-  UPDATE_MY_PROFILE_SUCCESS
+  UPDATE_MY_PROFILE_SUCCESS,
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  current_profile: undefined,
+  current_profile: {},
   errorMessage: {},
   message: '',
   loading: false,

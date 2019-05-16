@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import parse from 'html-react-parser';
 
 const ArticleItem = ({ article }) => (
   <article className="post post_item">
     <div className="post-container">
       <div className="post-categories-container">
         <div className="post-categories">
-          {article.tags.map(tag => <Link to="#">{tag}</Link>)}
+          {article.tags.map((tag, index) => <Link to="#" key={index}>{tag}</Link>)}
         </div>
       </div>
       <Link
@@ -75,7 +76,7 @@ const ArticleItem = ({ article }) => (
       <div className="post-content-container">
         <div className="post-content">
           <p>
-            {article.description}
+            {parse(article.description)}
           </p>
         </div>
       </div>
@@ -91,13 +92,12 @@ const ArticleItem = ({ article }) => (
         <div className="sh-table-cell">
           <div
             className="post-content-share post-content-share-side jssocials"
-            data-url="#"
-            data-title="New Cryptocurrency That Will Kill Of Bitcoin"
           >
             <div className="jssocials-shares">
               <div className="jssocials-share jssocials-share-twitter">
                 <a
                   target="_blank"
+                  rel="noopener noreferrer"
                   href={article.share_links.twitter}
                   className="jssocials-share-link"
                 >
@@ -109,6 +109,7 @@ const ArticleItem = ({ article }) => (
               <div className="jssocials-share jssocials-share-facebook">
                 <a
                   target="_blank"
+                  rel="noopener noreferrer"
                   href={article.share_links.facebook}
                   className="jssocials-share-link"
                 >
@@ -120,6 +121,7 @@ const ArticleItem = ({ article }) => (
               <div className="jssocials-share jssocials-share-googleplus">
                 <a
                   target="_blank"
+                  rel="noopener noreferrer"
                   href={article.share_links.email}
                   className="jssocials-share-link"
                 >

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
-  Header,
-  Icon,
   Message,
 } from 'semantic-ui-react';
 
@@ -14,7 +12,7 @@ import isEmpty from '../../utils/is_empty';
 import {
   facebookLogin,
   googleLogin,
-  twitterLogin
+  twitterLogin,
 } from '../../actions/socialAuthActions';
 import SocialButtons from '../../components/layout/login/socialAuth';
 
@@ -62,14 +60,8 @@ export class RegisterPage extends Component {
     } = this.props;
 
     return authenticated ? <Redirect to="/" /> : (
-      <div className="signup-form">
-        <Header
-          as="h4"
-          textAlign="center"
-        >
-              Enter the email address associated with your account,
-              and we’ll send a magic link to your inbox.
-        </Header>
+      <div>
+
         {successMessage
           ? (
             <Message
@@ -79,54 +71,47 @@ export class RegisterPage extends Component {
             />
           ) : ''}
 
-            <CustomForm
-              className="register-form"
-              loading={loading}
-              size="large"
-              errorMessage={errorMessage}
-              handleSubmit={this.handleSubmit}
-              buttonName="register"
-              inputFields={[
-                {
-                  fluid: true,
-                  name: 'username',
-                  id: 'username',
-                  placeholder: 'username',
-                  type: 'text',
-                  value: username,
-                  onChange: this.handleInputChange,
-                  error: !isEmpty(errorMessage ? errorMessage.username : ''),
-                },
-                {
-                  fluid: true,
-                  name: 'email',
-                  placeholder: 'E-mail address',
-                  type: 'email',
-                  value: email,
-                  onChange: this.handleInputChange,
-                  error: !isEmpty(errorMessage ? errorMessage.email : ''),
-                },
-                {
-                  fluid: true,
-                  name: 'password',
-                  placeholder: 'Password',
-                  type: 'password',
-                  value: password,
-                  onChange: this.handleInputChange,
-                  error: !isEmpty(errorMessage ? errorMessage.password : ''),
-                },
-              ]}
-            />
-            <Message>
+        <CustomForm
+          className="register-form"
+          loading={loading}
+          size="large"
+          errorMessage={errorMessage}
+          handleSubmit={this.handleSubmit}
+          buttonName="register"
+          inputFields={[
+            {
+              fluid: true,
+              name: 'username',
+              id: 'username',
+              placeholder: 'username',
+              type: 'text',
+              value: username,
+              onChange: this.handleInputChange,
+              error: !isEmpty(errorMessage ? errorMessage.username : ''),
+            },
+            {
+              fluid: true,
+              name: 'email',
+              placeholder: 'E-mail address',
+              type: 'email',
+              value: email,
+              onChange: this.handleInputChange,
+              error: !isEmpty(errorMessage ? errorMessage.email : ''),
+            },
+            {
+              fluid: true,
+              name: 'password',
+              placeholder: 'Password',
+              type: 'password',
+              value: password,
+              onChange: this.handleInputChange,
+              error: !isEmpty(errorMessage ? errorMessage.password : ''),
+            },
+          ]}
+        />
+        <Message>
               Or sign up using your social media account
-              <SocialButtons {...this.props} />
-            </Message>
-
-            <Message warning>
-              <Icon name="help" />
-              Already have an account?&nbsp;
-          <a href="/login">login</a>
-              &nbsp;instead.
+          <SocialButtons {...this.props} />
         </Message>
       </div>
     );
