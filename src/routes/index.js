@@ -7,11 +7,8 @@ import VerifyEmail from '../components/VerifyEmail/VerifyEmail';
 import ArticlesPage from '../views/ArticlesPage/ArticlesDescription';
 import CreateArticlesPage from '../views/ArticlesPage/CreateArticlesPage';
 import MyArticlesDraftPage from '../views/ArticlesPage/MyArticlesDraftPage';
-<<<<<<< HEAD
-=======
 import UpdateArticlesPage from '../views/ArticlesPage/UpdateArticlesPage';
 import NotFoundPage from '../views/NotFoundPage/NotFoundPage';
->>>>>>> bfda8c0076f2801ee1f27f72eebc7a3e56ca20b0
 
 const routes = [
   {
