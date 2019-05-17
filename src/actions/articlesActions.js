@@ -88,7 +88,7 @@ export const filterByAuthorArticles = data => dispatch => {
   dispatch(loadingMessage());
   return api.articles.filterByAuthorArticles(data)
   .then((response) => {
-    dispatch(successMessage(response.data.articles.results));
+    dispatch(successMessage(response.data.articles));
   }).catch((error) => {
     dispatch(errorMessage(error.response.data));
   });
