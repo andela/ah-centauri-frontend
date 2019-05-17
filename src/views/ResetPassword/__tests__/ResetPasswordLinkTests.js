@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import expect from 'expect';
 
 import {  mapStateToProps, _ResetPasswordLink } from '../ResetPasswordLink';
@@ -13,7 +13,7 @@ const setUp = () => {
     errorMessage: '',
     formState: '',
   };
-  const wrapper = mount(<_ResetPasswordLink {...props} />);
+  const wrapper = shallow(<_ResetPasswordLink {...props} />);
   return { props,wrapper };
 };
 

@@ -17,6 +17,7 @@ className={formState}
 onSubmit={handleSubmit}
 style={{
     marginTop: '10%',
+    marginBottom: '10%',
     maxWidth: '450px',
     marginLeft: 'auto',
     marginRight: 'auto'
