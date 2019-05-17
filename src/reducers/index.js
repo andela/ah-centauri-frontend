@@ -4,12 +4,10 @@ import authReducer from './authReducer';
 import profileReducer from './profileReducer';
 import resetReducer from './resetReducer';
 import articlesReducer from './articlesReducer';
-import articleRatingReducer from './articleRatingReducer';
 
 export default combineReducers({
   auth: authReducer,
   profile: profileReducer,
   resetReducer,
   articles: articlesReducer,
-  rating: articleRatingReducer,
 });
