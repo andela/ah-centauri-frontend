@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from 'draft-js';
+import LikeDislikeButtons from '../like/like';
 
 const SingleArticleItem = ({ article }) => (
   <div className="blog-single blog-style-single">
@@ -24,34 +25,9 @@ const SingleArticleItem = ({ article }) => (
       <div className="post-item-single-container">
         <div className="post-content-share post-content-share-bar jssocials sticky">
           <div className="jssocials-shares post-content-single-share-jssocials-shares">
-            <div className="jssocials-share jssocials-share-like">
-              <a
-                target="_blank"
-                href=""
-                className="jssocials-share-link"
-              >
-                <i
-                  className="fa fa-thumbs-o-up jssocials-share-logo"
-                />
-                <span>
-                    1.4k
-                </span>
-              </a>
-            </div>
-            <div className="jssocials-share jssocials-share-like">
-              <a
-                target="_blank"
-                href=""
-                className="jssocials-share-link"
-              >
-                <i
-                  className="fa fa-thumbs-o-down jssocials-share-logo"
-                />
-                <span>
-                    100
-                </span>
-              </a>
-            </div>
+{/* ------------------------------------------------------------------------------------ */}
+            <LikeDislikeButtons article={article}/>
+{/* ---------------------------------------------- */}
             <div className="jssocials-share jssocials-share-twitter">
               <a
                 target="_blank"

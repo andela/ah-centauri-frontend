@@ -1,3 +1,5 @@
+import likeReducers from "../reducers/likeReducers";
+
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';
@@ -18,3 +20,8 @@ export const FETCH_SINGLE_ARTICLE = 'FETCH_SINGLE_ARTICLE';
 export const CREATE_SINGLE_ARTICLE = 'CREATE_SINGLE_ARTICLE';
 export const ERROR_FETCHING_ARTICLES = 'ERROR_FETCHING_ARTICLES';
 export const DELETE_SINGLE_ARTICLE = 'DELETE_SINGLE_ARTICLE';
+
+export const DISLIKE_ARTICLE = 'DISLIKE_ARTICLE';
+export const LIKE_ARTICLE = 'LIKE_ARTICLE';
+export const LIKE_DISLIKE_ERROR = 'LIKE_DISLIKE_ERROR';
+export const GET_ARTICLE_DATA = 'GET_ARTICLE_DATA';

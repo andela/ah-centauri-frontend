@@ -6,6 +6,7 @@ import {
   DELETE_SINGLE_ARTICLE,
 } from './types';
 import { api } from '../services/Api';
+import { fetchArticleDataAction } from './likeActions';
 
 
 export const successMessage = data => ({
@@ -45,6 +46,7 @@ export const getAllArticles = () => dispatch => api.articles.getAllArticles()
 export const getSingleArticles = slug => dispatch => api.articles.getSingleArticles(slug)
   .then((response) => {
     dispatch(singleArticleSuccessMessage(response.data.article));
+    dispatch(fetchArticleDataAction(response.data.article));
   }).catch((error) => {
     dispatch(errorMessage(error.response.data));
   });

@@ -1,0 +1,17 @@
+
+
+.post-content-share .button-active{
+    width: 4.5rem;
+    height: 4.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #f3d;
+  
+    & span {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #f3d;
+    }
+  }

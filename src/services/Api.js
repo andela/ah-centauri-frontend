@@ -22,6 +22,8 @@ export const api = {
     createArticles: data => axios.post(`${API_HOST}/articles/`, data),
     filterByAuthorArticles: username => axios.get(`${API_HOST}/articles/q?author=${username}`),
     deleteArticle: slug => axios.delete(`${API_HOST}/articles/${slug}`),
+    likeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/like/`),
+    dislikeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/dislike/`),
   },
 
 };
