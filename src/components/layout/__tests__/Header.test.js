@@ -1,10 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 
-import {
-  HeaderLayout,
-  mapStateToProps,
-} from '../HeaderLayout';
+import {HeaderLayout, mapStateToProps,} from '../HeaderLayout';
 
 
 const setUp = () => {
@@ -30,7 +27,7 @@ describe('Header layout test::', () => {
     const headerMenu = wrapper.find('header');
 
     expect(headerMenu.exists())
-      .toBe(true);
+        .toBe(true);
   });
 
   it('properly maps state to props', () => {
@@ -44,7 +41,7 @@ describe('Header layout test::', () => {
     };
 
     expect(mapStateToProps(initialState).authenticated)
-      .toEqual(initialState.auth.authenticated);
+        .toEqual(initialState.auth.authenticated);
   });
 
 
@@ -64,19 +61,19 @@ describe('Header layout test::', () => {
 
   it(' should handleToggle function', () => {
     wrapper
-      .instance()
-      .handleToggle();
+        .instance()
+        .handleToggle();
 
     expect(wrapper.state('toggle'))
-      .toBe(true);
+        .toBe(true);
   });
 
   it(' should handleModal function', () => {
     wrapper
-      .instance()
-      .handleModal();
+        .instance()
+        .handleModal();
 
     expect(wrapper.state('opened'))
-      .toBe(true);
+        .toBe(true);
   });
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import parse from 'html-react-parser';
 
 const ArticleItem = ({ article }) => (
@@ -92,43 +93,7 @@ const ArticleItem = ({ article }) => (
             className="post-content-share post-content-share-side jssocials"
           >
             <div className="jssocials-shares">
-              <div className="jssocials-share jssocials-share-twitter">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={article.share_links.twitter}
-                  className="jssocials-share-link"
-                >
-                  <i
-                    className="fa fa-twitter jssocials-share-logo"
-                  />
-                </a>
-              </div>
-              <div className="jssocials-share jssocials-share-facebook">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={article.share_links.facebook}
-                  className="jssocials-share-link"
-                >
-                  <i
-                    className="fa fa-facebook jssocials-share-logo"
-                  />
-                </a>
-              </div>
-              <div className="jssocials-share jssocials-share-googleplus">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={article.share_links.email}
-                  className="jssocials-share-link"
-                >
-                  <i
-                    className="fa fa-envelope-o jssocials-share-logo"
-                  />
-                </a>
-              </div>
-
+              <CircularSocial size="large" shareLinks={article.share_links} />
             </div>
           </div>
         </div>

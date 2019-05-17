@@ -28,5 +28,3 @@ yarn-error.log*
 #Package managers
 package-lock.json
 yarn.lock
-
-.env

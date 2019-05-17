@@ -1,4 +1,5 @@
 import HomePage from '../views/HomePage/Homepage';
+import Login from '../views/Login/Login';
 import RegisterPage from '../views/RegisterPage/RegisterPage';
 import ProfilePage from '../views/ProfilePage/ProfilePage';
 import ResetPassword from '../views/ResetPassword/ResetPassword';

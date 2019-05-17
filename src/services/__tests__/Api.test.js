@@ -1,6 +1,6 @@
-import axios from 'axios/index';
+import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import expect from 'expect/build/index';
+import expect from 'expect';
 import moxios from 'moxios';
 import {
   api,
@@ -42,6 +42,7 @@ describe('Api service function test: ', () => {
           .toEqual(data);
       });
   });
+
 
   it(' returns data when resetPasswordLink is called', () => {
     const data = { response: true };
@@ -88,7 +89,7 @@ describe('Api service function test: ', () => {
     mock.onPost('users/social')
       .reply(200, data);
 
-    api.user.loginSocial({ url: 'Abc123@!', payload: 'Abc123@!' })
+    api.user.loginSocial({ url: "Abc123@!", payload: "Abc123@!" })
       .then((response) => {
         expect(response.data)
           .toEqual(data);

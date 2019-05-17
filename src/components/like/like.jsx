@@ -55,7 +55,7 @@ class likeDislikeButtons extends Component {
         <div className="jssocials-share jssocials-share-like">
 
           {liked ? 
-          (<a onClick={this.handleLike} href="" className="button-active">
+          (<a onClick={this.handleLike} href="" className="like-active">
             <i className="fa fa-thumbs-o-up" />
             <span>
               {likes}
@@ -69,7 +69,7 @@ class likeDislikeButtons extends Component {
           </a>)}
         </div>
         <div className="jssocials-share jssocials-share-like">
-          {disliked ? (<a type="" onClick={this.handleDislike} href="" className="button-active">
+          {disliked ? (<a type="" onClick={this.handleDislike} href="" className="dislike-active">
             <i
               className="fa fa-thumbs-o-down"
             />
@@ -90,9 +90,6 @@ class likeDislikeButtons extends Component {
   }
 }
 
-// likeDislikeButtons.defaultProps = {
-
-// }
 
 likeDislikeButtons.propTypes = {
   getSingleArticles: PropTypes.func.isRequired,

@@ -5,6 +5,8 @@ import parse from 'html-react-parser';
 import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from 'draft-js';
 import LikeDislikeButtons from '../like/like';
+import CircularSocial from '../SocialShareLinks/SocialShareLinks';
+import SocialShareLinksVertical from '../SocialShareLinks/SocialShareLinksVertical';
 
 const SingleArticleItem = ({ article }) => (
   <div className="blog-single blog-style-single">
@@ -25,42 +27,10 @@ const SingleArticleItem = ({ article }) => (
       <div className="post-item-single-container">
         <div className="post-content-share post-content-share-bar jssocials sticky">
           <div className="jssocials-shares post-content-single-share-jssocials-shares">
-{/* ------------------------------------------------------------------------------------ */}
-            <LikeDislikeButtons article={article}/>
-{/* ---------------------------------------------- */}
-            <div className="jssocials-share jssocials-share-twitter">
-              <a
-                target="_blank"
-                href=""
-                className="jssocials-share-link"
-              >
-                <i
-                  className="fa fa-twitter jssocials-share-logo"
-                />
-              </a>
-            </div>
-            <div className="jssocials-share jssocials-share-facebook">
-              <a
-                target="_blank"
-                href=""
-                className="jssocials-share-link"
-              >
-                <i
-                  className="fa fa-facebook jssocials-share-logo"
-                />
-              </a>
-            </div>
-            <div className="jssocials-share jssocials-share-googleplus">
-              <a
-                target="_blank"
-                href=""
-                className="jssocials-share-link"
-              >
-                <i
-                  className="fa fa-envelope-o jssocials-share-logo"
-                />
-              </a>
-            </div>
+
+            <LikeDislikeButtons article={article} />
+            <SocialShareLinksVertical shareLinks={article.share_links ? article.share_links : {}} />
+
           </div>
         </div>
         <div className="post-single-meta">
@@ -149,6 +119,9 @@ const SingleArticleItem = ({ article }) => (
                 </Link>
               )) : ''}
             </div>
+          </div>
+          <div className="social-share-circles">
+            <CircularSocial size="huge" shareLinks={article.share_links? article.share_links : {}} />
           </div>
         </div>
         <div className="sidebar-subscribe--title" style={{ paddingTop: '4rem' }}>

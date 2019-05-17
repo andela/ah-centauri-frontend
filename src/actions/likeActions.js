@@ -29,7 +29,6 @@ export const likeErrorAction = data => ({
 });
 
 export const likeArticle = slug => async (dispatch) => {
-//   dispatch(loadingMessage());
   try {
     const response = await api.articles.likeArticle(slug);
     dispatch(likeArticleAction(response.data));
@@ -45,11 +44,10 @@ export const likeArticle = slug => async (dispatch) => {
 };
 
 export const dislikeArticle = data => async (dispatch) => {
-//   dispatch(loadingMessage());
   try {
     const response = await api.articles.dislikeArticle(data);
     dispatch(likeArticleAction(response.data));
-    // dispatch(fetchArticleDataAction(response.data.article));
+    dispatch(fetchArticleDataAction(response.data.article));
   } catch (error) {
     if (error.response && error.response.data) {
       const { responseErrorsObject } = getResponseErrors(error.response.data);
