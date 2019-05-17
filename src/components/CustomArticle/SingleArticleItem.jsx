@@ -7,6 +7,7 @@ import { convertToRaw } from 'draft-js';
 import LikeDislikeButtons from '../like/like';
 import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import SocialShareLinksVertical from '../SocialShareLinks/SocialShareLinksVertical';
+import ArticleRating from '../ArticleRating/ArticleRating';
 
 const SingleArticleItem = ({ article }) => (
   <div className="blog-single blog-style-single">
@@ -30,6 +31,20 @@ const SingleArticleItem = ({ article }) => (
 
             <LikeDislikeButtons article={article} />
             <SocialShareLinksVertical shareLinks={article.share_links ? article.share_links : {}} />
+            <div className="jssocials-share jssocials-share-like">
+              <a
+                target="_blank"
+                href=""
+                className="jssocials-share-link"
+              >
+                <i
+                  className="fa fa-star jssocials-share-logo"
+                />
+                <span>
+                    {article.average_rating}
+                </span>
+              </a>
+            </div>
 
           </div>
         </div>
@@ -105,6 +120,10 @@ const SingleArticleItem = ({ article }) => (
           <div style={{ color: 'black' }}>
             {article.body ? parse(`<p>${article.body}</p>`) : 'Loading  😀 .....'}
           </div>
+          <p>{article.description}</p>
+
+          <br />
+          <ArticleRating article={article} />
           <div className="sh-clear" />
           <div className="post-tags-container">
             <div className="post-tags">

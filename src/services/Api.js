@@ -4,6 +4,7 @@ import axios from 'axios/index';
 export const API_HOST = 'https://ah-centauri-backend-staging.herokuapp.com/api';
 
 const limit = (count, p) => `limit=${count}&offset=${p ? (p-1) * count : 0}`;
+
 // eslint-disable-next-line import/prefer-default-export
 export const api = {
   user: {
@@ -27,5 +28,6 @@ export const api = {
     deleteArticle: slug => axios.delete(`${API_HOST}/articles/${slug}`),
     likeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/like/`),
     dislikeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/dislike/`),
+    updateArticleRating: data => axios.post(`${API_HOST}/articles/${data.rating.slug}/ratings/`, data),
   },
 };

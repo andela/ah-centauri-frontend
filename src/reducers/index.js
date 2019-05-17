@@ -5,6 +5,7 @@ import profileReducer from './profileReducer';
 import resetReducer from './resetReducer';
 import articlesReducer from './articlesReducer';
 import likeReducers from './likeReducers';
+import articleRatingReducer from './articleRatingReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   resetReducer,
   articles: articlesReducer,
   likes: likeReducers,
+  rating: articleRatingReducer,
 });
