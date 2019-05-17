@@ -7,7 +7,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  current_profile: {},
+  current_profile: undefined,
   errorMessage: {},
   message: '',
   loading: false,

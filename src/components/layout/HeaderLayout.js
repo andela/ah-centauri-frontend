@@ -13,7 +13,7 @@ import {
 import { getMyProfileAction } from '../../actions/profileActions';
 
 
-class HeaderLayout extends Component {
+export class HeaderLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,7 +62,7 @@ class HeaderLayout extends Component {
 
 
     return (
-      <div className="sticky">
+      <div id="header-menu" className="sticky">
         <header>
           <Link to="/" className="logo">AH</Link>
           <div
@@ -163,9 +163,11 @@ HeaderLayout.propTypes = {
     last_name: PropTypes.string,
   }),
   getMyProfileAction: PropTypes.func.isRequired,
+  loginAction: PropTypes.func.isRequired,
+  signUpAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ auth, profile }) => ({
+export const mapStateToProps = ({ auth, profile }) => ({
   authenticated: auth.authenticated,
   profile: profile.current_profile,
 });

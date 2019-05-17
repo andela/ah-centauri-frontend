@@ -28,7 +28,6 @@ export default (state = INITIAL_STATE, action) => {
         disliked: action.payload.has_disliked,
         likes: action.payload.likes,
         dislikes: action.payload.dislikes,
-        loading: false,
       };
     case LIKE_ARTICLE:
       return {
@@ -37,7 +36,6 @@ export default (state = INITIAL_STATE, action) => {
         disliked: false,
         likes: action.payload.like_count,
         dislikes: action.payload.dislike_count,
-        loading: false,
       };
     case DISLIKE_ARTICLE:
       return {
@@ -46,7 +44,6 @@ export default (state = INITIAL_STATE, action) => {
         liked: false,
         likes: action.payload.like_count,
         dislikes: action.payload.dislike_count,
-        loading: false,
       };
     default: return state;
   }

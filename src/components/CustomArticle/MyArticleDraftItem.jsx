@@ -6,9 +6,11 @@ import moment from 'moment';
 
 import { deleteArticle } from '../../actions/articlesActions';
 
-class MyArticleDraftItem extends Component {
-  handleArticleDelete = (slug) => {
-    this.props.deleteArticle(slug);
+export class MyArticleDraftItem extends Component {
+  handleArticleDelete = (event) => {
+    event.preventDefault();
+
+    this.props.deleteArticle(this.props.article.slug);
   };
 
   render() {
@@ -48,20 +50,20 @@ class MyArticleDraftItem extends Component {
               >
                 <div className="jssocials-shares">
                   <div className="jssocials-share jssocials-share-pencil">
-                    <a
-                      to="#"
+                    <Link
+                      to={`/article/${article.slug}/edit`}
                       className="jssocials-share-link"
                     >
                       <i
                         className="fa fa-pencil jssocials-share-logo"
                       />
-                    </a>
+                    </Link>
                   </div>
                   <div className="jssocials-share jssocials-share-trash">
                     <Link
                       to="#"
                       className="jssocials-share-link"
-                      onClick={this.handleArticleDelete(article.slug)}
+                      onClick={this.handleArticleDelete}
                     >
                       <i
                         className="fa fa-trash jssocials-share-logo"
@@ -84,11 +86,8 @@ MyArticleDraftItem.defautProps = {
 
 MyArticleDraftItem.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  article: PropTypes.object.isRequired,
+  article: PropTypes.object,
   deleteArticle: PropTypes.func.isRequired,
 };
 
-export default connect(
-  {},
-  { deleteArticle },
-)(MyArticleDraftItem);
+export default connect(null, { deleteArticle })(MyArticleDraftItem);

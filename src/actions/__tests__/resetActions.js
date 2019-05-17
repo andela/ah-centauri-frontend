@@ -3,7 +3,7 @@ import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
-import {API_HOST} from '../../utils/Api';
+import { API_HOST } from '../../services/Api';
 import {RESET_PASSWORD_FAILURE, RESET_PASSWORD_SUCCESS} from '../types';
 import * as actions from '../resetActions';
 

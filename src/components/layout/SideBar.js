@@ -27,7 +27,10 @@ const SideBar = ({ articles }) => (
       <div className="sidebar-subscribe--title">
         <h3>EDITORS PICK</h3>
       </div>
-      <ArticleFeed articles={articles.slice(0, 3)}/>
+      <ArticleFeed
+      articles={articles.slice(0, 3)}
+      articlesCount = {4}
+      />
     </div>
   </div>
 );

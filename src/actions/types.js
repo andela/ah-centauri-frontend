@@ -25,3 +25,4 @@ export const DISLIKE_ARTICLE = 'DISLIKE_ARTICLE';
 export const LIKE_ARTICLE = 'LIKE_ARTICLE';
 export const LIKE_DISLIKE_ERROR = 'LIKE_DISLIKE_ERROR';
 export const GET_ARTICLE_DATA = 'GET_ARTICLE_DATA';
+export const SET_PAGE = 'SET_PAGE';

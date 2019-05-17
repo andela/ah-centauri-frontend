@@ -41,7 +41,7 @@ const testResponseData = {
 };
 
 describe('profileReducer', () => {
-  const {  updateProfileSuccessResponse, initialProfileState, } = setUpProfileTests();
+  const {  updateProfileSuccessResponse, } = setUpProfileTests();
   it('should return the initial state of the Profile reducer', () => {
     expect(reducer(undefined, {})).toEqual(
       {

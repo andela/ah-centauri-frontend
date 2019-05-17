@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { resetPasswordService } from '../../actions/resetActions'
-import ResetPasswordForm from '../../components/resetPassword/resetPasswordForm'
-
+import { resetPasswordService } from '../../actions/resetActions';
+import ResetPasswordForm from '../../components/resetPassword/resetPasswordForm';
+import Header from '../../components/layout/HeaderLayout';
+import Footer from '../../components/layout/Footer';
 
 class ResetPassword extends Component {
     constructor(props){
@@ -60,6 +61,8 @@ class ResetPassword extends Component {
             new_password, confirm_password, errorMessage, successMessage, formState
           } = this.state;
         return(
+          <div>
+          <Header />
             <ResetPasswordForm
                 errorMessage={errorMessage}
                 successMessage={successMessage}
@@ -83,7 +86,9 @@ class ResetPassword extends Component {
                         onChange:this.handleChange,
                     }
                 ]}
-          />
+            />
+            <Footer />
+            </div>
         );
     }
 }

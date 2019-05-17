@@ -11,7 +11,7 @@ import {
 import SideBar from '../../components/layout/SideBar';
 import SingleArticleItem from '../../components/CustomArticle/SingleArticleItem';
 
-class ArticlesDescription extends Component {
+export class ArticlesDescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ class ArticlesDescription extends Component {
   componentDidMount() {
     const { slug } = this.props.match.params;
     this.props.getAllArticles();
-    this.props.getSingleArticles(slug);
+    this.props.getSingleArticles(slug, this.props.history);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {

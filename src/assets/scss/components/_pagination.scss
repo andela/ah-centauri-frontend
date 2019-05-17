@@ -21,6 +21,10 @@
         color: #262626;
         font-size: 1.6rem;
         font-weight: 500;
+
+        &:hover{
+          border-radius: 30px;
+        }
       }
     }
 

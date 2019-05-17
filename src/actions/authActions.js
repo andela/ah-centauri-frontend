@@ -34,7 +34,7 @@ export const signoutAction = () => {
 
 export const signUpAction = formProps => (dispatch) => {
   dispatch(loadingMessage());
-  api.user.signup(formProps)
+  return api.user.signup(formProps)
     .then((response) => {
       dispatch(successMessage(response.data.user));
     })
@@ -46,7 +46,7 @@ export const signUpAction = formProps => (dispatch) => {
 
 export const loginAction = formProps => (dispatch) => {
   dispatch(loadingMessage());
-  api.user.login(formProps)
+  return api.user.login(formProps)
     .then((response) => {
       dispatch(successMessage(response.data.user));
     })

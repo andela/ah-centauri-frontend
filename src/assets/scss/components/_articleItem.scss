@@ -97,6 +97,7 @@
     font-family: "Montserrat", sans-serif;
     color: #8d8d8d;
     font-size: 1.2rem;
+
     & span {
       color: #8d8d8d;
     }
@@ -120,7 +121,6 @@
     }
 
     &-content{
-
       &>*:not(:last-child):not(:nth-last-child(2)),
       &>*:not(:last-child) {
         padding-right: 1.0rem;
@@ -403,7 +403,6 @@ p{
     padding-left: 8.0rem;
   }
 }
-
 
 .sh-clear {
   clear: both;

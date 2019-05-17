@@ -12,8 +12,8 @@ const ArticleItem = ({ article }) => (
           {article.tags.map((tag, index) => <Link to="#" key={index}>{tag}</Link>)}
         </div>
       </div>
-      <Link
-        to={`article/${article.slug}`}
+      <a
+        href={`/article/${article.slug}`}
         className="post-title"
       >
         <h2>
@@ -27,7 +27,7 @@ const ArticleItem = ({ article }) => (
             <i className="fa fa-bookmark-o" aria-hidden="true" />
           </span>
         </h2>
-      </Link>
+      </a>
       <div className="post-meta">
         <div className="post-meta-content">
           <span className="post-author-date">
@@ -50,8 +50,6 @@ const ArticleItem = ({ article }) => (
             <span
               className="post-read-later post-read-later-guest tooltipstered"
               href="#"
-              data-type="add"
-              data-id="67"
             >
               <i className="fa fa-bookmark-o" />
             </span>
@@ -65,13 +63,13 @@ const ArticleItem = ({ article }) => (
           src="https://cdn.gillion.shufflehound.com/wp-content/uploads/2017/01/26-1200x675.jpg"
           alt=""
         />
-        <Link to={`article/${article.slug}`} className="post-overlay">
+        <a href={`/article/${article.slug}`} className="post-overlay">
           <div className="post-overlay-content">
             <span />
             <span />
             <span />
           </div>
-        </Link>
+        </a>
       </div>
       <div className="post-content-container">
         <div className="post-content">
@@ -82,9 +80,9 @@ const ArticleItem = ({ article }) => (
       </div>
       <div className="post-readmore sh-table">
         <div className="sh-table-cell post-readmore-text">
-          <Link to={`article/${article.slug}`}>
+          <a href={`/article/${article.slug}`}>
             <h6>Read more</h6>
-          </Link>
+          </a>
         </div>
         <div className="sh-table-cell post-readmore-line">
           <div className="post-readmore-line-content" />

@@ -20,12 +20,6 @@ const setUp = () => {
 
 describe('Register page Rendered: ', () => {
   const { wrapper } = setUp();
-  it(' render header component', () => {
-    const gridMenu = wrapper.find('.register');
-
-    expect(gridMenu.exists())
-      .toBe(true);
-  });
 
   it(' render form component', () => {
     const formFile = wrapper.find('.register-form');

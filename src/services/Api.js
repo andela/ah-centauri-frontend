@@ -2,6 +2,8 @@ import axios from 'axios/index';
 
 // Backend API URL
 export const API_HOST = 'https://ah-centauri-backend-staging.herokuapp.com/api';
+
+const limit = (count, p) => `limit=${count}&offset=${p ? (p-1) * count : 0}`;
 // eslint-disable-next-line import/prefer-default-export
 export const api = {
   user: {
@@ -17,13 +19,13 @@ export const api = {
     updateMyProfile: data => axios.patch(`${API_HOST}/user/`, data),
   },
   articles: {
-    getAllArticles: () => axios.get(`${API_HOST}/articles/`),
+    getAllArticles: (page) => axios.get(`${API_HOST}/articles/?${limit(10, page)}`),
     getSingleArticles: slug => axios.get(`${API_HOST}/articles/${slug}`),
     createArticles: data => axios.post(`${API_HOST}/articles/`, data),
+    updateArticles: data => axios.put(`${API_HOST}/articles/${data.slug}/`, data),
     filterByAuthorArticles: username => axios.get(`${API_HOST}/articles/q?author=${username}`),
     deleteArticle: slug => axios.delete(`${API_HOST}/articles/${slug}`),
     likeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/like/`),
     dislikeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/dislike/`),
   },
-
 };

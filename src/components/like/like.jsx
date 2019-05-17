@@ -52,7 +52,22 @@ class likeDislikeButtons extends Component {
     return (
 
       <div>
-        
+        <div className="jssocials-share jssocials-share-like">
+
+          {liked ? 
+          (<a onClick={this.handleLike} href="" className="button-active">
+            <i className="fa fa-thumbs-o-up" />
+            <span>
+              {likes}
+            </span>
+          </a>)
+          :(<a onClick={this.handleLike} href="" className="jssocials-share-link">
+            <i className="fa fa-thumbs-o-up jssocials-share-logo" />
+            <span>
+              {likes}
+            </span>
+          </a>)}
+        </div>
         <div className="jssocials-share jssocials-share-like">
           {disliked ? (<a type="" onClick={this.handleDislike} href="" className="button-active">
             <i
@@ -67,22 +82,6 @@ class likeDislikeButtons extends Component {
             />
             <span>
               {dislikes}
-            </span>
-          </a>)}
-        </div>
-        <div className="jssocials-share jssocials-share-like">
-
-          {liked ? 
-          (<a onClick={this.handleLike} href="" className="button-active">
-            <i className="fa fa-thumbs-o-up" />
-            <span>
-              {likes}
-            </span>
-          </a>)
-          :(<a onClick={this.handleLike} href="" className="jssocials-share-link">
-            <i className="fa fa-thumbs-o-up jssocials-share-logo" />
-            <span>
-              {likes}
             </span>
           </a>)}
         </div>
@@ -104,7 +103,7 @@ const mapStateToProps = ({ likes }) => ({
   liked: likes.liked,
   likes: likes.likes,
   dislikes: likes.dislikes,
-  disliked: likes.currentArticle.has_disliked,
+  disliked: likes.disliked,
   slug: likes.currentArticle.slug,
 });
 

@@ -14,7 +14,7 @@ import HeaderLayout from '../../components/layout/HeaderLayout';
 import { createArticles } from '../../actions/articlesActions';
 import isEmpty from '../../utils/is_empty';
 
-class CreateArticlesPage extends Component {
+export class CreateArticlesPage extends Component {
   constructor(props) {
     super(props);
     const html = '<p>Hey this <strong>editor</strong> rocks 😀</p>';
@@ -54,7 +54,7 @@ class CreateArticlesPage extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();

@@ -1,4 +1,5 @@
 import {
+  LOADING_PROGRESS,
   ERROR_FETCHING_ARTICLES,
   FETCH_ALL_ARTICLES,
   FETCH_SINGLE_ARTICLE,
@@ -8,6 +9,9 @@ import {
 import { api } from '../services/Api';
 import { fetchArticleDataAction } from './likeActions';
 
+export const loadingMessage = () => ({
+  type: LOADING_PROGRESS,
+});
 
 export const successMessage = data => ({
   type: FETCH_ALL_ARTICLES,
@@ -35,40 +39,65 @@ export const deleteSuccessMessage = slug => ({
   payload: slug,
 });
 
-export const getAllArticles = () => dispatch => api.articles.getAllArticles()
-  .then((response) => {
-    dispatch(successMessage(response.data.article.results));
+export const getAllArticles = (page) => dispatch => {
+  dispatch(loadingMessage());
+  return api.articles.getAllArticles(page)
+  .then((reponse) => {
+    dispatch(successMessage(reponse.data.article));
   }).catch((error) => {
     dispatch(errorMessage(error.response.data));
-  });
+  });}
 
-
-export const getSingleArticles = slug => dispatch => api.articles.getSingleArticles(slug)
+export const getSingleArticles = (slug, history) => dispatch => {
+  dispatch(loadingMessage());
+  return api.articles.getSingleArticles(slug)
   .then((response) => {
     dispatch(singleArticleSuccessMessage(response.data.article));
     dispatch(fetchArticleDataAction(response.data.article));
   }).catch((error) => {
     dispatch(errorMessage(error.response.data));
+    history.push('/not-found');
   });
+}
 
-export const createArticles = (data, history) => dispatch => api.articles.createArticles(data)
+export const createArticles = (data, history) => dispatch => {
+  dispatch(loadingMessage());
+  return api.articles.createArticles(data)
   .then((response) => {
     dispatch(CreateArticleSuccessMessage(response.data.article));
     history.push('/');
   }).catch((error) => {
     dispatch(errorMessage(error.response.data));
   });
+}
 
-export const filterByAuthorArticles = data => dispatch => api.articles.filterByAuthorArticles(data)
+export const updateArticles = (data, history) => dispatch => {
+  return api.articles.updateArticles(data)
+  .then((response) => {
+    dispatch(CreateArticleSuccessMessage(response.data.article));
+    history.push(`/me/stories/drafts/${response.data.article.author.username}`);
+  }).catch((error) => {
+    if (error.statusCode === 404) {
+      history.push('/not-found');
+    }
+    dispatch(errorMessage(error.response.data));
+  });
+}
+
+export const filterByAuthorArticles = data => dispatch => {
+  dispatch(loadingMessage());
+  return api.articles.filterByAuthorArticles(data)
   .then((response) => {
     dispatch(successMessage(response.data.articles.results));
   }).catch((error) => {
     dispatch(errorMessage(error.response.data));
   });
+}
 
-export const deleteArticle = slug => dispatch => api.articles.deleteArticle(slug)
+export const deleteArticle = slug => dispatch => {
+  dispatch(loadingMessage());
+  return api.articles.deleteArticle(slug)
   .then((response) => {
     dispatch(deleteSuccessMessage(slug));
-  }).catch((error) => {
-    dispatch(errorMessage(error.response.data));
   });
+}
