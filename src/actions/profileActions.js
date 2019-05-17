@@ -5,6 +5,8 @@ import {
   PROFILE_LOADING_PROGRESS,
   UPDATE_MY_PROFILE_ERROR,
   UPDATE_MY_PROFILE_SUCCESS,
+  GET_SINGLE_PROFILE_SUCCESS,
+  UPDATE_MY_PROFILE_FOLLOW_SUCCESS,
 } from './types';
 import {loadingMessage} from './authActions';
 import getResponseErrors from '../utils/errorMessage';
@@ -47,5 +49,50 @@ export const updateMyProfileAction = profileFormData => (dispatch) => {
       } else {
         dispatch(failureMessage({ errors: 'Something went wrong when updating your profile.' }, UPDATE_MY_PROFILE_ERROR));
       }
+    });
+};
+
+export const getSingleUserProfileAction = username => (dispatch) => {
+  return api.profile.getSingleProfile(username)
+    .then((response) => {
+      dispatch(successMessage(response.data, GET_SINGLE_PROFILE_SUCCESS));
+    })
+    .catch((error) => {
+      if (error.response && error.response.data) {
+        const { responseErrorsObject } = getResponseErrors(error.response.data);
+        dispatch(failureMessage(responseErrorsObject));
+      } else {
+        dispatch(failureMessage({ errors: 'Something went wrong when fetching your profile.' }));
+      }
+    });
+};
+
+export const handleFollow = (username, history) => (dispatch) => {
+  return api.profile.handleFollow(username)
+    .then(() => {
+      getSingleUserProfileAction(username);
+    })
+    .catch(() => {
+      history.push('/');
+    });
+};
+
+export const handleUnFollow = (username, history) => (dispatch) => {
+  return api.profile.handleUnFollow(username)
+    .then(() => {
+      getSingleUserProfileAction(username);
+    })
+    .catch(() => {
+      history.push('/');
+    });
+};
+
+export const getUserFollow = (username, history) => (dispatch) => {
+  return api.profile.getUserFollowers(username)
+    .then((response) => {
+      dispatch(successMessage(response.data, UPDATE_MY_PROFILE_FOLLOW_SUCCESS));
+    })
+    .catch((error) => {
+      window.alert(JSON.stringify(error.response))
     });
 };

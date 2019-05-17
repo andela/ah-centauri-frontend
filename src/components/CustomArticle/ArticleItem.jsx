@@ -67,9 +67,10 @@ export class ArticleItem extends Component {
             <div className="post-meta-content">
               <span className="post-author-date">
                 <span>
-                  <Link to="#" className="post-author">{article.author.username}</Link>
+                  <Link to={`/profile/${article.author.username}`}
+                        className="post-author">{article.author.username}</Link>
                 </span>
-            ,&nbsp;
+                ,&nbsp;
                 <Link to="#" className="post-date">
                   {moment(article.created_at).format('MMM Do YY')}
                   {' '}
