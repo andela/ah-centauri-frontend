@@ -1,7 +1,11 @@
-import axios from 'axios';
+import axios from 'axios/index';
 import MockAdapter from 'axios-mock-adapter';
-import expect from 'expect';
-import {api} from '../Api';
+import expect from 'expect/build/index';
+import moxios from 'moxios';
+import {
+  api,
+  API_HOST,
+} from '../Api';
 
 
 describe('Api service function test: ', () => {
@@ -38,7 +42,6 @@ describe('Api service function test: ', () => {
           .toEqual(data);
       });
   });
-
 
   it(' returns data when resetPasswordLink is called', () => {
     const data = { response: true };
@@ -85,7 +88,7 @@ describe('Api service function test: ', () => {
     mock.onPost('users/social')
       .reply(200, data);
 
-    api.user.loginSocial({ url: "Abc123@!", payload: "Abc123@!" })
+    api.user.loginSocial({ url: 'Abc123@!', payload: 'Abc123@!' })
       .then((response) => {
         expect(response.data)
           .toEqual(data);
@@ -104,7 +107,7 @@ describe('Api service function test: ', () => {
           .toEqual(data);
       });
   });
-  
+
   it(' returns data when verify email is called ', () => {
     const data = { response: true };
 
@@ -112,6 +115,107 @@ describe('Api service function test: ', () => {
       .reply(200, data);
 
     api.user.verifyEmail({ token: 'faketoken', uid: 'fakeuid' })
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when updateMyProfile is called ', () => {
+    const data = { response: true };
+
+    mock.onPatch('/user/')
+      .reply(200, data);
+
+    api.profile.updateMyProfile({})
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when getAllArticles is called ', () => {
+    const data = { response: true };
+
+    mock.onGet('/articles')
+      .reply(200, data);
+
+    api.articles.getAllArticles()
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when getSingleArticles is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onGet(`/articles/${data.response.slug}`)
+      .reply(200, data);
+
+    api.articles.getSingleArticles()
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when createArticles is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onPost('/articles/')
+      .reply(200, data);
+
+    api.articles.createArticles(data)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when updateArticles is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onPut(`/articles/${data.response.slug}/`)
+      .reply(200, data);
+
+    api.articles.updateArticles(data)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when filterByAuthorArticles is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onGet(`/articles/q?author=${data.response.slug}`)
+      .reply(200, data);
+
+    api.articles.filterByAuthorArticles(data)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when deleteArticle is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onDelete(`/articles/${data.response.slug}`)
+      .reply(200, data);
+
+    api.articles.deleteArticle(data.response.slug)
       .then((response) => {
         expect(response.data)
           .toEqual(data);

@@ -1,14 +1,20 @@
-import {mount, shallow} from 'enzyme/build';
+import {
+  mount,
+  shallow
+} from 'enzyme/build';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import expect from 'expect';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import {Message} from 'semantic-ui-react';
-import {ProfilePage} from '../ProfilePage';
+import { Message } from 'semantic-ui-react';
+import { ProfilePage } from '../ProfilePage';
 import setUpProfileTests from '../../../setupTests';
 import Avatar from '../../../components/Profile/Avatar';
-import {getMyProfileAction, updateMyProfileAction} from '../../../actions/profileActions';
+import {
+  getMyProfileAction,
+  updateMyProfileAction
+} from '../../../actions/profileActions';
 
 
 const mock = new MockAdapter(axios);

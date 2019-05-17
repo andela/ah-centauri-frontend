@@ -4,7 +4,7 @@ import {
   AUTH_SIGNOUT,
   LOADING_PROGRESS,
 } from './types';
-import { api } from '../utils/Api';
+import { api } from '../services/Api';
 
 export const loadingMessage = () => ({
   type: LOADING_PROGRESS,

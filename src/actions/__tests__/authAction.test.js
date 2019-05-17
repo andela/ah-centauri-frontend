@@ -2,7 +2,7 @@ import expect from 'expect';
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import { API_HOST } from '../../utils/Api';
+import { API_HOST } from '../../services/Api';
 import * as actions from '../authActions';
 import {
   AUTH_ERROR,

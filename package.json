@@ -8,7 +8,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "classnames": "^2.2.6",
     "dotenv": "^8.0.0",
+    "draft-js": "^0.10.5",
+    "draftjs-to-html": "^0.8.4",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "eslint-plugin-flowtype": "^3.8.1",
@@ -18,10 +21,13 @@
     "express": "^4.16.4",
     "firebase": "^5.11.1",
     "history": "^4.9.0",
+    "html-react-parser": "^0.7.0",
+    "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "prop-types": "latest",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-draft-wysiwyg": "^1.13.2",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
@@ -31,7 +37,8 @@
     "redux-testkit": "^1.0.6",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.86.0"
+    "semantic-ui-react": "^0.86.0",
+    "html-to-draftjs": "latest"
   },
   "scripts": {
     "start": "node server.js",
@@ -66,7 +73,6 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
-    "jest": "^24.7.1",
     "moxios": "^0.4.0",
     "react-test-renderer": "^16.8.6"
   }
