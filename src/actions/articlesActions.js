@@ -47,7 +47,7 @@ export const getAllArticles = (page) => dispatch => {
     dispatch(errorMessage(error.response.data));
   });}
 
-export const getSingleArticles = slug => dispatch => {
+export const getSingleArticles = (slug, history) => dispatch => {
   dispatch(loadingMessage());
   return api.articles.getSingleArticles(slug)
   .then((response) => {

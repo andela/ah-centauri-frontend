@@ -30,7 +30,7 @@ const ArticlePagination = props => {
   };
 
   return (
-    <nav>
+    <div>
      <ul>
         <li>
             <a id='prev' className="page-numbers" href="" className = {classNames({'page-numbers':true})}
@@ -59,7 +59,7 @@ const ArticlePagination = props => {
         </li>
       </ul>
     
-    </nav>
+    </div>
   );
 };
 
