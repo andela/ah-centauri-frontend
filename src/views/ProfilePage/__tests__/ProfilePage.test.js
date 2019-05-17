@@ -1,24 +1,38 @@
-import {
-  mount,
-  shallow
-} from 'enzyme/build';
+import {shallow} from 'enzyme';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import expect from 'expect';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { Message } from 'semantic-ui-react';
-import { ProfilePage } from '../ProfilePage';
+import {Message} from 'semantic-ui-react';
+import {BrowserRouter} from 'react-router-dom';
+import {shape} from 'prop-types';
+import {ProfilePage} from '../ProfilePage';
 import setUpProfileTests from '../../../setupTests';
 import Avatar from '../../../components/Profile/Avatar';
-import {
-  getMyProfileAction,
-  updateMyProfileAction
-} from '../../../actions/profileActions';
-
+import {getMyProfileAction, updateMyProfileAction} from '../../../actions/profileActions';
 
 const mock = new MockAdapter(axios);
 
+
+// Instantiate router context
+const router = {
+  history: new BrowserRouter().history,
+  route: {
+    location: {},
+    match: {},
+  },
+};
+
+const createContext = () => ({
+  context: { router },
+  childContextTypes: { router: shape({}) },
+  wrappingComponent: BrowserRouter,
+});
+
+function mountWrapProfilePage(props) {
+  return shallow(<ProfilePage {...props} />, createContext());
+}
 
 // Test ProfilePage React Component
 describe(' ProfilePage --- Test for profile page loading', () => {
@@ -50,14 +64,8 @@ describe(' ProfilePage --- Test for profile page loading', () => {
 
   beforeEach(() => {
     store = mockStore(initialProfileState);
-    profilePageComponent = mount(
-      <ProfilePage
-        getMyProfileAction={profilePageProps.getMyProfileAction}
-        updateMyProfileAction={profilePageProps.updateMyProfileAction}
-        handleSubmit={profilePageProps.handleSubmit}
-        authenticated
-        loading={false}
-      />,
+    profilePageComponent = mountWrapProfilePage(
+      profilePageProps,
     );
   });
 
@@ -71,14 +79,10 @@ describe(' ProfilePage --- Test for profile page loading', () => {
 
     mock.onPatch('user/')
       .reply(400, { response: { data: updateProfileErrorResponse } });
-
-    const noAuthProfilePageComponent = shallow(
-      <ProfilePage
-        getMyProfileAction={profilePageProps.getMyProfileAction}
-        updateMyProfileAction={profilePageProps.updateMyProfileAction}
-        authenticated={false}
-        loading={false}
-      />,
+    const noAuthProps = profilePageProps;
+    noAuthProps.authenticated = false;
+    const noAuthProfilePageComponent = mountWrapProfilePage(
+      noAuthProps,
     );
     expect(noAuthProfilePageComponent.find(Message).exists()).toBe(true);
   });
@@ -90,13 +94,8 @@ describe(' ProfilePage --- Test for profile page loading', () => {
     mock.onPatch('user/')
       .reply(400, { response: { data: updateProfileErrorResponse } });
 
-    const errorProfilePageComponent = mount(
-      <ProfilePage
-        getMyProfileAction={profilePageProps.getMyProfileAction}
-        updateMyProfileAction={profilePageProps.updateMyProfileAction}
-        authenticated
-        loading={false}
-      />,
+    const errorProfilePageComponent = mountWrapProfilePage(
+      profilePageProps,
     );
     const spy = jest.spyOn(errorProfilePageComponent.instance(), 'handleSubmit');
     errorProfilePageComponent.instance().handleSubmit({

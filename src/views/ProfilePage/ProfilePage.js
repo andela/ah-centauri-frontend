@@ -1,6 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Button, Divider, Dropdown, Grid, Icon, Message, Tab, TextArea,} from 'semantic-ui-react';
+import {Divider, Dropdown, Grid, Message, Tab, TextArea,} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import CustomForm from '../../components/CustomForm/CustomForm';
@@ -8,6 +7,8 @@ import countryOptions from '../../utils/profile.constants';
 import {getMyProfileAction, updateMyProfileAction} from '../../actions/profileActions';
 import Avatar from '../../components/Profile/Avatar';
 import CountLabel from '../../components/Profile/CountLabel';
+import HeaderLayout from '../../components/layout/HeaderLayout';
+import Footer from '../../components/layout/Footer';
 
 // Create component class to load user highlight details in an accordion.
 
@@ -213,42 +214,50 @@ export class ProfilePage extends React.Component {
     if (authenticated) {
       return (
         <div>
-          {/* User avatar and follower data from the followers endpoint and the user Profile  */}
-          <Grid stackable columns={2} divided verticalAlign="middle">
-            <Grid.Row>
-              <Avatar spaced imageUrl={profile.image_url} username={profile.username} />
+          <section className="home">
+            <HeaderLayout />
+            <Grid columns="equal" divided verticalAlign="middle">
+              {/* User avatar and follower data from the followers endpoint and the user Profile  */}
+              <Avatar textAlign="center" spaced imageUrl={profile.image_url} username={profile.username} />
               <Grid.Column textAlign="center">
                 {FollowCountLabels}
               </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <Divider />
-          {/* User Profile form tab that has all the user Profile data loaded from the Profile */}
-          {this.state.message
-            ? (
-              <Message
-                onDismiss={this.handleDismiss}
-                success
-                header={this.state.message}
-              />
-            ) : ''}
-          <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+              <Divider />
+              <Grid.Row>
+                <Grid.Column>
+                  {/* User Profile form tab that has all the user Profile data loaded from the Profile */}
+                  {this.state.message
+                    ? (
+                      <Message
+                        onDismiss={this.handleDismiss}
+                        success
+                        header={this.state.message}
+                      />
+                    ) : ''}
+                  <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+
+          </section>
+          <Footer />
         </div>
+
+
       );
     }
     return (
-      <Message negative>
-        <Message.Header>You're not signed in!</Message.Header>
-        <p>We can't load your details cause you're not signed in :( </p>
-        <p>
-          <Button as={Link} to="/login" icon primary labelPosition="right">
-          Login Here
-            <Icon name="right arrow" />
-          </Button>
-          {' '}
+        <div>
+        <section className="home">
+        <HeaderLayout />
+        <Message negative>
+          <Message.Header>You're not signed in!</Message.Header>
+          <p>We can't load your details cause you're not signed in :( </p>
+        </Message>
 
-        </p>
-      </Message>
+        </section>
+        <Footer />
+        </div>
     );
   }
 }
