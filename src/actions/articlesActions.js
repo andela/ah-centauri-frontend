@@ -7,6 +7,7 @@ import {
   DELETE_SINGLE_ARTICLE,
 } from './types';
 import { api } from '../services/Api';
+import { fetchArticleDataAction } from './likeActions';
 
 export const loadingMessage = () => ({
   type: LOADING_PROGRESS,
@@ -52,6 +53,7 @@ export const getSingleArticles = (slug, history) => dispatch => {
   return api.articles.getSingleArticles(slug)
   .then((response) => {
     dispatch(singleArticleSuccessMessage(response.data.article));
+    dispatch(fetchArticleDataAction(response.data.article));
   }).catch((error) => {
     dispatch(errorMessage(error.response.data));
     history.push('/not-found');
