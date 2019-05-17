@@ -40,12 +40,14 @@ export default function (state = INITIAL_STATE, actions) {
       return {
         ...state,
         articles: [...state.articles, actions.payload],
+        errorMessage: {},
         loading: false,
       };
     case DELETE_SINGLE_ARTICLE:
       return {
         ...state,
         articles: state.articles.filter(article => article.slug !== actions.payload),
+        errorMessage: {},
         loading: false,
       };
     case ERROR_FETCHING_ARTICLES:

@@ -90,7 +90,7 @@ const SingleArticleItem = ({ article }) => (
         <div className="post-single-meta">
           <div className="post-categories-container">
             <div className="post-categories">
-              {article.tags ? article.tags.map((tag, index) => <Link to="#" key={index}>{tag}</Link>) : ''}
+              {article.tags ? article.tags.map((tag, index) => <Link to="#" key={index}>{tag}</Link>) : 'loading ....'}
             </div>
           </div>
           <a className="post-title">
@@ -124,7 +124,7 @@ const SingleArticleItem = ({ article }) => (
                     href="#"
                     className="post-author"
                   >
-                    {article.author ? article.author.username : ''}
+                    {article.author ? article.author.username : 'loading.....'}
                   </a>
                 </span>
                   ,
@@ -157,7 +157,7 @@ const SingleArticleItem = ({ article }) => (
         </div>
         <div className="post-content">
           <div style={{ color: 'black' }}>
-            {article.body? parse(`<p>${article.body}</p>`) : "Loading  😀 ....."}
+            {article.body ? parse(`<p>${article.body}</p>`) : 'Loading  😀 .....'}
           </div>
           <div className="sh-clear" />
           <div className="post-tags-container">
@@ -165,7 +165,7 @@ const SingleArticleItem = ({ article }) => (
               {article.tags ? article.tags.map((tag, index) => (
                 <Link
                   to="#"
-                  key={index}
+                  key={index.toString()}
                   className="post-tags-item post-tags-item-title"
                 >
                   #

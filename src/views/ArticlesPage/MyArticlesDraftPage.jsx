@@ -7,7 +7,7 @@ import HeaderLayout from '../../components/layout/HeaderLayout';
 import { filterByAuthorArticles } from '../../actions/articlesActions';
 import MyArticleDraftFeed from '../../components/CustomArticle/MyArticleDraftFeed';
 
-class MyArticlesDraftPage extends Component {
+export class MyArticlesDraftPage extends Component {
   componentDidMount() {
     this.props.filterByAuthorArticles(this.props.match.params.username);
   }

@@ -11,18 +11,17 @@ import {
 } from 'semantic-ui-react';
 import Footer from '../../components/layout/Footer';
 import HeaderLayout from '../../components/layout/HeaderLayout';
-import { createArticles } from '../../actions/articlesActions';
+import {
+  updateArticles,
+  getSingleArticles,
+} from '../../actions/articlesActions';
 import isEmpty from '../../utils/is_empty';
 
-export class CreateArticlesPage extends Component {
+export class UpdateArticlesPage extends Component {
   constructor(props) {
     super(props);
-    const html = '<p>Hey this <strong>editor</strong> rocks 😀</p>';
-    const contentBlock = htmlToDraft(html);
-    const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-    const editorState = EditorState.createWithContent(contentState);
     this.state = {
-      editorState,
+      body: EditorState.createEmpty(),
       errorMessage: {},
       title: '',
       description: '',
@@ -31,22 +30,37 @@ export class CreateArticlesPage extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.errorMessage !== nextProps.errorMessage
-      || prevState.loading !== nextProps.loading) {
-      return {
-        errorMessage: nextProps.errorMessage,
-        loading: nextProps.loading,
-      };
-    }
+  componentDidMount() {
+    const { slug } = this.props.match.params;
 
-    return null;
+    this.props.getSingleArticles(slug, this.props.history);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    try {
+      const articles = [];
+      articles.push(nextProps.article);
+      const article = articles[0];
+      const articleBody = article.body;
+      const contentBlock = htmlToDraft(articleBody);
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+      const body = EditorState.createWithContent(contentState);
+
+      this.setState({
+        title: article.title,
+        description: article.description,
+        body,
+        tags: article.tags.join(),
+        errorMessage: nextProps.errorMessage,
+      });
+    } catch (e) {
+    }
   }
 
 
-  onEditorStateChange = (editorState) => {
+  onEditorStateChange = (body) => {
     this.setState({
-      editorState,
+      body,
     });
   };
 
@@ -60,32 +74,31 @@ export class CreateArticlesPage extends Component {
     event.preventDefault();
 
     const {
-      editorState,
+      body,
       title,
       tags,
       description,
     } = this.state;
+    const { slug } = this.props.match.params;
 
     const noSpaceString = tags.replace(/\s/g, '');
     let tagsArray = [];
     if (!isEmpty(noSpaceString)) {
       tagsArray = noSpaceString.split(',');
     }
-    const body = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
-    this.props.createArticles({
-      article: {
-        title,
-        body,
-        description,
-        tags: tagsArray,
-      },
+    this.props.updateArticles({
+      slug,
+      title,
+      body: draftToHtml(convertToRaw(body.getCurrentContent())),
+      description,
+      tags: tagsArray,
     }, this.props.history);
   };
 
   render() {
     const {
-      editorState, title, tags, errorMessage, description,
+      body, title, tags, errorMessage, description,
     } = this.state;
 
     const errorList = [];
@@ -102,7 +115,7 @@ export class CreateArticlesPage extends Component {
           <div className="column">
             <div className="articles">
               <h3 className="article-title text-uppercase text-center fadeInUp">
-                Create a new Blog
+                Update Blog
                 <br />
                  Post
               </h3>
@@ -133,7 +146,7 @@ export class CreateArticlesPage extends Component {
                   onChange={this.handleInputChange}
                 />
                 <Editor
-                  editorState={editorState}
+                  editorState={body}
                   wrapperClassName="wrapper-class"
                   editorClassName="editor-class"
                   toolbarClassName="toolbar-class"
@@ -176,22 +189,26 @@ export class CreateArticlesPage extends Component {
   }
 }
 
-CreateArticlesPage.defautProps = {
+UpdateArticlesPage.defautProps = {
   loading: false,
   errorMessage: {},
+  article: {},
 };
 
-CreateArticlesPage.propTypes = {
+UpdateArticlesPage.propTypes = {
+  article: PropTypes.object,
   errorMessage: PropTypes.object,
   authenticated: PropTypes.bool,
   loading: PropTypes.bool,
-  createArticles: PropTypes.func.isRequired,
+  updateArticles: PropTypes.func.isRequired,
+  getSingleArticles: PropTypes.func.isRequired,
 };
 
 export const mapStateToProps = ({ auth, articles }) => ({
   errorMessage: articles.errorMessage,
   loading: articles.loading,
+  article: articles.article,
   authenticated: auth.authenticated,
 });
 
-export default connect(mapStateToProps, { createArticles })(CreateArticlesPage);
+export default connect(mapStateToProps, { updateArticles, getSingleArticles })(UpdateArticlesPage);

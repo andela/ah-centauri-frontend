@@ -17,9 +17,10 @@ export const api = {
     updateMyProfile: data => axios.patch(`${API_HOST}/user/`, data),
   },
   articles: {
-    getAllArticles: () => axios.get(`${API_HOST}/articles/`),
+    getAllArticles: () => axios.get(`${API_HOST}/articles`),
     getSingleArticles: slug => axios.get(`${API_HOST}/articles/${slug}`),
     createArticles: data => axios.post(`${API_HOST}/articles/`, data),
+    updateArticles: data => axios.put(`${API_HOST}/articles/${data.slug}/`, data),
     filterByAuthorArticles: username => axios.get(`${API_HOST}/articles/q?author=${username}`),
     deleteArticle: slug => axios.delete(`${API_HOST}/articles/${slug}`),
   },

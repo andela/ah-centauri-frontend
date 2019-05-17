@@ -9,7 +9,7 @@ import Footer from '../../components/layout/Footer';
 import { getAllArticles } from '../../actions/articlesActions';
 import SideBar from '../../components/layout/SideBar';
 
-class HomePage extends Component {
+export class HomePage extends Component {
   componentDidMount() {
     this.props.getAllArticles();
   }
