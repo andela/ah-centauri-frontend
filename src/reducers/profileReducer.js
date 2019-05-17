@@ -5,9 +5,12 @@ import {
   PROFILE_LOADING_PROGRESS,
   UPDATE_MY_PROFILE_ERROR,
   UPDATE_MY_PROFILE_SUCCESS,
+  GET_SINGLE_PROFILE_SUCCESS,
+  UPDATE_MY_PROFILE_FOLLOW_SUCCESS,
 } from '../actions/types';
 
 const INITIAL_STATE = {
+  profile: {},
   current_profile: undefined,
   errorMessage: {},
   message: '',
@@ -64,6 +67,24 @@ export default function (state = INITIAL_STATE, actions) {
       return {
         ...state,
         current_profile: undefined,
+      };
+    case UPDATE_MY_PROFILE_FOLLOW_SUCCESS:
+      // The payload should have a message string and Profile JSON object on success
+      return {
+        ...state,
+        loading: false,
+        profile: { ...state.profile, ...actions.payload },
+        message: actions.payload.message,
+        errorMessage: {},
+      };
+    case GET_SINGLE_PROFILE_SUCCESS:
+      // The payload should have a message string and Profile JSON object on success
+      return {
+        ...state,
+        profile: actions.payload.profile,
+        message: '',
+        errorMessage: {},
+        loading: false,
       };
     default:
       return state;

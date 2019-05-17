@@ -1,0 +1,109 @@
+.profile-description-content{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  &__info{
+    flex-direction: column;
+  }
+}
+
+.single-profile {
+  font-family: 'Roboto Condensed', sans-serif;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+    background: linear-gradient(to bottom right, var(--color-primary), var(--color-grey-dark-2));
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border-radius: 0.4rem;
+    margin-right: 3rem;
+    float: left;
+
+    & img {
+      box-shadow: 3rem 3rem 10rem rgba(0, 0, 0, 0.2);
+      border-radius: 50%;
+      width: 20rem;
+      height: 20rem;
+      background: white;
+      margin: 3rem 3rem 0 3rem;
+      box-sizing: border-box;
+      border: 5px solid #cfd8dc;
+    }
+
+    & h2 {
+      font-size: 2.6rem;
+      color: white;
+      line-height: 5rem;
+      transform: translateY(-1rem);
+      letter-spacing: -.029rem;
+      font-weight: 500;
+    }
+
+    & p {
+      font-size: 1.8rem;
+      color: whitesmoke;
+      line-height: 2rem;
+      transform: translateY(-1rem);
+      letter-spacing: -0.029rem;
+      font-weight: normal;
+    }
+
+    & span {
+      display: flex;
+      margin: 2rem auto;
+    }
+
+    & a,
+    & button {
+      height: 3.7rem;
+      line-height: 3.7rem;
+      padding: 0 4rem;
+      border: .1rem solid rgba(0, 0, 0, .15);
+      -webkit-border-radius: .4rem;
+      border-radius: 5rem;
+      color: rgba(0, 0, 0, .54);
+
+      &:active {
+        border-color: rgba(0, 0, 0, .68);
+      }
+
+      &:hover {
+        color: rgba(0, 0, 0, .68);
+        border-color: rgba(0, 0, 0, .68);
+      }
+    }
+  }
+
+  &__content {
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border-radius: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+
+    &-header {
+      font-size: 2.6rem;
+      color: var(--color-grey-dark-2);
+      line-height: 5rem;
+      letter-spacing: -.029rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.content_list {
+
+  flex-wrap: wrap;
+  width: 47em;
+  max-width: 75em;
+}
+
+.ui.black.label {
+  background: linear-gradient(to bottom right, var(--shadow-dark), var(--shadow-light)) !important;
+}

@@ -4,6 +4,10 @@ import {
   GET_MY_PROFILE_SUCCESS,
   UPDATE_MY_PROFILE_ERROR,
   UPDATE_MY_PROFILE_SUCCESS,
+  GET_SINGLE_PROFILE_SUCCESS,
+  PROFILE_LOADING_PROGRESS,
+  AUTH_SIGNOUT,
+  UPDATE_MY_PROFILE_FOLLOW_SUCCESS,
 } from '../../actions/types';
 import setUpProfileTests from '../../setupTests';
 
@@ -40,8 +44,11 @@ const testResponseData = {
   },
 };
 
-describe('profileReducer', () => {
-  const {  updateProfileSuccessResponse, } = setUpProfileTests();
+describe('profileReducer', /**
+ *
+ */
+() => {
+  const { updateProfileSuccessResponse } = setUpProfileTests();
   it('should return the initial state of the Profile reducer', () => {
     expect(reducer(undefined, {})).toEqual(
       {
@@ -49,8 +56,25 @@ describe('profileReducer', () => {
         errorMessage: {},
         message: '',
         loading: false,
+        profile: {},
       },
     );
+  });
+
+  it(`Profile reducer should handle ${PROFILE_LOADING_PROGRESS}`, () => {
+    expect(reducer({}, {
+      type: PROFILE_LOADING_PROGRESS,
+    })).toEqual({
+      loading: true,
+    });
+  });
+
+  it(`Profile reducer should handle ${AUTH_SIGNOUT}`, () => {
+    expect(reducer({}, {
+      type: AUTH_SIGNOUT,
+    })).toEqual({
+      current_profile: undefined,
+    });
   });
 
   it(`Profile reducer should handle ${GET_MY_PROFILE_SUCCESS}`, () => {
@@ -76,6 +100,7 @@ describe('profileReducer', () => {
       loading: false,
     });
   });
+
   it(`Profile reducer should handle ${UPDATE_MY_PROFILE_SUCCESS}`, () => {
     expect(reducer({}, {
       type: UPDATE_MY_PROFILE_SUCCESS,
@@ -99,4 +124,32 @@ describe('profileReducer', () => {
       loading: false,
     });
   });
-});
+
+  it(`Profile reducer should handle ${UPDATE_MY_PROFILE_FOLLOW_SUCCESS}`, () => {
+    expect(reducer({}, {
+      type: UPDATE_MY_PROFILE_FOLLOW_SUCCESS,
+      payload: { following: [], followers: [], message: 'success' },
+    })).toEqual({
+      errorMessage: {},
+      loading: false,
+      message: 'success',
+      profile: {
+        followers: [],
+        following: [],
+        message: 'success',
+      },
+    });
+  });
+
+  it(`Single profile reducer should handle ${GET_SINGLE_PROFILE_SUCCESS}`, () => {
+    expect(reducer({}, {
+      type: GET_SINGLE_PROFILE_SUCCESS,
+      payload: testResponseData,
+    })).toEqual({
+      profile: testResponseData.profile,
+      message: '',
+      errorMessage: {},
+      loading: false,
+    });
+  });
+  });
