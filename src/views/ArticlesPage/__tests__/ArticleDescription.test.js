@@ -13,6 +13,7 @@ const setUp = () => {
     getAllArticles: jest.fn(),
     getSingleArticles: jest.fn(),
     getAllbookmarkedArticles: jest.fn(),
+    getAllComments: jest.fn()
   };
   const wrapper = shallow(<ArticlesDescription {...props} />);
 
