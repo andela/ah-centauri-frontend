@@ -6,12 +6,9 @@ import {
   FETCH_ALL_ARTICLES,
   FETCH_SINGLE_ARTICLE,
   LOADING_PROGRESS,
-  FETCH_ALL_BOOKMARKS,
-  CREATE_SINGLE_BOOKMARK,
-  DELETE_SINGLE_BOOKMARK,
 } from './types';
-import { api } from '../services/Api';
-import { fetchArticleDataAction } from './likeActions';
+import {api} from '../services/Api';
+import {fetchArticleDataAction} from './likeActions';
 
 export const loadingMessage = () => ({
   type: LOADING_PROGRESS,
