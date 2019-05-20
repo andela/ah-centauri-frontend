@@ -6,7 +6,7 @@ import {
 import {
   CREATE_SINGLE_BOOKMARK,
   DELETE_SINGLE_BOOKMARK,
-  FETCH_ALL_BOOKMARKS
+  FETCH_ALL_BOOKMARKS,
 } from './types';
 
 export const bookmarksuccessMessage = bookmarks => ({
@@ -25,7 +25,6 @@ export const deleteBookmarkSuccessMessage = id => ({
 });
 
 export const getAllbookmarkedArticles = () => (dispatch) => {
-  dispatch(loadingMessage());
   return api.bookmarks.getAllBookmarkArticle()
     .then((response) => {
       dispatch(bookmarksuccessMessage(response.data.bookmarks));
@@ -35,7 +34,6 @@ export const getAllbookmarkedArticles = () => (dispatch) => {
 };
 
 export const bookmarkArticle = slug => (dispatch) => {
-  dispatch(loadingMessage());
   return api.bookmarks.bookmarkArticle(slug)
     .then((response) => {
       dispatch(CreateBookmarkSuccessMessage(response.data.bookmark));
@@ -45,7 +43,6 @@ export const bookmarkArticle = slug => (dispatch) => {
 };
 
 export const unBookmarkArticle = id => (dispatch) => {
-  dispatch(loadingMessage());
   return api.bookmarks.unBookmarkArticle(id)
     .then(() => {
       dispatch(deleteBookmarkSuccessMessage(id));

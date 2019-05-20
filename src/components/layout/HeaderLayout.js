@@ -97,7 +97,6 @@ export class HeaderLayout extends Component {
                   <ul className="sub-menu">
                     <li><Link to="/create-article">New Story</Link></li>
                     <li><Link to={`/me/stories/drafts/${username}`}>Stories</Link></li>
-                    <li><Link to="/me/list/bookmarks">Bookmarks</Link></li>
                     <li><Link to="/profile">Profile</Link></li>
                     <li><a onClick={this.handleSignOut} href="#">Signout</a></li>
                   </ul>

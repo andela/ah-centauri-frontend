@@ -131,13 +131,15 @@ export class CreateArticlesPage extends Component {
                   required
                   onChange={this.handleInputChange}
                 />
-                <Editor
-                  editorState={editorState}
-                  wrapperClassName="wrapper-class"
-                  editorClassName="editor-class"
-                  toolbarClassName="toolbar-class"
-                  onEditorStateChange={this.onEditorStateChange}
-                />
+                <div className="editor-bg">
+                  <Editor
+                    editorState={editorState}
+                    wrapperClassName="wrapper-class"
+                    editorClassName="editor-class"
+                    toolbarClassName="toolbar-class"
+                    onEditorStateChange={this.onEditorStateChange}
+                  />
+                </div>
 
                 <div className="ui left icon right labeled input" style={{ width: '100%' }}>
                   <input
