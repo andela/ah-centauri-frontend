@@ -1,13 +1,8 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch,} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
-
 import routes from './routes';
 import store from './store';
-import getInitialUserData from './utils/getInitialUserData';
-
-
-getInitialUserData(store);
 
 const App = () => (
   <Provider store={store}>

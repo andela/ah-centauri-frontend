@@ -1,10 +1,10 @@
-import likeReducers from "../reducers/likeReducers";
-
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';
 
 export const LOADING_PROGRESS = 'LOADING_PROGRESS';
+export const PROFILE_LOADING_PROGRESS = 'PROFILE_LOADING_PROGRESS';
+export const ARTICLE_LOADING_PROGRESS = 'PROFILE_LOADING_PROGRESS';
 
 export const GET_MY_PROFILE_SUCCESS = 'GET_MY_PROFILE_SUCCESS';
 export const GET_MY_PROFILE_ERROR = 'GET_MY_PROFILE_ERROR';

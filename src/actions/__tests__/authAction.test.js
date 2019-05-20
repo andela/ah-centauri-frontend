@@ -2,14 +2,9 @@ import expect from 'expect';
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import { API_HOST } from '../../services/Api';
+import {API_HOST} from '../../services/Api';
 import * as actions from '../authActions';
-import {
-  AUTH_ERROR,
-  AUTH_SUCCESS,
-  AUTH_SIGNOUT,
-  LOADING_PROGRESS,
-} from '../types';
+import {AUTH_ERROR, AUTH_SIGNOUT, AUTH_SUCCESS, LOADING_PROGRESS,} from '../types';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -22,6 +17,7 @@ describe('Auth actions ', () => {
 
   afterEach(() => {
     moxios.uninstall();
+    store.clearActions();
   });
 
   it('render loading message action', () => {
@@ -93,9 +89,9 @@ describe('Auth actions ', () => {
 
   it('test it creates AUTH_ERROR when login fails', async (done) => {
     const data = {
-      errors: [
-        'found something wrong',
-      ],
+      errors: {
+        errors: 'found something wrong',
+      },
     };
 
     const expectedActions = actions.failureMessage(data);
@@ -139,9 +135,9 @@ describe('Auth actions ', () => {
 
   it('test it creates AUTH_ERROR when registration fails', async (done) => {
     const data = {
-      errors: [
-        'found something wrong',
-      ],
+      errors: {
+        errors: 'found something wrong',
+      },
     };
 
     const expectedActions = actions.failureMessage(data);
