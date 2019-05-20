@@ -7,8 +7,10 @@ import Footer from '../../components/layout/Footer';
 import {
   getAllArticles,
   getSingleArticles,
-  getAllbookmarkedArticles,
 } from '../../actions/articlesActions';
+import {
+  getAllbookmarkedArticles,
+} from '../../actions/bookmarksActions';
 
 import SideBar from '../../components/layout/SideBar';
 import SingleArticleItem from '../../components/CustomArticle/SingleArticleItem';

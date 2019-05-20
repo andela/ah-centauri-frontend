@@ -10,7 +10,7 @@ import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import {
   bookmarkArticle,
   unBookmarkArticle,
-} from '../../actions/articlesActions';
+} from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
 
 class ArticleItem extends Component {

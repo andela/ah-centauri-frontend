@@ -8,8 +8,10 @@ import Footer from '../../components/layout/Footer';
 
 import {
   getAllArticles,
-  getAllbookmarkedArticles
 } from '../../actions/articlesActions';
+import {
+  getAllbookmarkedArticles,
+} from '../../actions/bookmarksActions';
 import SideBar from '../../components/layout/SideBar';
 import { setPage } from '../../actions/paginationActions'
 

@@ -13,7 +13,7 @@ import ArticleRating from '../ArticleRating/ArticleRating';
 import {
   bookmarkArticle,
   unBookmarkArticle,
-} from '../../actions/articlesActions';
+} from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
 
 class SingleArticleItem extends Component {
@@ -75,8 +75,14 @@ class SingleArticleItem extends Component {
             <div className="post-single-meta">
               <div className="post-categories-container">
                 <div className="post-categories">
-                  {article.tags ? article.tags.map((tag, index) => <Link to="#"
-                                                                         key={index}>{tag}</Link>) : 'loading ....'}
+                  {article.tags ? article.tags.map((tag, index) => (
+                    <Link
+                      to="#"
+                      key={index}
+                    >
+                      {tag}
+                    </Link>
+                  )) : 'loading ....'}
                 </div>
               </div>
               <h2 className="post-title">
@@ -89,10 +95,13 @@ class SingleArticleItem extends Component {
                   className={classNames({ 'post-read-later': true, 'post-read-later-guest': authenticated })}
                   onClick={e => (isEmpty(bookmarked) ? this.handleBookmark(e, article.slug) : this.handleUnBookmark(e, bookmarked[0].id))}
                 >
-                  <i className={classNames({
-                    'fa fa-bookmark-o': isEmpty(bookmarked),
-                    'fa fa-bookmark': !isEmpty(bookmarked)
-                  })} aria-hidden="true"/>
+                  <i
+                    className={classNames({
+                      'fa fa-bookmark-o': isEmpty(bookmarked),
+                      'fa fa-bookmark': !isEmpty(bookmarked),
+                    })}
+                    aria-hidden="true"
+                  />
                 </span>
               </h2>
               <div className="post-meta">
@@ -112,15 +121,15 @@ class SingleArticleItem extends Component {
                         href="#"
                         className="post-author"
                       >
-                      {article.author ? article.author.username : 'loading.....'}
-                    </a>
+                        {article.author ? article.author.username : 'loading.....'}
+                      </a>
                     </span>
                   ,
                     <a
                       href="#"
                       className="post-date"
                     >
-                      {article.created_at}
+                     {moment(article.created_at).format('MMM Do YY')}
                     </a>
                   </span>
                   <span className="post-readtime">
