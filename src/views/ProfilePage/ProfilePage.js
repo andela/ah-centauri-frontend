@@ -9,6 +9,7 @@ import Avatar from '../../components/Profile/Avatar';
 import CountLabel from '../../components/Profile/CountLabel';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
+import {setToastMessage} from '../../utils/errorMessage';
 
 // Create component class to load user highlight details in an accordion.
 
@@ -45,6 +46,12 @@ export class ProfilePage extends React.Component {
       ...profile,
       message,
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.authenticated !== prevProps.authenticated && this.props.authenticated) {
+      this.props.getMyProfileAction();
+    }
   }
 
   handleDismiss = () => {
@@ -211,6 +218,9 @@ export class ProfilePage extends React.Component {
       { menuItem: 'Highlights', render: () => <Tab.Pane id="ProfileHighlightsTab" attached={false} /> },
       { menuItem: 'Bookmarks', render: () => <Tab.Pane id="ProfileBookmarksTab" attached={false}>Bookmarks Content</Tab.Pane> },
     ];
+    if (errorMessage) {
+      setToastMessage(errorMessage);
+    }
     if (authenticated) {
       return (
         <div>
@@ -247,17 +257,17 @@ export class ProfilePage extends React.Component {
       );
     }
     return (
-        <div>
+      <div>
         <section className="home">
-        <HeaderLayout />
-        <Message negative>
-          <Message.Header>You're not signed in!</Message.Header>
-          <p>We can't load your details cause you're not signed in :( </p>
-        </Message>
+          <HeaderLayout />
+          <Message negative>
+            <Message.Header>You're not signed in!</Message.Header>
+            <p>We can't load your details cause you're not signed in :( </p>
+          </Message>
 
         </section>
         <Footer />
-        </div>
+      </div>
     );
   }
 }

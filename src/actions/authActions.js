@@ -1,13 +1,9 @@
-import {
-  AUTH_ERROR,
-  AUTH_SUCCESS,
-  AUTH_SIGNOUT,
-  LOADING_PROGRESS,
-} from './types';
-import { api } from '../services/Api';
+import {AUTH_ERROR, AUTH_SIGNOUT, AUTH_SUCCESS, LOADING_PROGRESS,} from './types';
+import {api} from '../services/Api';
+import getResponseErrors from '../utils/errorMessage';
 
-export const loadingMessage = () => ({
-  type: LOADING_PROGRESS,
+export const loadingMessage = (type = LOADING_PROGRESS) => ({
+  type,
 });
 
 
@@ -39,7 +35,12 @@ export const signUpAction = formProps => (dispatch) => {
       dispatch(successMessage(response.data.user));
     })
     .catch((error) => {
-      dispatch(failureMessage(error.response.data));
+      if (error.response && error.response.data) {
+        const { responseErrorsObject } = getResponseErrors(error.response.data);
+        dispatch(failureMessage({ errors: responseErrorsObject }));
+      } else {
+        dispatch(failureMessage({ errors: 'Something went wrong when signing you up.' }));
+      }
     });
 };
 
@@ -51,6 +52,11 @@ export const loginAction = formProps => (dispatch) => {
       dispatch(successMessage(response.data.user));
     })
     .catch((error) => {
-      dispatch(failureMessage(error.response.data));
+      if (error.response && error.response.data) {
+        const { responseErrorsObject } = getResponseErrors(error.response.data);
+        dispatch(failureMessage({ errors: responseErrorsObject }));
+      } else {
+        dispatch(failureMessage({ errors: 'Something went wrong when signing you in.' }));
+      }
     });
 };

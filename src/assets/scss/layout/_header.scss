@@ -13,6 +13,16 @@ header {
   }
 }
 
+.header-toast{
+  max-width: $bp-largest;
+  margin: 2rem auto;
+  padding: 1rem;
+
+  @media only screen and (max-width: $bp-largest) {
+    margin: 2rem;
+  }
+}
+
 .logo{
   color: var(--color-primary);
   height: 6rem;
@@ -139,6 +149,7 @@ nav{
   transform: translate(-50%, -50%);
   background: white;
   box-shadow: 0 0 6.0rem 1.0rem rgba(0, 0, 0, 0.9);
+  overflow-y: scroll;
 }
 .opened {
   display: block;
