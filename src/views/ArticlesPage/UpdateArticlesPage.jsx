@@ -16,6 +16,7 @@ import {
   getSingleArticles,
 } from '../../actions/articlesActions';
 import isEmpty from '../../utils/is_empty';
+import requireAuth from '../../HOC/requireAuth';
 
 export class UpdateArticlesPage extends Component {
   constructor(props) {
@@ -213,4 +214,4 @@ export const mapStateToProps = ({ auth, articles }) => ({
   authenticated: auth.authenticated,
 });
 
-export default connect(mapStateToProps, { updateArticles, getSingleArticles })(UpdateArticlesPage);
+export default requireAuth(connect(mapStateToProps, { updateArticles, getSingleArticles })(UpdateArticlesPage));

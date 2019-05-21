@@ -311,4 +311,34 @@ describe('Api service function test: ', () => {
           .toEqual(data);
       });
   });
+
+  it(' returns data when getUserNotifications is called ', () => {
+    const data = {
+      response: { slug: 'test', id: 1 },
+    };
+
+    mock.onGet(`${API_HOST}/notification/settings`)
+      .reply(200, data);
+
+    api.notifications.getUserNotifications()
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when updateNotifications is called ', () => {
+    const data = {
+      response: { slug: 'test', id: 1 },
+    };
+
+    mock.onPatch(`${API_HOST}/notification/settings`)
+      .reply(200, data);
+
+    api.notifications.updateNotifications(data)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
 });

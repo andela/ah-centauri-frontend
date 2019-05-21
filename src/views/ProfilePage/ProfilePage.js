@@ -10,6 +10,7 @@ import CountLabel from '../../components/Profile/CountLabel';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
 import {setToastMessage} from '../../utils/errorMessage';
+import requireAuth from '../../HOC/requireAuth';
 
 // Create component class to load user highlight details in an accordion.
 
@@ -328,7 +329,7 @@ const mapStateToProps = ({ auth, profile }) => ({
   loading: profile.loading,
 });
 
-export default connect(
+export default requireAuth(connect(
   mapStateToProps,
   { getMyProfileAction, updateMyProfileAction },
-)(ProfilePage);
+)(ProfilePage));

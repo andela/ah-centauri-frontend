@@ -12,6 +12,7 @@ import Footer from '../../components/layout/Footer';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import { createArticles } from '../../actions/articlesActions';
 import isEmpty from '../../utils/is_empty';
+import requireAuth from '../../HOC/requireAuth';
 
 export class CreateArticlesPage extends Component {
   constructor(props) {
@@ -195,4 +196,4 @@ export const mapStateToProps = ({ auth, articles }) => ({
   authenticated: auth.authenticated,
 });
 
-export default connect(mapStateToProps, { createArticles })(CreateArticlesPage);
+export default requireAuth(connect(mapStateToProps, { createArticles })(CreateArticlesPage));
