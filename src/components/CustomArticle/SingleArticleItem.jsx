@@ -16,7 +16,7 @@ import {
 } from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
 
-class SingleArticleItem extends Component {
+export class SingleArticleItem extends Component {
   handleBookmark = (e, slug) => {
     e.preventDefault();
 
@@ -79,7 +79,9 @@ class SingleArticleItem extends Component {
                     <Link
                       to="#"
                       key={index}
+                      className="post-tags-item post-tags-item-title"
                     >
+                      #
                       {tag}
                     </Link>
                   )) : 'loading ....'}

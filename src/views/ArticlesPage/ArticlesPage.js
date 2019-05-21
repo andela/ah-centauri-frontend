@@ -10,7 +10,7 @@ import {
   getAllbookmarkedArticles
 } from '../../actions/articlesActions';
 
-class ArticlesPage extends Component {
+export class ArticlesPage extends Component {
   componentDidMount() {
     this.props.getAllArticles();
     this.props.getAllbookmarkedArticles();
@@ -70,6 +70,7 @@ ArticlesPage.defautProps = {
 
 ArticlesPage.propTypes = {
   articles: PropTypes.array,
+  bookmarks: PropTypes.array,
   getAllArticles: PropTypes.func.isRequired,
   getAllbookmarkedArticles: PropTypes.func.isRequired,
 };

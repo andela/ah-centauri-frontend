@@ -13,20 +13,6 @@
     border-radius: .8rem;
     line-height: 160%;
 
-    & a {
-      background-color: transparent;
-      cursor: pointer;
-      text-decoration: none;
-      word-wrap: break-word;
-      transition: all .3s ease-in-out;
-      color: var(--color-primary-dark);
-      font-family: Montserrat, sans-serif;
-      font-style: italic;
-      font-weight: 600;
-      font-size: 1.2rem;
-      padding: 0 .8rem;
-    }
-
     &-container{
       margin-top: 0;
       display: block;

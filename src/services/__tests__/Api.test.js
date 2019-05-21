@@ -1,7 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import expect from 'expect';
-import moxios from 'moxios';
 import {
   api,
   API_HOST,
@@ -217,6 +216,96 @@ describe('Api service function test: ', () => {
       .reply(200, data);
 
     api.articles.deleteArticle(data.response.slug)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when likeArticle is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onPost(`${API_HOST}/articles/${data.response.slug}/like/`)
+      .reply(200, data);
+
+    api.articles.likeArticle(data.response.slug)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when dislikeArticle is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onPost(`${API_HOST}/articles/${data.response.slug}/dislike/`)
+      .reply(200, data);
+
+    api.articles.dislikeArticle(data.response.slug)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when updateArticleRating is called ', () => {
+    const data = {
+      rating: { slug: 'test' },
+    };
+
+    mock.onPost(`${API_HOST}/articles/${data.rating.slug}/ratings/`)
+      .reply(200, data);
+
+    api.articles.updateArticleRating(data)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when getAllBookmarkArticle is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onGet(`${API_HOST}/bookmarks/`)
+      .reply(200, data);
+
+    api.bookmarks.getAllBookmarkArticle()
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when bookmarkArticle is called ', () => {
+    const data = {
+      response: { slug: 'test' },
+    };
+
+    mock.onPost(`${API_HOST}/bookmarks/${data.response.slug}/`)
+      .reply(200, data);
+
+    api.bookmarks.bookmarkArticle(data.response.slug)
+      .then((response) => {
+        expect(response.data)
+          .toEqual(data);
+      });
+  });
+
+  it(' returns data when unBookmarkArticle is called ', () => {
+    const data = {
+      response: { slug: 'test', id: 1 },
+    };
+
+    mock.onDelete(`${API_HOST}/bookmarks/${data.response.id}/`)
+      .reply(200, data);
+
+    api.bookmarks.unBookmarkArticle(data.response.id)
       .then((response) => {
         expect(response.data)
           .toEqual(data);

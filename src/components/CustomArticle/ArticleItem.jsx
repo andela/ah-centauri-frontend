@@ -13,7 +13,7 @@ import {
 } from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
 
-class ArticleItem extends Component {
+export class ArticleItem extends Component {
   handleBookmark = (e, slug) => {
     e.preventDefault();
 
@@ -36,7 +36,12 @@ class ArticleItem extends Component {
         <div className="post-container">
           <div className="post-categories-container">
             <div className="post-categories">
-              {article.tags.map((tag, index) => <Link to="#" key={index}>{tag}</Link>)}
+              {article.tags.map((tag, index) => (
+                <Link to="#" key={index} className="post-tags-item post-tags-item-title">
+                  #
+                  {tag}
+                </Link>
+              ))}
             </div>
           </div>
           <h2 className="post-title">
@@ -49,10 +54,13 @@ class ArticleItem extends Component {
               className={classNames({ 'post-read-later': true, 'post-read-later-guest': authenticated })}
               onClick={e => (isEmpty(bookmarked) ? this.handleBookmark(e, article.slug) : this.handleUnBookmark(e, bookmarked[0].id))}
             >
-              <i className={classNames({
-                'fa fa-bookmark-o': isEmpty(bookmarked),
-                'fa fa-bookmark': !isEmpty(bookmarked)
-              })} aria-hidden="true"/>
+              <i
+                className={classNames({
+                  'fa fa-bookmark-o': isEmpty(bookmarked),
+                  'fa fa-bookmark': !isEmpty(bookmarked),
+                })}
+                aria-hidden="true"
+              />
             </span>
           </h2>
           <div className="post-meta">
