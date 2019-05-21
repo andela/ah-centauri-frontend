@@ -71,8 +71,8 @@ export function getToastErrorDescription(errorMessage) {
       });
   }
 
-  const messageItems = errorList.map(messageItem => (
-    <Message.Item>
+  const messageItems = errorList.map((messageItem, key) => (
+    <Message.Item key={key}>
       {messageItem}
     </Message.Item>
   ));

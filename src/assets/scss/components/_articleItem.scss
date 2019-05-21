@@ -13,20 +13,6 @@
     border-radius: .8rem;
     line-height: 160%;
 
-    & a {
-      background-color: transparent;
-      cursor: pointer;
-      text-decoration: none;
-      word-wrap: break-word;
-      transition: all .3s ease-in-out;
-      color: var(--color-primary-dark);
-      font-family: Montserrat, sans-serif;
-      font-style: italic;
-      font-weight: 600;
-      font-size: 1.2rem;
-      padding: 0 .8rem;
-    }
-
     &-container{
       margin-top: 0;
       display: block;
@@ -39,7 +25,7 @@
     display: block;
     word-break: break-word;
 
-    & h2 {
+    & a {
       color: #383838;
       font-size: 3rem;
       margin-bottom: .6rem;
@@ -68,18 +54,16 @@
   &-read-later{
     display: none;
     position: relative;
-    margin-left: -.6rem;
-    padding-left: .6rem;
-    padding-top: .5rem;
-    padding-right: .5rem;
+    margin: auto 1rem;
     top: 0;
     opacity: 0;
     transition: .8s opacity ease-in-out;
     cursor: pointer;
-    font-size: 80%;
+    font-size: 2.5rem;
 
-    @media (min-width: $bp-large){
+    &-guest {
       display: inline;
+      opacity: 1;
     }
 
 

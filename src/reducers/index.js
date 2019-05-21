@@ -6,6 +6,7 @@ import resetReducer from './resetReducer';
 import articlesReducer from './articlesReducer';
 import likeReducers from './likeReducers';
 import articleRatingReducer from './articleRatingReducer';
+import bookmarksReducer from './bookmarksReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   articles: articlesReducer,
   likes: likeReducers,
   rating: articleRatingReducer,
+  bookmarks: bookmarksReducer,
 });

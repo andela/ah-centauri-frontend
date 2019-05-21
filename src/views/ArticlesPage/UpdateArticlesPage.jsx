@@ -145,13 +145,15 @@ export class UpdateArticlesPage extends Component {
                   required
                   onChange={this.handleInputChange}
                 />
-                <Editor
-                  editorState={body}
-                  wrapperClassName="wrapper-class"
-                  editorClassName="editor-class"
-                  toolbarClassName="toolbar-class"
-                  onEditorStateChange={this.onEditorStateChange}
-                />
+                <div className="editor-bg">
+                  <Editor
+                    editorState={body}
+                    wrapperClassName="wrapper-class"
+                    editorClassName="editor-class"
+                    toolbarClassName="toolbar-class"
+                    onEditorStateChange={this.onEditorStateChange}
+                  />
+                </div>
 
                 <div className="ui left icon right labeled input" style={{ width: '100%' }}>
                   <input

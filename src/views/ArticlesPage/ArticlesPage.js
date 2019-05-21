@@ -5,15 +5,19 @@ import { connect } from 'react-redux';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
 import ArticleFeed from '../../components/CustomArticle/ArticleFeed';
-import { getAllArticles } from '../../actions/articlesActions';
+import {
+  getAllArticles,
+  getAllbookmarkedArticles
+} from '../../actions/articlesActions';
 
-class ArticlesPage extends Component {
+export class ArticlesPage extends Component {
   componentDidMount() {
     this.props.getAllArticles();
+    this.props.getAllbookmarkedArticles();
   }
 
   render() {
-    const { articles } = this.props;
+    const { articles, bookmarks } = this.props;
 
     return (
       <section id="home">
@@ -47,7 +51,7 @@ class ArticlesPage extends Component {
                 <div className="sidebar-subscribe--title">
                   <h3>EDITORS PICK</h3>
                 </div>
-                <ArticleFeed articles={articles.slice(0, 3)}/>
+                <ArticleFeed articles={articles.slice(0, 3)} bookmarks={bookmarks}/>
               </div>
             </div>
           </div>
@@ -58,21 +62,25 @@ class ArticlesPage extends Component {
   }
 }
 
-ArticlesPage.propTypes = {
-  articles: PropTypes.array,
-  getAllArticles: PropTypes.func.isRequired,
-};
-
 
 ArticlesPage.defautProps = {
   articles: [],
+  bookmarks: [],
 };
 
-export const mapStateToProps = ({ articles }) => ({
+ArticlesPage.propTypes = {
+  articles: PropTypes.array,
+  bookmarks: PropTypes.array,
+  getAllArticles: PropTypes.func.isRequired,
+  getAllbookmarkedArticles: PropTypes.func.isRequired,
+};
+
+export const mapStateToProps = ({ articles, bookmarks }) => ({
   articles: articles.articles,
+  bookmarks: bookmarks.bookmarks,
 });
 
 export default connect(
   mapStateToProps,
-  { getAllArticles },
+  { getAllArticles, getAllbookmarkedArticles },
 )(ArticlesPage);

@@ -7,11 +7,11 @@ import {
   FETCH_SINGLE_ARTICLE,
   LOADING_PROGRESS,
 } from './types';
-import {api} from '../services/Api';
-import {fetchArticleDataAction} from './likeActions';
+import { api } from '../services/Api';
+import { fetchArticleDataAction } from './likeActions';
 
-export const loadingMessage = () => ({
-  type: LOADING_PROGRESS,
+export const loadingMessage = (type = LOADING_PROGRESS) => ({
+  type,
 });
 
 export const successMessage = data => ({
