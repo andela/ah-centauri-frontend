@@ -10,6 +10,29 @@
   }
 }
 
+.ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url]{
+  font-family: "Poppins", sans-serif !important;
+}
+
 .ui {
+  font-family: "Poppins", sans-serif !important;
   font-size: 1.5rem !important;
+}
+
+.bookmarkButton {
+  background-color: #fd6f6f !important;
+  margin-bottom: 1rem !important;
+}
+
+.ui.relaxed.list:not(.horizontal)>.item:not(:first-child) {
+  padding-top: 2rem;
+}
+
+.bookmark-item-time{
+  color: #888888;
+}
+
+#ProfileBookmarksTab {
+  box-shadow: none !important;
+  border: none;
 }

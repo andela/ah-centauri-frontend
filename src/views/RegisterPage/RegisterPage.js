@@ -1,19 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import {
-  Message,
-} from 'semantic-ui-react';
-
-import { signUpAction } from '../../actions/authActions';
+import {connect} from 'react-redux';
+import {Message,} from 'semantic-ui-react';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import isEmpty from '../../utils/is_empty';
-import {
-  facebookLogin,
-  googleLogin,
-  twitterLogin,
-} from '../../actions/socialAuthActions';
 import SocialButtons from '../../components/layout/login/socialAuth';
 
 
@@ -59,7 +49,7 @@ export class RegisterPage extends Component {
       loading, successMessage, authenticated,
     } = this.props;
 
-    return authenticated ? <Redirect to="/" /> : (
+    return (
       <div>
 
         {successMessage
@@ -143,10 +133,4 @@ export const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  {
-    signUpAction,
-    twitterLogin,
-    facebookLogin,
-    googleLogin,
-  },
 )(RegisterPage);

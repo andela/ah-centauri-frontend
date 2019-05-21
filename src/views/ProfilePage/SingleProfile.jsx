@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import {
-  getSingleUserProfileAction, handleFollow, handleUnFollow, getUserFollow,
-} from '../../actions/profileActions';
+import {connect} from 'react-redux';
+import {getSingleUserProfileAction, getUserFollow, handleFollow, handleUnFollow,} from '../../actions/profileActions';
 import Footer from '../../components/layout/Footer';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import isEmpty from '../../utils/is_empty';
 import CountLabel from '../../components/Profile/CountLabel';
-import { filterByAuthorArticles } from '../../actions/articlesActions';
+import {filterByAuthorArticles} from '../../actions/articlesActions';
 import MyArticleDraftFeed from '../../components/CustomArticle/MyArticleDraftFeed';
 
 
@@ -153,7 +151,7 @@ export class SingleProfile extends Component {
                           this.handleUnFollow();
                         }}
                       >
-                        UnFollow
+                        Following
                       </button>
                     )
                   }

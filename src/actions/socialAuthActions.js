@@ -1,17 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
-import { api } from '../services/Api';
-import {
-  failureMessage,
-  loadingMessage,
-  signoutAction,
-  successMessage,
-} from './authActions';
-import {
-  facebookProvider,
-  googleProvider,
-  socialAuthentication,
-  twitterProvider,
-} from '../firebase';
+import {api} from '../services/Api';
+import {failureMessage, loadingMessage, signoutAction, successMessage,} from './authActions';
+import {facebookProvider, googleProvider, socialAuthentication, twitterProvider,} from '../firebase';
 
 
 export const googleLogin = () => dispatch => socialAuthentication.signInWithPopup(googleProvider)
@@ -29,7 +19,7 @@ export const googleLogin = () => dispatch => socialAuthentication.signInWithPopu
         dispatch(successMessage(response.data.user));
       })
       .catch((error) => {
-        dispatch(failureMessage(error.response.data));
+        dispatch(failureMessage(error.response.data || error));
       });
   }).catch(error =>
   // Handle Errors here.
@@ -58,7 +48,7 @@ export const twitterLogin = () => dispatch => socialAuthentication.signInWithPop
         dispatch(successMessage(response.data.user));
       })
       .catch((error) => {
-        dispatch(failureMessage(error.response.data));
+        dispatch(failureMessage(error.response.data || error));
       });
   }).catch(error =>
     // Handle Errors here.
@@ -85,7 +75,7 @@ export const facebookLogin = () => dispatch => socialAuthentication.signInWithPo
         dispatch(successMessage(response.data.user));
       })
       .catch((error) => {
-        dispatch(failureMessage(error.response.data));
+        dispatch(failureMessage(error.response.data || error));
       });
   }).catch(error =>
   // Handle Errors here.

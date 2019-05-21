@@ -1,26 +1,19 @@
 import React from 'react';
-import {
-  Divider,
-  Dropdown,
-  Grid,
-  Message,
-  Tab,
-  TextArea,
-} from 'semantic-ui-react';
+import {Divider, Dropdown, Grid, Message, Tab, TextArea,} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import countryOptions from '../../utils/profile.constants';
-import {
-  getMyProfileAction,
-  updateMyProfileAction
-} from '../../actions/profileActions';
+import {getMyProfileAction, updateMyProfileAction} from '../../actions/profileActions';
 import Avatar from '../../components/Profile/Avatar';
 import CountLabel from '../../components/Profile/CountLabel';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
-import { setToastMessage } from '../../utils/errorMessage';
+import {setToastMessage} from '../../utils/errorMessage';
 import requireAuth from '../../HOC/requireAuth';
+import BookmarkList from '../../components/Bookmarks/BookmarksList';
+import {getAllbookmarkedArticles} from '../../actions/bookmarksActions';
+import isEmpty from '../../utils/is_empty';
 
 // Create component class to load user highlight details in an accordion.
 
@@ -49,6 +42,7 @@ export class ProfilePage extends React.Component {
   componentDidMount() {
     // Set the token for use in accessing the protected get Profile endpoint
     this.props.getMyProfileAction();
+    this.props.getAllbookmarkedArticles();
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -60,8 +54,11 @@ export class ProfilePage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.authenticated !== prevProps.authenticated && this.props.authenticated) {
-      this.props.getMyProfileAction();
+    if (this.props.message !== prevProps.message) {
+      setToastMessage(this.state.message);
+    }
+    if (this.props.errorMessage !== prevProps.errorMessage) {
+      setToastMessage(this.props.errorMessage);
     }
   }
 
@@ -76,7 +73,8 @@ export class ProfilePage extends React.Component {
     });
   };
 
-  handleDropdownInputChange = statePropertyKey => (event) => {
+  handleDropdownInputChange = (event, statePropertyKey) => {
+    event.preventDefault();
     if (event.target.querySelector('.text') && event.target.querySelector('.text').textContent) {
       this.setState({
         [statePropertyKey]: event.target.querySelector('.text').textContent,
@@ -103,7 +101,7 @@ export class ProfilePage extends React.Component {
 
   render() {
     const {
-      authenticated, profile, loading, errorMessage,
+      authenticated, profile, loading, errorMessage, bookmarks,
     } = this.props;
     const myFollowCountLabelData = [
       {
@@ -126,10 +124,48 @@ export class ProfilePage extends React.Component {
       ),
     );
 
+    const bookmarksList = () => {
+      if (bookmarks.bookmarks && bookmarks.bookmarks.length > 0) {
+        return (
+            <BookmarkList size="large" bookmarks={bookmarks.bookmarks}/>
+        );
+      }
+      if (bookmarks.message && bookmarks.bookmarks.length < 1) {
+        return (
+            <Message type="info">
+              No bookmarks.
+            </Message>
+        );
+      }
+      if (!isEmpty(bookmarks.errorMessage)) {
+        return (
+            <Message type="info">
+              No bookmarks.
+            </Message>
+        );
+      }
+      return (
+          <Message type="info">
+            No bookmarks.
+          </Message>
+      );
+    };
+
 
     // Make sure to set the readOnly to true
     const profileFormInputFields = [
-      [{
+      [
+        {
+          fluid: true,
+          name: 'username',
+          id: 'profileUsername',
+          placeholder: 'username',
+          label: 'Username',
+          type: 'text',
+          value: this.state.username,
+          onChange: this.handleInputChange,
+          error: errorMessage && errorMessage.username,
+        }, {
         fluid: true,
         name: 'first_name',
         id: 'profileFirstName',
@@ -140,17 +176,17 @@ export class ProfilePage extends React.Component {
         onChange: this.handleInputChange,
         error: errorMessage && errorMessage.first_name,
       },
-      {
-        fluid: true,
-        name: 'last_name',
-        id: 'profileLastName',
-        placeholder: 'Last name',
-        label: 'Last name',
-        type: 'text',
-        value: this.state.last_name,
-        onChange: this.handleInputChange,
-        error: errorMessage && errorMessage.last_name,
-      }],
+        {
+          fluid: true,
+          name: 'last_name',
+          id: 'profileLastName',
+          placeholder: 'Last name',
+          label: 'Last name',
+          type: 'text',
+          value: this.state.last_name,
+          onChange: this.handleInputChange,
+          error: errorMessage && errorMessage.last_name,
+        }],
       {
         name: 'bio',
         id: 'profileBio',
@@ -192,7 +228,7 @@ export class ProfilePage extends React.Component {
         label: 'Country',
         value: this.state.country,
         control: Dropdown,
-        onChange: this.handleDropdownInputChange('country'),
+        onChange: e => this.handleDropdownInputChange(e, 'country'),
         selection: true,
         search: true,
         deburr: true,
@@ -225,9 +261,12 @@ export class ProfilePage extends React.Component {
       />
     );
     const panes = [
-      { menuItem: 'Basic Info', render: () => <Tab.Pane id="ProfileBasicInfoTab" attached={false}>{profileForm}</Tab.Pane> },
-      { menuItem: 'Highlights', render: () => <Tab.Pane id="ProfileHighlightsTab" attached={false} /> },
-      { menuItem: 'Bookmarks', render: () => <Tab.Pane id="ProfileBookmarksTab" attached={false}>Bookmarks Content</Tab.Pane> },
+      {menuItem: 'Basic Info', pane: <Tab.Pane id="ProfileBasicInfoTab" attached={false}>{profileForm}</Tab.Pane>},
+      {menuItem: 'Highlights', pane: <Tab.Pane id="ProfileHighlightsTab" attached={false}/>},
+      {
+        menuItem: 'Bookmarks',
+        pane: <Tab.Pane id="ProfileBookmarksTab" attached={false}>{bookmarksList()}</Tab.Pane>,
+      },
     ];
     if (errorMessage) {
       setToastMessage(errorMessage);
@@ -254,15 +293,7 @@ export class ProfilePage extends React.Component {
               <Grid.Row>
                 <Grid.Column>
                   {/* User Profile form tab that has all the user Profile data loaded from the Profile */}
-                  {this.state.message
-                    ? (
-                      <Message
-                        onDismiss={this.handleDismiss}
-                        success
-                        header={this.state.message}
-                      />
-                    ) : ''}
-                  <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+                  <Tab renderActiveOnly={false} menu={{secondary: true, pointing: true}} panes={panes}/>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
@@ -314,6 +345,7 @@ ProfilePage.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   getMyProfileAction: PropTypes.func.isRequired,
   updateMyProfileAction: PropTypes.func.isRequired,
+  getAllbookmarkedArticles: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   profile: PropTypes.shape({
@@ -331,22 +363,30 @@ ProfilePage.propTypes = {
       followingCount: PropTypes.number,
     }),
   }),
+  bookmarks: PropTypes.object,
   user: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,
   }),
 };
 
-const mapStateToProps = ({ auth, profile }) => ({
+const mapStateToProps = ({
+  auth, profile, bookmarks,
+}) => ({
   user: auth.user,
   authenticated: auth.authenticated,
   errorMessage: profile.errorMessage,
   profile: profile.current_profile,
+  bookmarks,
   message: profile.message,
   loading: profile.loading,
 });
 
 export default requireAuth(connect(
   mapStateToProps,
-  { getMyProfileAction, updateMyProfileAction },
+  {
+    getMyProfileAction,
+    updateMyProfileAction,
+    getAllbookmarkedArticles,
+  },
 )(ProfilePage));

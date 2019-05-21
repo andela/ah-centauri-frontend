@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import moment from 'moment';
 import parse from 'html-react-parser';
 import classNames from 'classnames';
@@ -11,10 +11,7 @@ import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import SocialShareLinksVertical from '../SocialShareLinks/SocialShareLinksVertical';
 import ArticleRating from '../ArticleRating/ArticleRating';
 import CommentsComponent from '../Comments/Comments';
-import {
-  bookmarkArticle,
-  unBookmarkArticle,
-} from '../../actions/bookmarksActions';
+import {bookmarkArticle, removeBookmark,} from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
 
 export class SingleArticleItem extends Component {
@@ -27,11 +24,13 @@ export class SingleArticleItem extends Component {
   handleUnBookmark = (e, id) => {
     e.preventDefault();
 
-    this.props.unBookmarkArticle(id);
+    this.props.removeBookmark(id);
   };
 
   render() {
-    const { article, authenticated, bookmarks, comments, getReplies, createComment, deleteComment, editComment, postReply, user } = this.props;
+    const {
+      article, authenticated, bookmarks, comments, getReplies, createComment, deleteComment, editComment, postReply, user,
+    } = this.props;
 
     const bookmarked = bookmarks.filter(bookmark => bookmark.article.slug === article.slug);
     return (
@@ -176,23 +175,19 @@ export class SingleArticleItem extends Component {
               </div>
             </div>
           </div>
-          <div className="social-share-circles">
-            <CircularSocial size="huge" shareLinks={article.share_links? article.share_links : {}} />
-          </div>
-      
           <CommentsComponent
-          slug={article.slug}
-          comments={comments}
-          getReplies={getReplies}
-          createComment={createComment}
-          deleteComment={deleteComment}
-          editComment={editComment}
-          postReply={postReply}
-          user={user}
+              slug={article.slug}
+              comments={comments}
+              getReplies={getReplies}
+              createComment={createComment}
+              deleteComment={deleteComment}
+              editComment={editComment}
+              postReply={postReply}
+              user={user}
           />
-      </article>
-    </div>
-);
+        </article>
+      </div>
+    );
   }
 }
 
@@ -200,7 +195,7 @@ SingleArticleItem.defaultProps = {
   article: {},
   bookmarks: [],
   authenticated: false,
-  comments: []
+  comments: [],
 };
 
 
@@ -209,9 +204,9 @@ SingleArticleItem.propTypes = {
   bookmarks: PropTypes.array.isRequired,
   authenticated: PropTypes.bool,
   bookmarkArticle: PropTypes.func.isRequired,
-  unBookmarkArticle: PropTypes.func.isRequired,
+  removeBookmark: PropTypes.func.isRequired,
   comments: PropTypes.array.isRequired,
 };
 
 
-export default connect(null, { bookmarkArticle, unBookmarkArticle })(SingleArticleItem);
+export default connect(null, { bookmarkArticle, removeBookmark })(SingleArticleItem);
