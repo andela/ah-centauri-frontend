@@ -1,7 +1,7 @@
 import axios from 'axios/index';
 
 // Backend API URL
-export const API_HOST = 'https://ah-centauri-backend-staging.herokuapp.com/api';
+export const API_HOST = 'http://localhost:8000/api';
 
 const limit = (count, p) => `limit=${count}&offset=${p ? (p - 1) * count : 0}`;
 
@@ -34,5 +34,9 @@ export const api = {
     getAllBookmarkArticle: () => axios.get(`${API_HOST}/bookmarks/`),
     bookmarkArticle: slug => axios.post(`${API_HOST}/bookmarks/${slug}/`),
     unBookmarkArticle: id => axios.delete(`${API_HOST}/bookmarks/${id}/`),
+  },
+  notifications: {
+    getUserNotifications: () => axios.get(`${API_HOST}/notification/settings`),
+    updateNotifications: data => axios.patch(`${API_HOST}/notification/settings`, data),
   },
 };

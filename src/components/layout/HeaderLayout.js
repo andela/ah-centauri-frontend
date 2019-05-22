@@ -95,9 +95,10 @@ export class HeaderLayout extends Component {
                     {username}
                   </a>
                   <ul className="sub-menu">
-                    <li><Link to="/create-article">New Story</Link></li>
-                    <li><Link to={`/me/stories/drafts/${username}`}>Stories</Link></li>
-                    <li><Link to="/profile">Profile</Link></li>
+                    <li><a href="/create-article">New Story</a></li>
+                    <li><a href={`/me/stories/drafts/${username}`}>Stories</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/me/settings">Settings</a></li>
                     <li><a onClick={this.handleSignOut} href="#">Signout</a></li>
                   </ul>
                 </li>
@@ -172,7 +173,7 @@ HeaderLayout.propTypes = {
   loginAction: PropTypes.func.isRequired,
   signUpAction: PropTypes.func.isRequired,
   errorMessage: PropTypes.object,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
 };
 
 export const mapStateToProps = ({ auth, profile }) => ({

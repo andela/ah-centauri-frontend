@@ -8,6 +8,7 @@ import CreateArticlesPage from '../views/ArticlesPage/CreateArticlesPage';
 import MyArticlesDraftPage from '../views/ArticlesPage/MyArticlesDraftPage';
 import UpdateArticlesPage from '../views/ArticlesPage/UpdateArticlesPage';
 import NotFoundPage from '../views/NotFoundPage/NotFoundPage';
+import SettingsPage from '../views/SettingsPage/SettingsPage';
 
 const routes = [
   {
@@ -47,6 +48,10 @@ const routes = [
   {
     path: '/article/:slug/edit',
     component: UpdateArticlesPage,
+  },
+  {
+    path: '/me/settings',
+    component: SettingsPage,
   },
   {
     path: '/not-found',
