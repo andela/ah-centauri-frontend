@@ -1,7 +1,7 @@
 import axios from 'axios/index';
 
 // Backend API URL
-export const API_HOST = 'http://ah-centauri-backend-staging.herokuapp.com/api';
+export const API_HOST = 'https://ah-centauri-backend-staging.herokuapp.com/api';
 
 const limit = (count, p) => `limit=${count}&offset=${p ? (p - 1) * count : 0}`;
 
