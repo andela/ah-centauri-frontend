@@ -6,11 +6,14 @@ import {
   DELETE_SINGLE_ARTICLE,
   SET_PAGE,
   LOADING_PROGRESS,
+  SEARCH_ARTICLES,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   articles: [],
   article: {},
+  articleSearchResults: [],
+  searchCount: 0,
   errorMessage: {},
   successMessage: '',
   currentPage: 0,
@@ -29,6 +32,14 @@ export default function (state = INITIAL_STATE, actions) {
         ...state,
         articles: actions.payload.results,
         articlesCount: actions.payload.count,
+        errorMessage: {},
+        loading: false,
+      };
+    case SEARCH_ARTICLES:
+      return {
+        ...state,
+        articleSearchResults: actions.payload.articles.results,
+        searchCount: actions.payload.articles.count,
         errorMessage: {},
         loading: false,
       };

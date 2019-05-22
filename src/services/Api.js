@@ -1,7 +1,7 @@
 import axios from 'axios/index';
 
 // Backend API URL
-export const API_HOST = 'https://ah-centauri-backend-staging.herokuapp.com/api';
+export const API_HOST = 'http://localhost:8000/api';
 
 const limit = (count, p) => `limit=${count}&offset=${p ? (p-1) * count : 0}`;
 
@@ -29,5 +29,6 @@ export const api = {
     likeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/like/`),
     dislikeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/dislike/`),
     updateArticleRating: data => axios.post(`${API_HOST}/articles/${data.rating.slug}/ratings/`, data),
+    searchArticles: data => axios.get(`${API_HOST}/articles/q?${data.key}=${data.value}`),
   },
 };
