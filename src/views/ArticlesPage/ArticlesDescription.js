@@ -14,6 +14,14 @@ import {
 
 import SideBar from '../../components/layout/SideBar';
 import SingleArticleItem from '../../components/CustomArticle/SingleArticleItem';
+import {
+  getAllComments,
+  getAllReplies,
+  createComment,
+  deleteComment,
+  editComment,
+  postReply
+} from '../../actions/commentsActions';
 
 export class ArticlesDescription extends Component {
   constructor(props) {
@@ -23,6 +31,35 @@ export class ArticlesDescription extends Component {
       articles: [],
       bookmarks: [],
     };
+  }
+
+  componentDidMount() {
+    const { slug } = this.props.match.params;
+
+    this.props.getAllArticles();
+    this.props.getSingleArticles(slug, this.props.history);
+    this.props.getAllbookmarkedArticles();
+    this.props.getAllComments(slug);
+  }
+
+  getAllReplies = (data) => {
+    this.props.getAllReplies(data)
+  }
+
+  createComment = (data) => {
+    this.props.createComment(data)
+  }
+
+  deleteComment = (data) => {
+    this.props.deleteComment(data)
+  }
+
+  editComment = (data) => {
+    this.props.editComment(data)
+  }
+
+  postReply = (data) => {
+    this.props.postReply(data)
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -39,12 +76,6 @@ export class ArticlesDescription extends Component {
     return null;
   }
 
-  componentDidMount() {
-    const { slug } = this.props.match.params;
-    this.props.getAllArticles();
-    this.props.getAllbookmarkedArticles();
-    this.props.getSingleArticles(slug, this.props.history);
-  }
 
   render() {
     const { articles, article, bookmarks } = this.state;
@@ -55,11 +86,18 @@ export class ArticlesDescription extends Component {
         <div className="row home">
           <div className="column _25">
             <SingleArticleItem
-              article={article}
-              key={article.id}
-              bookmarks={bookmarks}
-              authenticated={this.props.authenticated}
-            />
+            article={article}
+            key={article.id}
+            comments={this.props.comments}
+            getReplies={this.getAllReplies}
+            createComment={this.createComment}
+            deleteComment={this.deleteComment}
+            editComment={this.editComment}
+            postReply={this.postReply}
+            bookmarks={bookmarks}
+            authenticated={this.props.authenticated}
+            user={this.props.user ? this.props.user.username: '' }
+          />
           </div>
           <div className="column _75">
             <SideBar
@@ -87,20 +125,29 @@ ArticlesDescription.propTypes = {
   bookmarks: PropTypes.array,
   article: PropTypes.object,
   authenticated: PropTypes.bool,
+  comments: PropTypes.array,
+  user: PropTypes.string,
   getAllArticles: PropTypes.func.isRequired,
+  getAllReplies: PropTypes.func.isRequired,
   getSingleArticles: PropTypes.func.isRequired,
   getAllbookmarkedArticles: PropTypes.func.isRequired,
+  getAllComments: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  editComment: PropTypes.func.isRequired,
 };
 
-export const mapStateToProps = ({ articles, bookmarks, auth }) => ({
+export const mapStateToProps = ({ articles, bookmarks, auth, comments, profile }) => ({
   articles: articles.articles,
   authenticated: auth.authenticated,
   article: articles.article,
   bookmarks: bookmarks.bookmarks,
+  comments: comments.comments,
+  user: profile.current_profile,
   loading: articles.loading,
 });
 
 export default connect(
   mapStateToProps,
-  { getAllArticles, getSingleArticles, getAllbookmarkedArticles },
+  { getAllArticles, getSingleArticles, getAllbookmarkedArticles, getAllComments, getAllReplies, createComment, deleteComment, editComment, postReply },
 )(ArticlesDescription);

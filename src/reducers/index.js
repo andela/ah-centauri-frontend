@@ -8,6 +8,7 @@ import likeReducers from './likeReducers';
 import articleRatingReducer from './articleRatingReducer';
 import bookmarksReducer from './bookmarksReducer';
 import notificationsReducer from './notificationsReducer';
+import commentsReducer from './commentsReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   rating: articleRatingReducer,
   bookmarks: bookmarksReducer,
   notifications: notificationsReducer,
+  comments: commentsReducer,
 });

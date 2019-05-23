@@ -43,4 +43,12 @@ export const api = {
     getUserNotifications: () => axios.get(`${API_HOST}/notification/settings`),
     updateNotifications: data => axios.patch(`${API_HOST}/notification/settings`, data),
   },
+  comments: {
+    getAllComments: slug => axios.get(`${API_HOST}/articles/${slug}/comments/`),
+    getAllReplies: data => axios.get(`${API_HOST}/articles/${data.slug}/comments/?parent=${data.parent_id}`),
+    createComment: data => axios.post(`${API_HOST}/articles/${data.slug}/comments/`, data.payload),
+    deleteComment: data => axios.delete(`${API_HOST}/articles/${data.slug}/comments/${data.comment_id}/`),
+    editComment: data => axios.patch(`${API_HOST}/articles/${data.slug}/comments/${data.comment_id}/`, data.payload),
+    postReply: data => axios.post(`${API_HOST}/articles/${data.slug}/comments/`, data.payload),
+  }
 };
