@@ -4,11 +4,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {Header} from 'semantic-ui-react';
+import {SemanticToastContainer} from 'react-semantic-toasts';
 import {Login} from '../../views/Login/Login';
 import {RegisterPage} from '../../views/RegisterPage/RegisterPage';
-import {loginAction, signoutAction, signUpAction,} from '../../actions/authActions';
+import {loginAction, signoutAction, signUpAction} from '../../actions/authActions';
 import {getMyProfileAction} from '../../actions/profileActions';
-import {SemanticToastContainer} from 'react-semantic-toasts';
+import {facebookLogin, googleLogin, twitterLogin} from '../../actions/socialAuthActions';
 
 
 export class HeaderLayout extends Component {
@@ -131,7 +132,12 @@ export class HeaderLayout extends Component {
                 >
                     Login
                 </Header>
-                <Login loading={loading} errorMessage={errorMessage} loginAction={this.props.loginAction} />
+                <Login
+                    loading={loading}
+                    errorMessage={errorMessage}
+                    loginAction={this.props.loginAction}
+                    {...this.props}
+                />
               </div>
               <div id="tab-two-panel" className="panel">
                 <Header
@@ -140,7 +146,12 @@ export class HeaderLayout extends Component {
                 >
                     Register
                 </Header>
-                <RegisterPage loading={loading} errorMessage={errorMessage} signUpAction={this.props.signUpAction} />
+                <RegisterPage
+                    loading={loading}
+                    errorMessage={errorMessage}
+                    signUpAction={this.props.signUpAction}
+                    {...this.props}
+                />
               </div>
             </div>
           </div>
@@ -184,5 +195,11 @@ export const mapStateToProps = ({ auth, profile }) => ({
 });
 
 export default connect(mapStateToProps, {
-  loginAction, signUpAction, getMyProfileAction, signoutAction,
+  loginAction,
+  signUpAction,
+  getMyProfileAction,
+  signoutAction,
+  facebookLogin,
+  googleLogin,
+  twitterLogin,
 })(HeaderLayout);

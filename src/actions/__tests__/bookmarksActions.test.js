@@ -1,12 +1,9 @@
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import { API_HOST } from '../../services/Api';
+import {API_HOST} from '../../services/Api';
 import * as actions from '../bookmarksActions';
-import { errorMessage } from '../articlesActions';
-import { bookmarksuccessMessage } from '../bookmarksActions';
-import { CreateBookmarkSuccessMessage } from '../bookmarksActions';
-import { deleteBookmarkSuccessMessage } from '../bookmarksActions';
+import {CREATE_SINGLE_BOOKMARK_ERROR, DELETE_SINGLE_BOOKMARK_ERROR} from '../types';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -22,9 +19,11 @@ describe('Bookmarks actions ', () => {
     store.clearActions();
   });
 
-  it('test FETCH_ALL_BOOKMARKS when authenticated', async (done) => {
+  it('test FETCH_ALL_BOOKMARKS_SUCCESS when authenticated', async (done) => {
     const data = {
-      token: 'token',
+      bookmarks: [{
+        id: 12,
+      }],
       message: 'Success!',
     };
 
@@ -33,10 +32,10 @@ describe('Bookmarks actions ', () => {
     moxios.stubRequest(`${API_HOST}/bookmarks/`, {
       status: 200,
       response: {
-        bookmarks: {
-          token: 'token',
-          message: 'Success!',
-        },
+        message: 'Success!',
+        bookmarks: [{
+          id: 12,
+        }],
       },
     });
 
@@ -50,7 +49,7 @@ describe('Bookmarks actions ', () => {
       message: 'Error!',
     };
 
-    const expectedActions = errorMessage(data);
+    const expectedActions = actions.failureMessage(data);
 
     moxios.stubRequest(`${API_HOST}/bookmarks/`, {
       status: 404,
@@ -60,14 +59,31 @@ describe('Bookmarks actions ', () => {
     });
 
     await store.dispatch(actions.getAllbookmarkedArticles());
-    expect(store.getActions()).toEqual([expectedActions]);
+    expect(store.getActions()).toContainEqual(expectedActions);
+    done();
+  });
+
+  it('test empty response error ERROR_FETCHING_ARTICLES when authenticated', async (done) => {
+    const data = {
+      errors: 'Something went wrong when fetching your bookmarks.',
+    };
+
+    const expectedActions = actions.failureMessage(data);
+
+    moxios.stubRequest(`${API_HOST}/bookmarks/`, {
+      status: 404,
+      response: undefined,
+    });
+
+    await store.dispatch(actions.getAllbookmarkedArticles());
+    expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
 
   it('test CREATE_SINGLE_BOOKMARK when authenticated', async (done) => {
     const data = {
       message: 'Success!',
-      slug: 'test',
+      bookmark: { slug: 'test' },
     };
 
     const expectedActions = actions.CreateBookmarkSuccessMessage(data);
@@ -75,79 +91,107 @@ describe('Bookmarks actions ', () => {
     moxios.stubRequest(`${API_HOST}/bookmarks/${data.slug}/`, {
       status: 200,
       response: {
-        bookmark: {
-          message: 'Success!',
-          slug: 'test',
-        },
+        ...data,
       },
     });
 
     await store.dispatch(actions.bookmarkArticle(data.slug));
-    expect(store.getActions()).toEqual([expectedActions]);
+    expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
 
-  it('test ERROR_FETCHING_ARTICLES when authenticated', async (done) => {
+  it('test async CREATE_SINGLE_BOOKMARK_ERROR when authenticated', async (done) => {
     const data = {
-      message: 'Error!',
-      slug: 'test',
+      errors: 'Something went wrong when creating your bookmarks.',
     };
 
-    const expectedActions = errorMessage(data);
+    const expectedActions = actions.failureMessage(data, CREATE_SINGLE_BOOKMARK_ERROR);
 
-    moxios.stubRequest(`${API_HOST}/bookmarks/${data.slug}/`, {
+    moxios.stubRequest(`${API_HOST}/bookmarks/fake-slug/`, {
       status: 404,
       response: {
-        message: 'Error!',
-        slug: 'test',
+        ...data,
       },
     });
 
-    await store.dispatch(actions.bookmarkArticle(data.slug));
-    expect(store.getActions()).toEqual([expectedActions]);
+    await store.dispatch(actions.bookmarkArticle('fake-slug'));
+    expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
 
-  it('test DELETE_SINGLE_BOOKMARK when authenticated', async (done) => {
+  it('test async empty error CREATE_SINGLE_BOOKMARK_ERROR when authenticated', async (done) => {
+    const data = {
+      errors: 'Something went wrong when creating your bookmarks.',
+    };
+
+    const expectedActions = actions.failureMessage(data, CREATE_SINGLE_BOOKMARK_ERROR);
+
+    moxios.stubRequest(`${API_HOST}/bookmarks/fake-slug/`, {
+      status: 404,
+      response: undefined,
+    });
+
+    await store.dispatch(actions.bookmarkArticle('fake-slug'));
+    expect(store.getActions()).toContainEqual(expectedActions);
+    done();
+  });
+
+  it('test async DELETE_SINGLE_BOOKMARK when authenticated', async (done) => {
     const data = {
       message: 'Success!',
       id: 1,
     };
 
-    const expectedActions = actions.deleteBookmarkSuccessMessage(data.id);
+    const expectedActions = actions.deleteBookmarkSuccessMessage({
+      message: data.message,
+      id: data.id,
+    });
 
     moxios.stubRequest(`${API_HOST}/bookmarks/${data.id}/`, {
       status: 200,
       response: {
-        bookmark: {
-          message: 'Success!',
-          id: 1,
-        },
+        ...data,
       },
     });
 
-    await store.dispatch(actions.unBookmarkArticle(data.id));
+    await store.dispatch(actions.removeBookmark(data.id));
     expect(store.getActions()).toEqual([expectedActions]);
     done();
   });
 
-  it('test ERROR_FETCHING_ARTICLES when authenticated', async (done) => {
+
+  it('test async with empty errors object DELETE_SINGLE_BOOKMARK_ERROR when authenticated', async (done) => {
     const data = {
-      message: 'Error!',
-      id: 1,
+      errors: 'Something went wrong when removing your bookmarks.',
     };
 
-    const expectedActions = errorMessage(data);
+    const expectedActions = actions.failureMessage(data, DELETE_SINGLE_BOOKMARK_ERROR);
+
+    moxios.stubRequest(`${API_HOST}/bookmarks/${data.id}/`, {
+      status: 404,
+      response: undefined,
+    });
+
+    await store.dispatch(actions.removeBookmark(data.id));
+    expect(store.getActions()).toEqual([expectedActions]);
+    done();
+  });
+
+  it('test async with object DELETE_SINGLE_BOOKMARK_ERROR when authenticated', async (done) => {
+    const data = {
+      errors: 'Something went wrong when removing your bookmarks.',
+    };
+
+    const expectedActions = actions.failureMessage(data, DELETE_SINGLE_BOOKMARK_ERROR);
 
     moxios.stubRequest(`${API_HOST}/bookmarks/${data.id}/`, {
       status: 404,
       response: {
-        message: 'Error!',
-        id: 1,
+        ...data,
       },
     });
 
-    await store.dispatch(actions.unBookmarkArticle(data.id));
+    await store.dispatch(actions.removeBookmark(data.id));
     expect(store.getActions()).toEqual([expectedActions]);
     done();
   });

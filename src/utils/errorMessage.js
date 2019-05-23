@@ -1,6 +1,6 @@
 import React from 'react';
-import {Message} from 'semantic-ui-react';
-import {toast} from 'react-semantic-toasts';
+import { Message } from 'semantic-ui-react';
+import { toast } from 'react-semantic-toasts';
 import isEmpty from './is_empty';
 
 function getResponseErrorsObject(responseErrorsArray = []) {
@@ -86,13 +86,24 @@ export function setToastMessage(message, messageOptions = {
   title: '', // E.g 'Authentication'
 }) {
   const { type, icon, title } = messageOptions;
-  if (!isEmpty(message)) {
+  if (!isEmpty(message) && typeof message !== 'string') {
     const { responseErrorsObject } = getResponseErrors(message);
     toast({
       type,
       icon,
       title,
       description: getToastErrorDescription(responseErrorsObject),
+      animation: 'bounce',
+      time: 10000,
+    });
+  }
+
+  if (typeof message === 'string') {
+    toast({
+      type,
+      icon,
+      title,
+      description: getToastErrorDescription(message),
       animation: 'bounce',
       time: 10000,
     });

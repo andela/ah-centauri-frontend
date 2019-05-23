@@ -27,7 +27,7 @@ const setUp = () => {
     bookmarks: [{ id: 1, article: { slug: 'alpha-is-a-developer-4' } }],
     authenticated: true,
     bookmarkArticle: jest.fn(),
-    unBookmarkArticle: jest.fn(),
+    removeBookmark: jest.fn(),
   };
   const wrapper = shallow(<SingleArticleItem {...props} />);
 
@@ -60,6 +60,6 @@ describe('SingleArticleItem page test', () => {
 
 
     expect(props.bookmarkArticle).toBeCalledTimes(1);
-    expect(props.unBookmarkArticle).toBeCalledTimes(1);
+    expect(props.removeBookmark).toBeCalledTimes(1);
   });
 });

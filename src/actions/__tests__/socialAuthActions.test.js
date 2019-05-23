@@ -1,7 +1,7 @@
 import expect from 'expect';
 
-import { AUTH_SUCCESS, AUTH_ERROR } from '../types';
-import { successMessage, failureMessage } from '../authActions';
+import {AUTH_ERROR, AUTH_SUCCESS} from '../types';
+import {failureMessage, successMessage} from '../authActions';
 
 describe('social login Actions', () => {
   it('social login success action', () => {

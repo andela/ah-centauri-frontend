@@ -1,4 +1,4 @@
-import {shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import expect from 'expect';
@@ -11,6 +11,7 @@ import {ProfilePage} from '../ProfilePage';
 import setUpProfileTests from '../../../setupTests';
 import Avatar from '../../../components/Profile/Avatar';
 import {getMyProfileAction, updateMyProfileAction} from '../../../actions/profileActions';
+import {getAllbookmarkedArticles} from '../../../actions/bookmarksActions';
 
 const mock = new MockAdapter(axios);
 
@@ -31,6 +32,10 @@ const createContext = () => ({
 });
 
 function mountWrapProfilePage(props) {
+  return mount(<ProfilePage {...props} />, createContext());
+}
+
+function shallowWrapProfilePage(props) {
   return shallow(<ProfilePage {...props} />, createContext());
 }
 
@@ -39,6 +44,7 @@ describe(' ProfilePage --- Test for profile page loading', () => {
   const mockStore = configureStore();
   let store;
   let profilePageComponent;
+  let profilePageProps;
   const { initialProfileState } = setUpProfileTests();
   const {
     getProfileSuccessResponse,
@@ -47,24 +53,43 @@ describe(' ProfilePage --- Test for profile page loading', () => {
     getProfileErrorResponse,
   } = setUpProfileTests();
 
-  const profilePageProps = {
-    errorMessage: { phone: ['must be an integer'] },
-    getMyProfileAction,
-    updateMyProfileAction,
-    handleSubmit: jest.fn(),
-    authenticated: true,
-    loading: false,
-  };
-
   mock.onGet('profile/me')
-    .reply(200, getProfileSuccessResponse);
+      .reply(200, getProfileSuccessResponse);
 
   mock.onPatch('user/')
-    .reply(200, updateProfileSuccessResponse);
+      .reply(200, updateProfileSuccessResponse);
 
   beforeEach(() => {
     store = mockStore(initialProfileState);
-    profilePageComponent = mountWrapProfilePage(
+    profilePageProps = {
+      errorMessage: {phone: ['must be an integer']},
+      getMyProfileAction,
+      updateMyProfileAction,
+      getAllbookmarkedArticles,
+      handleSubmit: jest.fn(),
+      authenticated: true,
+      loading: false,
+      bookmarks: {
+        loading: false,
+        errorMessage: {},
+        message: 'Here are your bookmarks',
+        bookmarks: [
+          {
+            id: 1,
+            article: {
+              slug: 'article', description: 'article', author: 'author', created_at: '20 August 2018',
+            },
+          },
+          {
+            id: 2,
+            article: {
+              slug: 'article', description: 'article', author: 'author', created_at: '20 August 2018',
+            },
+          },
+        ],
+      },
+    };
+    profilePageComponent = shallowWrapProfilePage(
       profilePageProps,
     );
   });
@@ -81,7 +106,7 @@ describe(' ProfilePage --- Test for profile page loading', () => {
       .reply(400, { response: { data: updateProfileErrorResponse } });
     const noAuthProps = profilePageProps;
     noAuthProps.authenticated = false;
-    const noAuthProfilePageComponent = mountWrapProfilePage(
+    const noAuthProfilePageComponent = shallowWrapProfilePage(
       noAuthProps,
     );
     expect(noAuthProfilePageComponent.find(Message).exists()).toBe(true);
@@ -93,8 +118,10 @@ describe(' ProfilePage --- Test for profile page loading', () => {
 
     mock.onPatch('user/')
       .reply(400, { response: { data: updateProfileErrorResponse } });
-
-    const errorProfilePageComponent = mountWrapProfilePage(
+    profilePageProps.bookmarks.message = undefined;
+    profilePageProps.bookmarks.bookmarks = [];
+    profilePageProps.bookmarks.errorMessage = {errors: 'Auth credentials required'};
+    const errorProfilePageComponent = shallowWrapProfilePage(
       profilePageProps,
     );
     const spy = jest.spyOn(errorProfilePageComponent.instance(), 'handleSubmit');
@@ -103,7 +130,26 @@ describe(' ProfilePage --- Test for profile page loading', () => {
       },
     });
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(errorProfilePageComponent.find(Message).exists()).toBe(true);
+  });
+
+  it('render message for no bookmarks for the component', () => {
+    mock.onGet('profile/me')
+        .reply(403, {response: {data: getProfileErrorResponse}});
+
+    mock.onPatch('user/')
+        .reply(400, {response: {data: updateProfileErrorResponse}});
+    profilePageProps.bookmarks.message = undefined;
+    profilePageProps.bookmarks.bookmarks = [];
+    profilePageProps.bookmarks.errorMessage = undefined;
+    const errorProfilePageComponent = shallowWrapProfilePage(
+        profilePageProps,
+    );
+    const spy = jest.spyOn(errorProfilePageComponent.instance(), 'handleSubmit');
+    errorProfilePageComponent.instance().handleSubmit({
+      preventDefault() {
+      },
+    });
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it(' test handle onsubmit event and default state', () => {
@@ -159,8 +205,10 @@ describe(' ProfilePage --- Test for profile page loading', () => {
     profilePageComponent
       .instance()
       .handleDropdownInputChange({
+        preventDefault() {
+        },
         target: { querySelector: jest.fn() },
-      });
+      }, 'country');
     expect(spy).toHaveBeenCalledTimes(1);
     expect(profilePageComponent.state('first_name'))
       .toEqual('todd');

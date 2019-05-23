@@ -1,11 +1,13 @@
 import React from 'react';
-import { Button, Icon } from 'semantic-ui-react'
+import PropTypes from 'prop-types';
+
+import {Button, Icon} from 'semantic-ui-react';
 
 const socialButtons = (props) => {
-  const {facebookLogin, googleLogin, twitterLogin} = props;
+  const { facebookLogin, googleLogin, twitterLogin } = props;
   return (
     <div>
-      <Button color="facebook" onClick={facebookLogin}>
+      <Button color="facebook " onClick={facebookLogin}>
         <Icon name="facebook" />
       </Button>
       <Button color="twitter" onClick={twitterLogin}>
@@ -16,6 +18,12 @@ const socialButtons = (props) => {
       </Button>
     </div>
   );
+};
+
+socialButtons.propTypes = {
+  facebookLogin: PropTypes.func.isRequired,
+  twitterLogin: PropTypes.func.isRequired,
+  googleLogin: PropTypes.func.isRequired,
 };
 
 export default socialButtons;

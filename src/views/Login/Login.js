@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
 import {Message,} from 'semantic-ui-react';
-
-import {loginAction} from '../../actions/authActions';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import isEmpty from '../../utils/is_empty';
 import SocialButtons from '../../components/layout/login/socialAuth';
@@ -52,8 +49,8 @@ export class Login extends Component {
       errorMessage,
     } = this.state;
 
-    const { loading, authenticated } = this.props;
-    return authenticated ? <Redirect to="/" /> : (
+    const {loading} = this.props;
+    return (
       <div>
         <CustomForm
           className="register-form"
@@ -118,4 +115,4 @@ export const mapStateToProps = ({ auth }) => ({
   authenticated: auth.authenticated,
 });
 
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(mapStateToProps)(Login);

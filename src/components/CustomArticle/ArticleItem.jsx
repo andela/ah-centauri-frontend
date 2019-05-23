@@ -9,21 +9,19 @@ import classNames from 'classnames';
 import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import {
   bookmarkArticle,
-  unBookmarkArticle,
+  removeBookmark,
 } from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
 
 export class ArticleItem extends Component {
   handleBookmark = (e, slug) => {
     e.preventDefault();
-
     this.props.bookmarkArticle(slug);
   };
 
   handleUnBookmark = (e, id) => {
     e.preventDefault();
-
-    this.props.unBookmarkArticle(id);
+    this.props.removeBookmark(id);
   };
 
   render() {
@@ -145,7 +143,7 @@ ArticleItem.propTypes = {
   bookmarks: PropTypes.array.isRequired,
   authenticated: PropTypes.bool,
   bookmarkArticle: PropTypes.func.isRequired,
-  unBookmarkArticle: PropTypes.func.isRequired,
+  removeBookmark: PropTypes.func.isRequired,
 };
 
-export default connect(null, { bookmarkArticle, unBookmarkArticle })(ArticleItem);
+export default connect(null, { bookmarkArticle, removeBookmark })(ArticleItem);
