@@ -8,14 +8,17 @@ import {
   getMyProfileAction,
   successMessage,
   updateMyProfileAction,
+  getSingleUserProfileAction,
 } from '../profileActions';
 import {
   GET_MY_PROFILE_ERROR,
   GET_MY_PROFILE_SUCCESS,
+  GET_SINGLE_PROFILE_SUCCESS,
   UPDATE_MY_PROFILE_ERROR,
   UPDATE_MY_PROFILE_SUCCESS,
 } from '../types';
 import setUpProfileTests from '../../setupTests';
+import { errorMessage } from '../articlesActions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -164,6 +167,65 @@ describe('Test updateMyProfileAction async action creators', () => {
     expect(store.getActions()).toContainEqual(
       failureMessage({ errors: 'Something went wrong when updating your profile.' }, UPDATE_MY_PROFILE_ERROR),
     );
+    done();
+  });
+
+  it('test it gets GET_SINGLE_PROFILE_SUCCESS ', async (done) => {
+    const data = {
+      username: 'token',
+      message: 'Success!',
+    };
+
+    const expectedActions = successMessage(data, GET_SINGLE_PROFILE_SUCCESS);
+
+    moxios.stubRequest(`${API_HOST}/profiles/${data.username}/`, {
+      status: 200,
+      response: {
+        username: 'token',
+        message: 'Success!',
+      },
+    });
+
+    await store.dispatch(getSingleUserProfileAction(data.username));
+    expect(store.getActions()).toEqual([expectedActions]);
+    done();
+  });
+
+  it('test it creates ERROR_FETCHING_ARTICLES when authenticated', async (done) => {
+    const data = {
+      username: 'token',
+      message: 'Success!',
+    };
+
+    const expectedActions = failureMessage(data);
+
+    moxios.stubRequest(`${API_HOST}/profiles/${data.username}/`, {
+      status: 404,
+      response: {
+        username: 'token',
+        message: 'Success!',
+      },
+    });
+
+    await store.dispatch(getSingleUserProfileAction(data.username));
+    expect(store.getActions()).toEqual([expectedActions]);
+    done();
+  });
+
+  it('test it creates ERROR_FETCHING_ARTICLES with no response message', async (done) => {
+    const data = {
+      username: 'token',
+      errors: { errors: 'Something went wrong when fetching your profile.' },
+    };
+
+    const expectedActions = failureMessage(data.errors);
+
+    moxios.stubRequest(`${API_HOST}/profiles/${data.username}/`, {
+      status: 403,
+    });
+
+    await store.dispatch(getSingleUserProfileAction(data.username));
+    expect(store.getActions()).toEqual([expectedActions]);
     done();
   });
 });

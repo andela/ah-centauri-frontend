@@ -10,6 +10,7 @@ import LikeDislikeButtons from '../like/like';
 import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import SocialShareLinksVertical from '../SocialShareLinks/SocialShareLinksVertical';
 import ArticleRating from '../ArticleRating/ArticleRating';
+import CommentsComponent from '../Comments/Comments';
 import {
   bookmarkArticle,
   unBookmarkArticle,
@@ -30,7 +31,7 @@ export class SingleArticleItem extends Component {
   };
 
   render() {
-    const { article, authenticated, bookmarks } = this.props;
+    const { article, authenticated, bookmarks, comments, getReplies, createComment, deleteComment, editComment, postReply, user } = this.props;
 
     const bookmarked = bookmarks.filter(bookmark => bookmark.article.slug === article.slug);
     return (
@@ -108,7 +109,13 @@ export class SingleArticleItem extends Component {
               </h2>
               <div className="post-meta">
                 <div className="post-meta-content">
-                  <span className="post-auhor-date post-auhor-date-full">
+                  <span
+                    className="post-author-date"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
                     <a href="#">
                       <img
                         alt=""
@@ -119,19 +126,19 @@ export class SingleArticleItem extends Component {
                       />
                     </a>
                     <span>
-                      <a
-                        href="#"
+                      <Link
+                        to={article.author ? `/profile/${article.author.username}` : '#'}
                         className="post-author"
                       >
                         {article.author ? article.author.username : 'loading.....'}
-                      </a>
+                      </Link>
                     </span>
-                  ,
+                    ,
                     <a
                       href="#"
                       className="post-date"
                     >
-                     {moment(article.created_at).format('MMM Do YY')}
+                      {moment(article.created_at).format('MMM Do YY')}
                     </a>
                   </span>
                   <span className="post-readtime">
@@ -168,14 +175,24 @@ export class SingleArticleItem extends Component {
                 <CircularSocial size="huge" shareLinks={article.share_links ? article.share_links : {}}/>
               </div>
             </div>
-            <div className="sidebar-subscribe--title" style={{ paddingTop: '4rem' }}>
-              <h3>1 Comments</h3>
-            </div>
           </div>
-
-        </article>
-      </div>
-    );
+          <div className="social-share-circles">
+            <CircularSocial size="huge" shareLinks={article.share_links? article.share_links : {}} />
+          </div>
+      
+          <CommentsComponent
+          slug={article.slug}
+          comments={comments}
+          getReplies={getReplies}
+          createComment={createComment}
+          deleteComment={deleteComment}
+          editComment={editComment}
+          postReply={postReply}
+          user={user}
+          />
+      </article>
+    </div>
+);
   }
 }
 
@@ -183,6 +200,7 @@ SingleArticleItem.defaultProps = {
   article: {},
   bookmarks: [],
   authenticated: false,
+  comments: []
 };
 
 
@@ -192,6 +210,7 @@ SingleArticleItem.propTypes = {
   authenticated: PropTypes.bool,
   bookmarkArticle: PropTypes.func.isRequired,
   unBookmarkArticle: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
 };
 
 

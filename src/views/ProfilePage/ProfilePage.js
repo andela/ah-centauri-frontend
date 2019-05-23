@@ -1,15 +1,25 @@
 import React from 'react';
-import {Divider, Dropdown, Grid, Message, Tab, TextArea,} from 'semantic-ui-react';
+import {
+  Divider,
+  Dropdown,
+  Grid,
+  Message,
+  Tab,
+  TextArea,
+} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import countryOptions from '../../utils/profile.constants';
-import {getMyProfileAction, updateMyProfileAction} from '../../actions/profileActions';
+import {
+  getMyProfileAction,
+  updateMyProfileAction
+} from '../../actions/profileActions';
 import Avatar from '../../components/Profile/Avatar';
 import CountLabel from '../../components/Profile/CountLabel';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
-import {setToastMessage} from '../../utils/errorMessage';
+import { setToastMessage } from '../../utils/errorMessage';
 import requireAuth from '../../HOC/requireAuth';
 
 // Create component class to load user highlight details in an accordion.
@@ -229,7 +239,14 @@ export class ProfilePage extends React.Component {
             <HeaderLayout />
             <Grid columns="equal" divided verticalAlign="middle">
               {/* User avatar and follower data from the followers endpoint and the user Profile  */}
-              <Avatar textAlign="center" spaced imageUrl={profile.image_url} username={profile.username} />
+              <Avatar
+                textAlign="center"
+                spaced
+                imageUrl={profile.image
+                  ? `https://res.cloudinary.com/daniel2019/${profile.image}`
+                  : 'https://img.icons8.com/bubbles/2x/user.png'}
+                username={profile.username}
+              />
               <Grid.Column textAlign="center">
                 {FollowCountLabels}
               </Grid.Column>

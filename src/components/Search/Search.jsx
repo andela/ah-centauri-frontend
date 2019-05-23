@@ -35,7 +35,7 @@ class Search extends Component {
       key: optionValue,
       value: searchValue.toLowerCase(),
     };
-   
+
     searchArticles(data);
   };
 
