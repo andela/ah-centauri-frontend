@@ -5,8 +5,7 @@ import {
   LIKE_DISLIKE_ERROR,
   GET_ARTICLE_DATA,
 } from './types';
-import { loadingMessage } from './authActions';
-import getResponseErrors from '../utils/errorMessage';
+import { getSingleArticles } from './articlesActions';
 
 export const likeArticleAction = data => ({
   type: LIKE_ARTICLE,
@@ -21,39 +20,31 @@ export const dislikeArticleAction = data => ({
 export const fetchArticleDataAction = data => ({
   type: GET_ARTICLE_DATA,
   payload: data,
-})
+});
 
 export const likeErrorAction = data => ({
   type: LIKE_DISLIKE_ERROR,
   payload: data,
 });
 
-export const likeArticle = slug => async (dispatch) => {
-  try {
-    const response = await api.articles.likeArticle(slug);
-    dispatch(likeArticleAction(response.data));
-    dispatch(fetchArticleDataAction(response.data.article));
-  } catch (error) {
-    if (error.response && error.response.data) {
-      const { responseErrorsObject } = getResponseErrors(error.response.data);
-      dispatch(likeErrorAction(responseErrorsObject));
-    } else {
-      dispatch(likeErrorAction({ errors: 'Something went wrong when fetching your profile.' }));
-    }
-  }
+export const likeArticle = slug => (dispatch) => {
+  return api.articles.likeArticle(slug)
+    .then((response) => {
+      dispatch(likeArticleAction(response.data));
+      dispatch(getSingleArticles(slug));
+    })
+    .catch((error) => {
+      dispatch(likeErrorAction(error.response.data));
+    });
 };
 
-export const dislikeArticle = data => async (dispatch) => {
-  try {
-    const response = await api.articles.dislikeArticle(data);
-    dispatch(likeArticleAction(response.data));
-    dispatch(fetchArticleDataAction(response.data.article));
-  } catch (error) {
-    if (error.response && error.response.data) {
-      const { responseErrorsObject } = getResponseErrors(error.response.data);
-      dispatch(likeErrorAction(responseErrorsObject));
-    } else {
-      dispatch(likeErrorAction({ errors: 'Something went wrong when fetching your profile.' }));
-    }
-  }
+export const dislikeArticle = slug => (dispatch) => {
+  return api.articles.dislikeArticle(slug)
+    .then((response) => {
+      dispatch(dislikeArticleAction(response.data));
+      dispatch(getSingleArticles(slug));
+    })
+    .catch((error) => {
+      dispatch(likeErrorAction(error.response.data));
+    });
 };

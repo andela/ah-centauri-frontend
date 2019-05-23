@@ -37,7 +37,6 @@ class likeDislikeButtons extends Component {
   handleLike = (event) => {
     event.preventDefault();
     const { likeArticle, article } = this.props;
-    console.log({article});
     likeArticle(article.slug);
   };
 
@@ -48,42 +47,48 @@ class likeDislikeButtons extends Component {
   };
 
   render() {
-    const { liked, disliked, dislikes, likes} = this.props;
+    const {
+      liked, disliked, dislikes, likes 
+    } = this.props;
     return (
 
       <div>
         <div className="jssocials-share jssocials-share-like">
 
-          {liked ? 
-          (<a onClick={this.handleLike} href="" className="like-active">
-            <i className="fa fa-thumbs-o-up" />
-            <span>
-              {likes}
-            </span>
-          </a>)
-          :(<a onClick={this.handleLike} href="" className="jssocials-share-link">
-            <i className="fa fa-thumbs-o-up jssocials-share-logo" />
-            <span>
-              {likes}
-            </span>
-          </a>)}
+          {liked
+            ? (
+              <a onClick={this.handleLike} href="" className="like-active">
+                <i className="fa fa-thumbs-o-up" />
+                <span>
+                  {likes}
+                </span>
+              </a>
+            ) : (
+              <a onClick={this.handleLike} href="" className="jssocials-share-link">
+                <i className="fa fa-thumbs-o-up jssocials-share-logo" />
+                <span>
+                  {likes}
+                </span>
+              </a>
+            )}
         </div>
         <div className="jssocials-share jssocials-share-like">
-          {disliked ? (<a type="" onClick={this.handleDislike} href="" className="dislike-active">
-            <i
-              className="fa fa-thumbs-o-down"
-            />
-            <span>
-              {dislikes}
-            </span>
-          </a>) : (<a type="" onClick={this.handleDislike} href="" className="jssocials-share-link">
-            <i
-              className="fa fa-thumbs-o-down jssocials-share-logo"
-            />
-            <span>
-              {dislikes}
-            </span>
-          </a>)}
+          {disliked 
+            ? (
+              <a type="" onClick={this.handleDislike} href="" className="like-active">
+                <i className="fa fa-thumbs-o-down" />
+                <span>
+                  {dislikes}
+                </span>
+              </a>
+            ) : (
+              <a type="" onClick={this.handleDislike} href="" className="jssocials-share-link">
+                <i className="fa fa-thumbs-o-down jssocials-share-logo" />
+                <span>
+                  {dislikes}
+                </span>
+              </a>
+            )}
         </div>
       </div>
     );
@@ -105,6 +110,5 @@ const mapStateToProps = ({ likes }) => ({
 });
 
 export default connect(mapStateToProps, {
-  likeArticle, dislikeArticle, getSingleArticles
+  likeArticle, dislikeArticle, getSingleArticles,
 })(likeDislikeButtons);
-
