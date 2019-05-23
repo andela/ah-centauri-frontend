@@ -108,7 +108,13 @@ export class SingleArticleItem extends Component {
               </h2>
               <div className="post-meta">
                 <div className="post-meta-content">
-                  <span className="post-auhor-date post-auhor-date-full">
+                  <span
+                    className="post-author-date"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
                     <a href="#">
                       <img
                         alt=""
@@ -119,19 +125,19 @@ export class SingleArticleItem extends Component {
                       />
                     </a>
                     <span>
-                      <a
-                        href="#"
+                      <Link
+                        to={article.author ? `/profile/${article.author.username}` : '#'}
                         className="post-author"
                       >
                         {article.author ? article.author.username : 'loading.....'}
-                      </a>
+                      </Link>
                     </span>
-                  ,
+                    ,
                     <a
                       href="#"
                       className="post-date"
                     >
-                     {moment(article.created_at).format('MMM Do YY')}
+                      {moment(article.created_at).format('MMM Do YY')}
                     </a>
                   </span>
                   <span className="post-readtime">

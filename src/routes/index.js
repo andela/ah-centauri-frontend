@@ -9,6 +9,7 @@ import MyArticlesDraftPage from '../views/ArticlesPage/MyArticlesDraftPage';
 import UpdateArticlesPage from '../views/ArticlesPage/UpdateArticlesPage';
 import NotFoundPage from '../views/NotFoundPage/NotFoundPage';
 import SettingsPage from '../views/SettingsPage/SettingsPage';
+import SingleProfile from '../views/ProfilePage/SingleProfile';
 
 const routes = [
   {
@@ -52,6 +53,10 @@ const routes = [
   {
     path: '/me/settings',
     component: SettingsPage,
+  },
+  {
+    path: '/profile/:username',
+    component: SingleProfile,
   },
   {
     path: '/not-found',

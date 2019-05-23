@@ -105,6 +105,9 @@
     }
 
     &-content{
+      display: flex;
+      align-items: center;
+
       &>*:not(:last-child):not(:nth-last-child(2)),
       &>*:not(:last-child) {
         padding-right: 1.0rem;

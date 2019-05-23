@@ -18,6 +18,10 @@ export const api = {
   profile: {
     getMyProfile: () => axios.get(`${API_HOST}/profiles/me/`),
     updateMyProfile: data => axios.patch(`${API_HOST}/user/`, data),
+    getSingleProfile: username => axios.get(`${API_HOST}/profiles/${username}/`),
+    getUserFollowers: username => axios.get(`${API_HOST}/profiles/follow/${username}/`),
+    handleFollow: username => axios.post(`${API_HOST}/profiles/follow/${username}/`),
+    handleUnFollow: username => axios.delete(`${API_HOST}/profiles/follow/${username}/`),
   },
   articles: {
     getAllArticles: page => axios.get(`${API_HOST}/articles/?${limit(10, page)}`),
