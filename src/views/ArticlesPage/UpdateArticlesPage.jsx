@@ -17,6 +17,7 @@ import {
 } from '../../actions/articlesActions';
 import isEmpty from '../../utils/is_empty';
 import requireAuth from '../../HOC/requireAuth';
+import axios from 'axios';
 
 export class UpdateArticlesPage extends Component {
   constructor(props) {
@@ -30,6 +31,20 @@ export class UpdateArticlesPage extends Component {
       loading: false,
     };
   }
+
+  static uploadImageCallBack(file) {
+    try {
+      const url = 'https://cors-anywhere.herokuapp.com/https://api.cloudinary.com/v1_1/dv85uhrw5/image/upload';
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'cczvn3h1');
+      return axios.post(url, formData);
+    }
+    catch (err) {
+      return err;
+    }
+  }
+
 
   componentDidMount() {
     const { slug } = this.props.match.params;
@@ -153,6 +168,34 @@ export class UpdateArticlesPage extends Component {
                     editorClassName="editor-class"
                     toolbarClassName="toolbar-class"
                     onEditorStateChange={this.onEditorStateChange}
+                    hashtag={{
+                      separator: ' ',
+                      trigger: '#',
+                    }}
+                    toolbar={{
+                      options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'image', 'remove', 'colorPicker', 'history'],
+                      inline: {
+                        options: ['bold', 'italic', 'underline', 'strikethrough', 'monospace', 'superscript', 'subscript'],
+                      },
+                      fontSize: {
+                        options: [8, 9, 10, 11, 12, 14, 16, 18, 24],
+                      },
+                      image: {
+                        uploadCallback: UpdateArticlesPage.uploadImageCallBack,
+                        className: 'detail-image',
+                        alignmentEnabled: false,
+                        previewImage: true,
+                        inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                        alt: {
+                          present: true,
+                          mandatory: true,
+                        },
+                        defaultSize: {
+                          height: '100%',
+                          width: '95%',
+                        },
+                      },
+                    }}
                   />
                 </div>
 

@@ -12,6 +12,7 @@ import {
 import { searchArticleAction } from '../../actions/searchActions';
 
 import { setPage } from '../../actions/paginationActions';
+import { ARTICLE_LOADING_PROGRESS } from '../../actions/types';
 
 const INITIAL_STATE = {
   articles: [{ slug: 'test' }, { slug: 'test1' }],
@@ -28,7 +29,7 @@ describe('Testing ARTICLE REDUCER', () => {
   });
 
   it('should handle LOADING_PROGRESS', () => {
-    const loadingAction = loadingMessage();
+    const loadingAction = loadingMessage(ARTICLE_LOADING_PROGRESS);
     const state = reducer(INITIAL_STATE, loadingAction);
     const expectedState = {
       ...INITIAL_STATE,

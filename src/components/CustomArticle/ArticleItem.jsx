@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import parse from 'html-react-parser';
 import classNames from 'classnames';
 
+import { Placeholder } from 'semantic-ui-react';
 import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import {
   bookmarkArticle,
@@ -25,12 +27,23 @@ export class ArticleItem extends Component {
   };
 
   render() {
-    const { article, authenticated, bookmarks } = this.props;
+    const {
+      article, authenticated, bookmarks, loading,
+    } = this.props;
+
+    const imgRegex = /<img[^>]+src="(http:\/\/[^">]+)"/g;
+    const src = imgRegex.exec(article.body);
+    const imgSrc = _.isEmpty(src) ? '' : src[1];
 
     const bookmarked = bookmarks.filter(bookmark => bookmark.article.slug === article.slug);
 
     return (
-      <article className="post post_item">
+      <article className={classNames({
+        post: true,
+        post_item: true,
+        no_image: _.isEmpty(imgSrc),
+      })}
+      >
         <div className="post-container">
           <div className="post-categories-container">
             <div className="post-categories">
@@ -65,8 +78,12 @@ export class ArticleItem extends Component {
             <div className="post-meta-content">
               <span className="post-author-date">
                 <span>
-                  <Link to={`/profile/${article.author.username}`}
-                        className="post-author">{article.author.username}</Link>
+                  <Link
+                    to={`/profile/${article.author.username}`}
+                    className="post-author"
+                  >
+                    {article.author.username}
+                  </Link>
                 </span>
                 ,&nbsp;
                 <Link to="#" className="post-date">
@@ -84,27 +101,27 @@ export class ArticleItem extends Component {
               </span>
             </div>
           </div>
-          <div className="post-thumbnail">
-            <img
-              width="1200"
-              height="675"
-              src="https://cdn.gillion.shufflehound.com/wp-content/uploads/2017/01/26-1200x675.jpg"
-              alt=""
-            />
-            <a href={`/article/${article.slug}`} className="post-overlay">
-              <div className="post-overlay-content">
-                <span/>
-                <span/>
-                <span/>
-              </div>
-            </a>
-          </div>
-          <div className="post-content-container">
-            <div className="post-content">
-              <p>
-                {parse(article.description)}
-              </p>
+          {_.isEmpty(imgSrc) ? '' : (
+            <div className="post-thumbnail">
+              <img
+                width="1200"
+                height="300"
+                src={imgSrc}
+                alt=""
+              />
+              <a href={`/article/${article.slug}`} className="post-overlay">
+                <div className="post-overlay-content">
+                  <span/>
+                  <span/>
+                  <span/>
+                </div>
+              </a>
             </div>
+          )}
+          <div className="articles-draft-tab-content-item__content">
+            <a href={`/article/${article.slug}`}>
+              <h3 style={{ fontSize: '1.6rem', fontWeight: 400 }}>{article.description}</h3>
+            </a>
           </div>
           <div className="post-readmore sh-table">
             <div className="sh-table-cell post-readmore-text">
@@ -135,6 +152,7 @@ ArticleItem.defaultProps = {
   article: {},
   bookmarks: [],
   authenticated: false,
+  loading: false,
 };
 
 
@@ -142,6 +160,7 @@ ArticleItem.propTypes = {
   article: PropTypes.object.isRequired,
   bookmarks: PropTypes.array.isRequired,
   authenticated: PropTypes.bool,
+  loading: PropTypes.bool,
   bookmarkArticle: PropTypes.func.isRequired,
   removeBookmark: PropTypes.func.isRequired,
 };

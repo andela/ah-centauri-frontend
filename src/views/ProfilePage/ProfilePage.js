@@ -1,12 +1,20 @@
 import React from 'react';
 import {
-  Divider, Dropdown, Grid, Message, Tab, TextArea,
+  Divider,
+  Dropdown,
+  Grid,
+  Message,
+  Tab,
+  TextArea,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import countryOptions from '../../utils/profile.constants';
-import { getMyProfileAction, updateMyProfileAction } from '../../actions/profileActions';
+import {
+  getMyProfileAction,
+  updateMyProfileAction
+} from '../../actions/profileActions';
 import Avatar from '../../components/Profile/Avatar';
 import CountLabel from '../../components/Profile/CountLabel';
 import HeaderLayout from '../../components/layout/HeaderLayout';
@@ -289,7 +297,7 @@ export class ProfilePage extends React.Component {
                   : 'https://img.icons8.com/bubbles/2x/user.png'}
                 username={profile.username}
               />
-              <Grid.Column textAlign="center">
+              <Grid.Column textAlign="center" style={{ background: 'var(--color-primary)' }}>
                 {FollowCountLabels}
               </Grid.Column>
               <Divider />
