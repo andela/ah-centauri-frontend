@@ -20,7 +20,7 @@ import {
   createComment,
   deleteComment,
   editComment,
-  postReply
+  postReply,
 } from '../../actions/commentsActions';
 
 export class ArticlesDescription extends Component {
@@ -43,23 +43,23 @@ export class ArticlesDescription extends Component {
   }
 
   getAllReplies = (data) => {
-    this.props.getAllReplies(data)
+    this.props.getAllReplies(data);
   }
 
   createComment = (data) => {
-    this.props.createComment(data)
+    this.props.createComment(data);
   }
 
   deleteComment = (data) => {
-    this.props.deleteComment(data)
+    this.props.deleteComment(data);
   }
 
   editComment = (data) => {
-    this.props.editComment(data)
+    this.props.editComment(data);
   }
 
   postReply = (data) => {
-    this.props.postReply(data)
+    this.props.postReply(data);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -86,18 +86,18 @@ export class ArticlesDescription extends Component {
         <div className="row home">
           <div className="column _25">
             <SingleArticleItem
-            article={article}
-            key={article.id}
-            comments={this.props.comments}
-            getReplies={this.getAllReplies}
-            createComment={this.createComment}
-            deleteComment={this.deleteComment}
-            editComment={this.editComment}
-            postReply={this.postReply}
-            bookmarks={bookmarks}
-            authenticated={this.props.authenticated}
-            user={this.props.user ? this.props.user.username: '' }
-          />
+              article={article}
+              key={article.id}
+              comments={this.props.comments}
+              getReplies={this.getAllReplies}
+              createComment={this.createComment}
+              deleteComment={this.deleteComment}
+              editComment={this.editComment}
+              postReply={this.postReply}
+              bookmarks={bookmarks}
+              authenticated={this.props.authenticated}
+              user={this.props.user ? this.props.user.username : ''}
+            />
           </div>
           <div className="column _75">
             <SideBar
@@ -137,7 +137,9 @@ ArticlesDescription.propTypes = {
   editComment: PropTypes.func.isRequired,
 };
 
-export const mapStateToProps = ({ articles, bookmarks, auth, comments, profile }) => ({
+export const mapStateToProps = ({
+  articles, bookmarks, auth, comments, profile,
+}) => ({
   articles: articles.articles,
   authenticated: auth.authenticated,
   article: articles.article,
@@ -149,5 +151,7 @@ export const mapStateToProps = ({ articles, bookmarks, auth, comments, profile }
 
 export default connect(
   mapStateToProps,
-  { getAllArticles, getSingleArticles, getAllbookmarkedArticles, getAllComments, getAllReplies, createComment, deleteComment, editComment, postReply },
+  {
+    getAllArticles, getSingleArticles, getAllbookmarkedArticles, getAllComments, getAllReplies, createComment, deleteComment, editComment, postReply,
+  },
 )(ArticlesDescription);

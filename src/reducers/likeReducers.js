@@ -1,7 +1,8 @@
 import { 
   LIKE_ARTICLE,
   DISLIKE_ARTICLE,
-  GET_ARTICLE_DATA
+  GET_ARTICLE_DATA,
+  LIKE_DISLIKE_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -38,6 +39,11 @@ export default (state = INITIAL_STATE, action) => {
         disliked: !state.disliked,
         likes: action.payload.like_count,
         dislikes: action.payload.dislike_count,
+      };
+    case LIKE_DISLIKE_ERROR:
+      return {
+        ...state,
+        errorMessage: action.payload,
       };
     default: return state;
   }
