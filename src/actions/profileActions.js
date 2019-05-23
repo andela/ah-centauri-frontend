@@ -83,6 +83,7 @@ export const handleFollow = (username, history) => dispatch => api.profile.handl
     history.push('/');
   });
 
+
 export const handleUnFollow = (username, history) => dispatch => api.profile.handleUnFollow(username)
   .then(() => {
     dispatch(getSingleUserProfileAction(username));

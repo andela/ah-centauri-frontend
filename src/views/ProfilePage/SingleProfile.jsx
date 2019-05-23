@@ -52,7 +52,6 @@ export class SingleProfile extends Component {
     filterByAuthorArticles(username);
   }
 
-
   componentWillReceiveProps(nextProps, prevState) {
     const { profile, currentProfile } = nextProps;
     if (nextProps.profile.followers !== prevState.followers) {
