@@ -3,7 +3,6 @@ import {
   SEARCH_ARTICLES,
 } from './types';
 import { errorMessage } from './articlesActions';
-import { loadingMessage } from './authActions';
 
 export const searchArticleAction = data => ({
   type: SEARCH_ARTICLES,
@@ -12,7 +11,6 @@ export const searchArticleAction = data => ({
 
 
 export const searchArticles = data => (dispatch) => {
-  dispatch(loadingMessage());
   return api.articles.searchArticles(data)
     .then((response) => {
       dispatch(searchArticleAction(response.data));

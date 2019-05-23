@@ -1,7 +1,6 @@
 import { 
   LIKE_ARTICLE,
   DISLIKE_ARTICLE,
-  LOADING_PROGRESS,
   GET_ARTICLE_DATA
 } from '../actions/types';
 
@@ -15,11 +14,6 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case LOADING_PROGRESS:
-      return {
-        ...state,
-        loading: true,
-      };
     case GET_ARTICLE_DATA:
       return {
         ...state,
@@ -40,8 +34,8 @@ export default (state = INITIAL_STATE, action) => {
     case DISLIKE_ARTICLE:
       return {
         ...state,
-        disliked: !state.disliked,
         liked: false,
+        disliked: !state.disliked,
         likes: action.payload.like_count,
         dislikes: action.payload.dislike_count,
       };

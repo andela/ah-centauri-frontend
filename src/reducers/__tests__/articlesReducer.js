@@ -9,6 +9,7 @@ import {
   CreateArticleSuccessMessage,
   deleteSuccessMessage,
 } from '../../actions/articlesActions';
+import { searchArticleAction } from '../../actions/searchActions';
 
 import { setPage } from '../../actions/paginationActions';
 
@@ -48,6 +49,27 @@ describe('Testing ARTICLE REDUCER', () => {
       loading: false,
     };
     const state = reducer(INITIAL_STATE, fetchAllArticlesAction);
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle SEARCH_ARTICLES', () => {
+    const payload = { articles: { results: [] } };
+    const INIT_STATE = {
+      errorMessage: {},
+      articleSearchResults: [],
+      searchCount: 0,
+      successMessage: '',
+      currentPage: 0,
+      loading: false,
+    };
+    const expectedState = {
+      ...INIT_STATE,
+      articleSearchResults: payload.articles.results,
+      searchCount: payload.articles.count,
+      errorMessage: {},
+      loading: false,
+    };
+    const state = reducer(INIT_STATE, searchArticleAction(payload));
     expect(state).toEqual(expectedState);
   });
 
