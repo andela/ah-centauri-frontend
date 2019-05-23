@@ -2,7 +2,7 @@ import {
   AUTH_SIGNOUT,
   GET_MY_PROFILE_ERROR,
   GET_MY_PROFILE_SUCCESS,
-  LOADING_PROGRESS,
+  PROFILE_LOADING_PROGRESS,
   UPDATE_MY_PROFILE_ERROR,
   UPDATE_MY_PROFILE_SUCCESS,
 } from '../actions/types';
@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, actions) {
   switch (actions.type) {
-    case LOADING_PROGRESS:
+    case PROFILE_LOADING_PROGRESS:
       return {
         ...state,
         loading: true,

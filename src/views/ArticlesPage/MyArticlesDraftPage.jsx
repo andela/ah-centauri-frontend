@@ -6,6 +6,7 @@ import Footer from '../../components/layout/Footer';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import { filterByAuthorArticles } from '../../actions/articlesActions';
 import MyArticleDraftFeed from '../../components/CustomArticle/MyArticleDraftFeed';
+import requireAuth from '../../HOC/requireAuth';
 
 export class MyArticlesDraftPage extends Component {
   componentDidMount() {
@@ -60,7 +61,7 @@ export const mapStateToProps = ({ articles, profile }) => ({
   profile: profile.current_profile,
 });
 
-export default connect(
+export default requireAuth(connect(
   mapStateToProps,
   { filterByAuthorArticles },
-)(MyArticlesDraftPage);
+)(MyArticlesDraftPage));

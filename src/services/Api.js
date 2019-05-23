@@ -3,7 +3,7 @@ import axios from 'axios/index';
 // Backend API URL
 export const API_HOST = 'http://localhost:8000/api';
 
-const limit = (count, p) => `limit=${count}&offset=${p ? (p-1) * count : 0}`;
+const limit = (count, p) => `limit=${count}&offset=${p ? (p - 1) * count : 0}`;
 
 // eslint-disable-next-line import/prefer-default-export
 export const api = {
@@ -20,7 +20,7 @@ export const api = {
     updateMyProfile: data => axios.patch(`${API_HOST}/user/`, data),
   },
   articles: {
-    getAllArticles: (page) => axios.get(`${API_HOST}/articles/?${limit(10, page)}`),
+    getAllArticles: page => axios.get(`${API_HOST}/articles/?${limit(10, page)}`),
     getSingleArticles: slug => axios.get(`${API_HOST}/articles/${slug}`),
     createArticles: data => axios.post(`${API_HOST}/articles/`, data),
     updateArticles: data => axios.put(`${API_HOST}/articles/${data.slug}/`, data),
@@ -30,5 +30,14 @@ export const api = {
     dislikeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/dislike/`),
     updateArticleRating: data => axios.post(`${API_HOST}/articles/${data.rating.slug}/ratings/`, data),
     searchArticles: data => axios.get(`${API_HOST}/articles/q?${data.key}=${data.value}`),
+  },
+  bookmarks: {
+    getAllBookmarkArticle: () => axios.get(`${API_HOST}/bookmarks/`),
+    bookmarkArticle: slug => axios.post(`${API_HOST}/bookmarks/${slug}/`),
+    unBookmarkArticle: id => axios.delete(`${API_HOST}/bookmarks/${id}/`),
+  },
+  notifications: {
+    getUserNotifications: () => axios.get(`${API_HOST}/notification/settings`),
+    updateNotifications: data => axios.patch(`${API_HOST}/notification/settings`, data),
   },
 };

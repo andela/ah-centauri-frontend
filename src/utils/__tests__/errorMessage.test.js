@@ -1,5 +1,8 @@
 import expect from 'expect';
-import getResponseErrors from '../errorMessage';
+import React from 'react';
+import { mount } from 'enzyme';
+import { SemanticToastContainer } from 'react-semantic-toasts';
+import getResponseErrors, { setToastMessage } from '../errorMessage';
 
 describe('Test responseErrors functions return the necessary errors objects', () => {
   it(' creates an object of errors', () => {
@@ -15,5 +18,17 @@ describe('Test responseErrors functions return the necessary errors objects', ()
       },
     });
     expect(responseErrorsObject.detail).toBeTruthy();
+  });
+});
+
+describe('Test setToastMessage function', () => {
+  const callToastMessage = () => {
+    setToastMessage({ message: 'Toast Message Loaded', error: ['error'], messageOptions: { type: 'info' } });
+    setToastMessage('Toast Message Loaded');
+  };
+  const wrapper = mount(<SemanticToastContainer callToastMessage={callToastMessage} />);
+  it(' creates an object of errors', () => {
+    expect(wrapper.find('.ui-alerts')).toBeTruthy();
+    wrapper.instance().props.callToastMessage();
   });
 });

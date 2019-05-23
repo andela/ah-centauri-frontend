@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import {
-  Message,
-} from 'semantic-ui-react';
+import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import {Message,} from 'semantic-ui-react';
 
-import { loginAction } from '../../actions/authActions';
+import {loginAction} from '../../actions/authActions';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import isEmpty from '../../utils/is_empty';
 import SocialButtons from '../../components/layout/login/socialAuth';
@@ -23,6 +21,7 @@ export class Login extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+
     if (prevState.errorMessage !== nextProps.errorMessage
 
       || prevState.loading !== nextProps.loading) {
@@ -54,7 +53,6 @@ export class Login extends Component {
     } = this.state;
 
     const { loading, authenticated } = this.props;
-
     return authenticated ? <Redirect to="/" /> : (
       <div>
         <CustomForm

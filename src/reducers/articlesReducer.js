@@ -73,7 +73,7 @@ export default function (state = INITIAL_STATE, actions) {
     case SET_PAGE:
       return {
         ...state,
-        currentPage: actions.payload
+        currentPage: actions.payload,
       };
     default:
       return state;

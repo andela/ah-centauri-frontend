@@ -10,7 +10,8 @@ const SearchItem = ({ article }) => (
     <div className="post-container">
       <div className="post-categories-container">
         <div className="post-categories">
-          {article.tags.map((tag, index) => <Link to="#" key={index}>{tag}</Link>)}
+          {article.tags.map((tag, index) => <Link to="#" key={index} className="post-tags-item post-tags-item-title">
+          #{tag}</Link>)}
         </div>
       </div>
       <a

@@ -8,6 +8,7 @@ const setUp = () => {
   const props = {
     authenticated: false,
     profile: {},
+    loading: false,
     getMyProfileAction: jest.fn(),
     loginAction: jest.fn(),
     signUpAction: jest.fn(),
