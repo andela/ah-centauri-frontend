@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {Checkbox} from 'semantic-ui-react';
-
-import {Link} from 'react-router-dom';
-import {signoutAction} from '../../actions/authActions';
-import {getUserNotifications, updateNotifications,} from '../../actions/notificationsActions';
+import { Checkbox } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import {
+  getUserNotificationSettings,
+  updateNotificationSettings,
+} from '../../actions/notificationsActions';
 
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import requireAuth from '../../HOC/requireAuth';
 import Footer from '../../components/layout/Footer';
+import { signoutAction } from '../../actions/authActions';
 
 
 export class SettingsPage extends Component {
@@ -24,7 +26,7 @@ export class SettingsPage extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserNotifications();
+    this.props.getUserNotificationSettings();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -54,7 +56,7 @@ export class SettingsPage extends Component {
       in_app_notifications: this.state.inAppChecked,
     };
 
-    this.props.updateNotifications(data);
+    this.props.updateNotificationSettings(data);
   };
 
   handleInApptoggle = (e) => {
@@ -65,7 +67,7 @@ export class SettingsPage extends Component {
       email_notifications: this.state.emailChecked,
     };
 
-    this.props.updateNotifications(data);
+    this.props.updateNotificationSettings(data);
   };
 
   handleSignOut = (e) => {
@@ -78,7 +80,7 @@ export class SettingsPage extends Component {
     const { user } = this.state;
     return (
       <section id="home">
-        <HeaderLayout/>
+        <HeaderLayout />
         <div className="row home">
           <div className="column _25">
             <div className="articles">
@@ -167,18 +169,20 @@ SettingsPage.defaultProps = {
 SettingsPage.propTypes = {
   notifications: PropTypes.object,
   signoutAction: PropTypes.func.isRequired,
-  getUserNotifications: PropTypes.func.isRequired,
-  updateNotifications: PropTypes.func.isRequired,
+  getUserNotificationSettings: PropTypes.func.isRequired,
+  updateNotificationSettings: PropTypes.func.isRequired,
 };
 
-export const mapStateToProps = ({ notifications, articles }) => ({
-  errorMessage: articles.errorMessage,
-  loading: notifications.loading,
-  notifications: notifications.notifications,
-});
+export const mapStateToProps = ({ notifications, articles }) => {
+  return {
+    errorMessage: articles.errorMessage,
+    loading: notifications.loading,
+    notifications: notifications.notificationSettings,
+  };
+};
 
 export default requireAuth(connect(mapStateToProps, {
   signoutAction,
-  getUserNotifications,
-  updateNotifications,
+  getUserNotificationSettings,
+  updateNotificationSettings,
 })(SettingsPage));

@@ -320,7 +320,7 @@ describe('Api service function test: ', () => {
     mock.onGet(`${API_HOST}/notification/settings`)
       .reply(200, data);
 
-    api.notifications.getUserNotifications()
+    api.notifications.getUserNotificationSettings()
       .then((response) => {
         expect(response.data)
           .toEqual(data);
@@ -335,7 +335,7 @@ describe('Api service function test: ', () => {
     mock.onPatch(`${API_HOST}/notification/settings`)
       .reply(200, data);
 
-    api.notifications.updateNotifications(data)
+    api.notifications.updateNotificationSettings(data)
       .then((response) => {
         expect(response.data)
           .toEqual(data);

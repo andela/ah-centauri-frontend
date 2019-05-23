@@ -41,8 +41,10 @@ export const api = {
     removeBookmark: id => axios.delete(`${API_HOST}/bookmarks/${id}/`),
   },
   notifications: {
-    getUserNotifications: () => axios.get(`${API_HOST}/notification/settings`),
-    updateNotifications: data => axios.patch(`${API_HOST}/notification/settings`, data),
+    getUserNotificationSettings: () => axios.get(`${API_HOST}/notification/settings`),
+    updateNotificationSettings: data => axios.patch(`${API_HOST}/notification/settings`, data),
+    fetchNotifications: page => axios.get(`${API_HOST}/me/notifications?page=${page}`),
+    markAsRead: () => axios.patch(`${API_HOST}/me/notifications`),
   },
   comments: {
     getAllComments: slug => axios.get(`${API_HOST}/articles/${slug}/comments/`),

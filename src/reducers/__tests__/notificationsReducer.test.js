@@ -7,7 +7,9 @@ import { loadingMessage } from '../../actions/articlesActions';
 
 
 const INITIAL_STATE = {
-  notifications: {},
+  notificationSettings: {},
+  notifications: [],
+  unreadNotifications: 0,
   errorMessage: {},
   loading: false,
 };
@@ -29,15 +31,21 @@ describe('Test Notifications Reducer ', () => {
   });
 
   it('should handle FETCH_NOTIFICATIONS', () => {
-    const payload = { id: 1 };
+    const payload = {
+      email_notifications: true,
+      in_app_notifications: false,
+    };
+
     const notificationsSuccessMessageAction = notificationsSuccessMessage(payload);
     const expectedState = {
       ...INITIAL_STATE,
-      notifications: payload,
+      notificationSettings: {
+        email_notifications: true,
+        in_app_notifications: false,
+      },
       loading: false,
     };
     const state = notificationsReducer(INITIAL_STATE, notificationsSuccessMessageAction);
     expect(state).toEqual(expectedState);
   });
-
 });

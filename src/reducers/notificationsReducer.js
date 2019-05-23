@@ -1,12 +1,19 @@
 import {
   FETCH_NOTIFICATIONS,
-  LOADING_PROGRESS
+  LOADING_PROGRESS,
+  NOTIFICATION_LIST_UPDATED,
+  FRESH_NOTIFICATIONS_LIST,
+  RESET_NOTIFICATIONS_COUNT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  notifications: {},
+  notificationSettings: {},
+  notifications: [],
+  unreadNotifications: 0,
   errorMessage: {},
   loading: false,
+  nextPage: '',
+  previousPage: '',
 };
 
 export default function (state = INITIAL_STATE, actions) {
@@ -16,11 +23,39 @@ export default function (state = INITIAL_STATE, actions) {
         ...state,
         loading: true,
       };
+    case RESET_NOTIFICATIONS_COUNT:
+      return {
+        ...state,
+        unreadNotifications: 0,
+      };
     case FETCH_NOTIFICATIONS:
       return {
         ...state,
-        notifications: actions.payload,
+        notificationSettings: {
+          email_notifications: actions.payload.email_notifications,
+          in_app_notifications: actions.payload.in_app_notifications,
+        },
         loading: false,
+        nextPage: actions.payload.next,
+        previousPage: actions.payload.previousPage,
+      };
+    case FRESH_NOTIFICATIONS_LIST:
+      return {
+        ...state,
+        loading: false,
+        notifications: actions.payload.results,
+        unreadNotifications: actions.payload.results.filter(n => !n.is_read).length,
+        nextPage: actions.payload.next,
+        previousPage: actions.payload.previousPage,
+      };
+    case NOTIFICATION_LIST_UPDATED:
+      return {
+        ...state,
+        loading: false,
+        notifications: [...actions.payload.results, ...state.notifications],
+        unreadNotifications: actions.payload.results.filter(n => !n.is_read).length,
+        nextPage: actions.payload.next,
+        previousPage: actions.payload.previousPage,
       };
     default:
       return state;
