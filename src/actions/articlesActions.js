@@ -51,7 +51,6 @@ export const getAllArticles = page => (dispatch) => {
 };
 
 export const getSingleArticles = (slug, history) => (dispatch) => {
-  dispatch(loadingMessage(ARTICLE_LOADING_PROGRESS));
   return api.articles.getSingleArticles(slug)
     .then((response) => {
       dispatch(singleArticleSuccessMessage(response.data.article));

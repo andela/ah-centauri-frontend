@@ -10,6 +10,7 @@ import bookmarksReducer from './bookmarksReducer';
 import notificationsReducer from './notificationsReducer';
 import commentsReducer from './commentsReducer';
 import analyticsReducers from './analyticsReducers';
+import reportArticleReducer from './reportArticleReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
   notifications: notificationsReducer,
   comments: commentsReducer,
   analytics: analyticsReducers,
+  reports: reportArticleReducer,
 });

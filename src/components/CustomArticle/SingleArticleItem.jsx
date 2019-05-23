@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button, Popup } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -18,6 +19,7 @@ import {
   removeBookmark,
 } from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
+import ReportArticleModal from '../ReportArticle/ReportArticleModal';
 
 export class SingleArticleItem extends Component {
   handleBookmark = (e, slug) => {
@@ -229,6 +231,9 @@ export class SingleArticleItem extends Component {
                     <div className="social-share-circles">
                       <CircularSocial size="huge" shareLinks={article.share_links ? article.share_links : {}}/>
                     </div>
+                    <span className="left-aligner">
+                      <ReportArticleModal slug={article.slug}/>
+                    </span>
                   </div>
                 </div>
               )}

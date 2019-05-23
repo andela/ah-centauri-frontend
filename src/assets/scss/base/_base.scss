@@ -97,6 +97,26 @@ body {
 .p-3{
   padding-top: 3rem;
 }
+.left-aligner{
+  float: right !important; 
+}
+
+.fa-ellipsis-h{
+  float: right;
+  font-size: 40px;
+}
+.report-article{
+  cursor: pointer;
+}
+
+ .line-spacing{
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.modal-header {
+  font-size: 3.5rem !important;
+}
 
 .ui.primary.button, .ui.primary.buttons .button {
   background-color: var(--color-primary);

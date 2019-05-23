@@ -28,7 +28,6 @@ export class MyArticleDraftItem extends Component {
             </a>
             <p>{article.description}</p>
           </div>
-
           <div className="p-3">
             Published &nbsp;
             {moment(article.created_at).format('MMM Do YY')}
