@@ -13,7 +13,7 @@ import {
 import { setPage } from '../../actions/paginationActions';
 
 const INITIAL_STATE = {
-  articles: [],
+  articles: [{ slug: 'test' }, { slug: 'test1' }],
   errorMessage: {},
   successMessage: '',
   currentPage: 0,
@@ -38,14 +38,14 @@ describe('Testing ARTICLE REDUCER', () => {
   });
 
   it('should handle FETCH_ALL_ARTICLES', () => {
-    const payload = {results: []};
+    const payload = { results: [] };
     const fetchAllArticlesAction = successMessage(payload);
     const expectedState = {
       ...INITIAL_STATE,
-        articles: payload.results,
-        articlesCount: payload.count,
-        errorMessage: {},
-        loading: false,
+      articles: payload.results,
+      articlesCount: payload.count,
+      errorMessage: {},
+      loading: false,
     };
     const state = reducer(INITIAL_STATE, fetchAllArticlesAction);
     expect(state).toEqual(expectedState);
@@ -67,14 +67,14 @@ describe('Testing ARTICLE REDUCER', () => {
     const setPageAction = setPage(2);
     const expectedState = {
       ...INITIAL_STATE,
-      currentPage: 2
+      currentPage: 2,
     };
     const state = reducer(INITIAL_STATE, setPageAction);
     expect(state).toEqual(expectedState);
   });
 
   it('should handle FETCH_SINGLE_ARTICLE', () => {
-    const payload = {article: {}};
+    const payload = { article: {} };
     const fetchSingleAction = singleArticleSuccessMessage(payload);
     const expectedState = {
       ...INITIAL_STATE,
@@ -87,7 +87,7 @@ describe('Testing ARTICLE REDUCER', () => {
   });
 
   it('should handle CREATE_SINGLE_ARTICLE', () => {
-    const payload = {article: {}};
+    const payload = { article: {} };
     const createSingleAction = CreateArticleSuccessMessage(payload);
     const expectedState = {
       ...INITIAL_STATE,
@@ -99,16 +99,14 @@ describe('Testing ARTICLE REDUCER', () => {
   });
 
   it('should handle DELETE_SINGLE_ARTICLE', () => {
-    const payload = {slug: ''};
+    const payload = { slug: 'test1' };
     const deleteSingleAction = deleteSuccessMessage(payload.slug);
     const expectedState = {
       ...INITIAL_STATE,
-      articles: INITIAL_STATE.articles.filter(article => article.slug !== payload.slug),
+      articles: [{ slug: 'test' }],
       loading: false,
     };
     const state = reducer(INITIAL_STATE, deleteSingleAction);
     expect(state).toEqual(expectedState);
   });
-
-
 });

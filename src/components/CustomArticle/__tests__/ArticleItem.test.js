@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme/build';
 import expect from 'expect';
 
-import ArticleItem from '../ArticleItem';
+import { ArticleItem } from '../ArticleItem';
 
 
 const setUp = () => {
@@ -24,6 +24,10 @@ const setUp = () => {
       },
       read_time: '1 min read',
     },
+    bookmarks: [{ id: 1, article: { slug: 'alpha-is-a-developer-4' } }],
+    authenticated: true,
+    bookmarkArticle: jest.fn(),
+    unBookmarkArticle: jest.fn(),
   };
   const wrapper = shallow(<ArticleItem {...props} />);
 
@@ -41,5 +45,21 @@ describe('ArticleItem page test', () => {
 
     expect(articleSection.exists())
       .toBe(true);
+  });
+
+  it('should handle onchange function', () => {
+    wrapper.instance().handleBookmark({
+      preventDefault: () => {
+      }
+    }, props.article.slug);
+
+    wrapper.instance().handleUnBookmark({
+      preventDefault: () => {
+      }
+    }, props.bookmarks[0].id);
+
+
+    expect(props.bookmarkArticle).toBeCalledTimes(1);
+    expect(props.unBookmarkArticle).toBeCalledTimes(1);
   });
 });

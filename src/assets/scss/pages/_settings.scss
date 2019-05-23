@@ -1,0 +1,97 @@
+.heading {
+  color: rgba(0, 0, 0, .84);
+  font-size: 1.8rem;
+  letter-spacing: 0;
+  position: relative;
+  border-bottom: .1rem solid rgba(0, 0, 0, .05);
+  font-family: 'Roboto Condensed', sans-serif;
+
+  &-content {
+    padding-top: 0;
+    margin-bottom: .8rem;
+
+    & h2 {
+      letter-spacing: 0;
+      font-weight: 700;
+      font-style: normal;
+      font-size: 2.6rem;
+      font-family: 'Roboto Condensed', sans-serif;
+    }
+  }
+}
+
+.list {
+  margin-bottom: 5rem;
+
+  &-item {
+    list-style: none;
+    border-top: .1rem solid rgba(255, 255, 255, .2);
+    border-bottom: .1rem solid rgba(0, 0, 0, .05);
+    padding: 4.0rem 0 3.5rem;
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    font-family: 'Roboto Condensed', sans-serif;
+
+    &__content {
+      line-height: 2.0rem;
+      font-size: 1.6rem;
+      display: flex;
+      flex-direction: column;
+
+
+      & h3 {
+        font-weight: 600;
+        font-style: normal;
+        font-size: 1.8rem;
+        line-height: 2rem;
+        transform: translateY(-1rem);
+        letter-spacing: -.029rem;
+      }
+
+      & input {
+        letter-spacing: 0;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 1.8rem;
+        border: none;
+        padding: 0;
+      }
+
+      & span {
+        font-weight: 200;
+        font-size: 1.2rem;
+      }
+
+      & p {
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: 0;
+        font-size: 1.6rem;
+        line-height: 2.0rem;
+        -webkit-transform: translateY(.152rem);
+        transform: translateY(.152rem);
+      }
+    }
+
+    & a,
+    & button {
+      height: 3.7rem;
+      line-height: 3.7rem;
+      padding: 0 1.6rem;
+      border: .1rem solid rgba(0, 0, 0, .15);
+      -webkit-border-radius: .4rem;
+      border-radius: .4rem;
+      color: rgba(0, 0, 0, .54);
+
+      &:active {
+        border-color: rgba(0, 0, 0, .68);
+      }
+
+      &:hover {
+        color: rgba(0, 0, 0, .68);
+        border-color: rgba(0, 0, 0, .68);
+      }
+    }
+  }
+}

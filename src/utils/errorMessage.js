@@ -1,3 +1,7 @@
+import React from 'react';
+import {Message} from 'semantic-ui-react';
+import {toast} from 'react-semantic-toasts';
+import isEmpty from './is_empty';
 
 function getResponseErrorsObject(responseErrorsArray = []) {
   let responseErrorsObject = {};
@@ -50,4 +54,47 @@ export default function getResponseErrors(responseData, responseErrorsArray = []
     }
   }
   return getResponseErrorsObject(responseErrorsArray);
+}
+
+
+export function getToastErrorDescription(errorMessage) {
+  const errorList = [];
+  if (typeof errorMessage === 'string') {
+    errorList.push(errorMessage);
+  } else {
+    Object.keys(errorMessage)
+      .forEach((key, index) => {
+        if (Array.isArray(errorMessage[key])) {
+          errorList.push(errorMessage[key][0]);
+        }
+        errorList.push(errorMessage[key]);
+      });
+  }
+
+  const messageItems = errorList.map((messageItem, key) => (
+    <Message.Item key={key}>
+      {messageItem}
+    </Message.Item>
+  ));
+
+  return messageItems;
+}
+
+export function setToastMessage(message, messageOptions = {
+  type: '', // E.g 'info', 'warning', 'success', 'error'
+  icon: '', // E.g 'mail'
+  title: '', // E.g 'Authentication'
+}) {
+  const { type, icon, title } = messageOptions;
+  if (!isEmpty(message)) {
+    const { responseErrorsObject } = getResponseErrors(message);
+    toast({
+      type,
+      icon,
+      title,
+      description: getToastErrorDescription(responseErrorsObject),
+      animation: 'bounce',
+      time: 10000,
+    });
+  }
 }

@@ -2,19 +2,20 @@ import React from 'react';
 import { shallow } from 'enzyme/build';
 import expect from 'expect';
 
-import { ArticlesDescription } from '../ArticlesDescription';
+import { ArticlesPage } from '../ArticlesPage';
+import PropTypes from 'prop-types';
 
 
 const setUp = () => {
   const props = {
     match: { params: { slug: 'test' } },
     articles: [],
-    article: {},
+    bookmarks: [],
     getAllArticles: jest.fn(),
     getSingleArticles: jest.fn(),
     getAllbookmarkedArticles: jest.fn(),
   };
-  const wrapper = shallow(<ArticlesDescription {...props} />);
+  const wrapper = shallow(<ArticlesPage {...props} />);
 
   return {
     props,
@@ -33,16 +34,7 @@ describe('ArticlesDescription page test', () => {
   });
 
   it(' to call ComponentDidMount', () => {
-    expect(props.getSingleArticles).toBeCalledTimes(1);
-  });
-
-  it('render componentWillReceiveProps with change', () => {
-    wrapper.setProps({ articles: [{ id: 1 }] });
-    expect(wrapper.state().articles).toEqual([{ id: 1 }]);
-  });
-
-  it('render componentWillReceiveProps with no change', () => {
-    wrapper.setProps();
-    expect(wrapper.state().articles).toEqual([{ id: 1 }]);
+    expect(props.getAllArticles).toBeCalledTimes(1);
+    expect(props.getAllbookmarkedArticles).toBeCalledTimes(1);
   });
 });

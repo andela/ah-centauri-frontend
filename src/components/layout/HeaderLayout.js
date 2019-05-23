@@ -8,6 +8,7 @@ import {Login} from '../../views/Login/Login';
 import {RegisterPage} from '../../views/RegisterPage/RegisterPage';
 import {loginAction, signoutAction, signUpAction,} from '../../actions/authActions';
 import {getMyProfileAction} from '../../actions/profileActions';
+import {SemanticToastContainer} from 'react-semantic-toasts';
 
 
 export class HeaderLayout extends Component {
@@ -60,7 +61,7 @@ export class HeaderLayout extends Component {
 
   render() {
     const { toggle, opened, username } = this.state;
-    const { authenticated } = this.props;
+    const { authenticated, loading, errorMessage } = this.props;
 
 
     return (
@@ -94,9 +95,10 @@ export class HeaderLayout extends Component {
                     {username}
                   </a>
                   <ul className="sub-menu">
-                    <li><Link to="/create-article">New Story</Link></li>
-                    <li><Link to={`/me/stories/drafts/${username}`}>Stories</Link></li>
-                    <li><Link to="/profile">Profile</Link></li>
+                    <li><a href="/create-article">New Story</a></li>
+                    <li><a href={`/me/stories/drafts/${username}`}>Stories</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/me/settings">Settings</a></li>
                     <li><a onClick={this.handleSignOut} href="#">Signout</a></li>
                   </ul>
                 </li>
@@ -129,7 +131,7 @@ export class HeaderLayout extends Component {
                 >
                     Login
                 </Header>
-                <Login loginAction={this.props.loginAction} />
+                <Login loading={loading} errorMessage={errorMessage} loginAction={this.props.loginAction} />
               </div>
               <div id="tab-two-panel" className="panel">
                 <Header
@@ -138,10 +140,13 @@ export class HeaderLayout extends Component {
                 >
                     Register
                 </Header>
-                <RegisterPage signUpAction={this.props.signUpAction} />
+                <RegisterPage loading={loading} errorMessage={errorMessage} signUpAction={this.props.signUpAction} />
               </div>
             </div>
           </div>
+        </div>
+        <div className="header-toast">
+          <SemanticToastContainer />
         </div>
       </div>
     );
@@ -167,11 +172,14 @@ HeaderLayout.propTypes = {
   getMyProfileAction: PropTypes.func.isRequired,
   loginAction: PropTypes.func.isRequired,
   signUpAction: PropTypes.func.isRequired,
+  errorMessage: PropTypes.object,
+  loading: PropTypes.bool,
 };
 
 export const mapStateToProps = ({ auth, profile }) => ({
   authenticated: auth.authenticated,
-  opened: auth.opened,
+  errorMessage: auth.errorMessage,
+  loading: auth.loading,
   profile: profile.current_profile,
 });
 

@@ -12,6 +12,7 @@ import Footer from '../../components/layout/Footer';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import { createArticles } from '../../actions/articlesActions';
 import isEmpty from '../../utils/is_empty';
+import requireAuth from '../../HOC/requireAuth';
 
 export class CreateArticlesPage extends Component {
   constructor(props) {
@@ -131,13 +132,15 @@ export class CreateArticlesPage extends Component {
                   required
                   onChange={this.handleInputChange}
                 />
-                <Editor
-                  editorState={editorState}
-                  wrapperClassName="wrapper-class"
-                  editorClassName="editor-class"
-                  toolbarClassName="toolbar-class"
-                  onEditorStateChange={this.onEditorStateChange}
-                />
+                <div className="editor-bg">
+                  <Editor
+                    editorState={editorState}
+                    wrapperClassName="wrapper-class"
+                    editorClassName="editor-class"
+                    toolbarClassName="toolbar-class"
+                    onEditorStateChange={this.onEditorStateChange}
+                  />
+                </div>
 
                 <div className="ui left icon right labeled input" style={{ width: '100%' }}>
                   <input
@@ -193,4 +196,4 @@ export const mapStateToProps = ({ auth, articles }) => ({
   authenticated: auth.authenticated,
 });
 
-export default connect(mapStateToProps, { createArticles })(CreateArticlesPage);
+export default requireAuth(connect(mapStateToProps, { createArticles })(CreateArticlesPage));

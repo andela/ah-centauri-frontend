@@ -1,69 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1558086850477" clover="3.2.0">
-  <project timestamp="1558086850477" name="All files">
-    <metrics statements="51" coveredstatements="41" conditionals="38" coveredconditionals="28" methods="24" coveredmethods="16" elements="113" coveredelements="85" complexity="0" loc="51" ncloc="51" packages="2" files="2" classes="2"/>
-    <package name="components.layout">
-      <metrics statements="18" coveredstatements="16" conditionals="12" coveredconditionals="9" methods="10" coveredmethods="9"/>
-      <file name="HeaderLayout.js" path="/Users/alfredopon/Documents/Code/AuthorsHavenUpdated/ah-centauri-frontend/src/components/layout/HeaderLayout.js">
-        <metrics statements="18" coveredstatements="16" conditionals="12" coveredconditionals="9" methods="10" coveredmethods="9"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="26" count="6" type="cond" truecount="4" falsecount="2"/>
-        <line num="30" count="6" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="42" count="2" type="stmt"/>
-        <line num="45" count="2" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="49" count="2" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="55" count="2" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="62" count="6" type="stmt"/>
-        <line num="63" count="6" type="stmt"/>
-        <line num="66" count="6" type="stmt"/>
-        <line num="151" count="9" type="stmt"/>
-        <line num="160" count="9" type="stmt"/>
-        <line num="172" count="9" type="stmt"/>
-      </file>
-    </package>
-    <package name="views.ProfilePage">
-      <metrics statements="33" coveredstatements="25" conditionals="26" coveredconditionals="19" methods="14" coveredmethods="7"/>
-      <file name="ProfilePage.js" path="/Users/alfredopon/Documents/Code/AuthorsHavenUpdated/ah-centauri-frontend/src/views/ProfilePage/ProfilePage.js">
-        <metrics statements="33" coveredstatements="25" conditionals="26" coveredconditionals="19" methods="14" coveredmethods="7"/>
-        <line num="18" count="7" type="stmt"/>
-        <line num="19" count="7" type="stmt"/>
-        <line num="34" count="7" type="stmt"/>
-        <line num="39" count="7" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="50" count="7" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="54" count="7" type="stmt"/>
-        <line num="55" count="3" type="stmt"/>
-        <line num="61" count="11" type="stmt"/>
-        <line num="62" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="70" count="7" type="stmt"/>
-        <line num="71" count="2" type="stmt"/>
-        <line num="74" count="2" type="stmt"/>
-        <line num="75" count="2" type="stmt"/>
-        <line num="89" count="10" type="stmt"/>
-        <line num="90" count="10" type="stmt"/>
-        <line num="102" count="10" type="stmt"/>
-        <line num="104" count="20" type="stmt"/>
-        <line num="113" count="10" type="stmt"/>
-        <line num="198" count="10" type="stmt"/>
-        <line num="209" count="10" type="stmt"/>
-        <line num="210" count="0" type="stmt"/>
-        <line num="211" count="0" type="stmt"/>
-        <line num="212" count="0" type="stmt"/>
-        <line num="214" count="10" type="cond" truecount="2" falsecount="0"/>
-        <line num="215" count="2" type="stmt"/>
-        <line num="249" count="8" type="stmt"/>
-        <line num="265" count="2" type="stmt"/>
-        <line num="282" count="2" type="stmt"/>
-        <line num="312" count="2" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1558452067019" clover="3.2.0">
+    <project timestamp="1558452067019" name="All files">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0"
+                 coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0"
+                 files="0" classes="0"/>
   </project>
 </coverage>

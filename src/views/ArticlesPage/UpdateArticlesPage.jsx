@@ -16,6 +16,7 @@ import {
   getSingleArticles,
 } from '../../actions/articlesActions';
 import isEmpty from '../../utils/is_empty';
+import requireAuth from '../../HOC/requireAuth';
 
 export class UpdateArticlesPage extends Component {
   constructor(props) {
@@ -145,13 +146,15 @@ export class UpdateArticlesPage extends Component {
                   required
                   onChange={this.handleInputChange}
                 />
-                <Editor
-                  editorState={body}
-                  wrapperClassName="wrapper-class"
-                  editorClassName="editor-class"
-                  toolbarClassName="toolbar-class"
-                  onEditorStateChange={this.onEditorStateChange}
-                />
+                <div className="editor-bg">
+                  <Editor
+                    editorState={body}
+                    wrapperClassName="wrapper-class"
+                    editorClassName="editor-class"
+                    toolbarClassName="toolbar-class"
+                    onEditorStateChange={this.onEditorStateChange}
+                  />
+                </div>
 
                 <div className="ui left icon right labeled input" style={{ width: '100%' }}>
                   <input
@@ -211,4 +214,4 @@ export const mapStateToProps = ({ auth, articles }) => ({
   authenticated: auth.authenticated,
 });
 
-export default connect(mapStateToProps, { updateArticles, getSingleArticles })(UpdateArticlesPage);
+export default requireAuth(connect(mapStateToProps, { updateArticles, getSingleArticles })(UpdateArticlesPage));
