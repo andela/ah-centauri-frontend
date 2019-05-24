@@ -51,6 +51,7 @@ export const api = {
     deleteComment: data => axios.delete(`${API_HOST}/articles/${data.slug}/comments/${data.comment_id}/`),
     editComment: data => axios.patch(`${API_HOST}/articles/${data.slug}/comments/${data.comment_id}/`, data.payload),
     postReply: data => axios.post(`${API_HOST}/articles/${data.slug}/comments/`, data.payload),
+    getEditHistory: commentId => axios.get(`${API_HOST}/comments/${commentId}/history`),
     getSingleComment: data => axios.get(`${API_HOST}/articles/${data.slug}/comments/${data.id}/`),
     likeComment: id => axios.post(`${API_HOST}/articles/comments/${id}/like/`),
     dislikeComment: id => axios.post(`${API_HOST}/articles/comments/${id}/dislike/`),

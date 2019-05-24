@@ -1,25 +1,21 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
-import {
-  getAllArticles,
-  getSingleArticles,
-} from '../../actions/articlesActions';
-import {
-  getAllbookmarkedArticles,
-} from '../../actions/bookmarksActions';
+import {getAllArticles, getSingleArticles,} from '../../actions/articlesActions';
+import {getAllbookmarkedArticles,} from '../../actions/bookmarksActions';
 
 import SideBar from '../../components/layout/SideBar';
 import SingleArticleItem from '../../components/CustomArticle/SingleArticleItem';
 import {
-  getAllComments,
-  getAllReplies,
   createComment,
   deleteComment,
   editComment,
+  getAllComments,
+  getAllReplies,
+  getEditHistory,
   postReply,
 } from '../../actions/commentsActions';
 
@@ -44,7 +40,7 @@ export class ArticlesDescription extends Component {
 
   getAllReplies = (data) => {
     this.props.getAllReplies(data);
-  }
+  };
 
   createComment = (data) => {
     this.props.createComment(data);
@@ -86,18 +82,19 @@ export class ArticlesDescription extends Component {
         <div className="row home">
           <div className="column _25">
             <SingleArticleItem
-              loading={this.props.loading}
-              article={article}
-              key={article.id}
-              comments={this.props.comments}
-              getReplies={this.getAllReplies}
-              createComment={this.createComment}
-              deleteComment={this.deleteComment}
-              editComment={this.editComment}
-              postReply={this.postReply}
-              bookmarks={bookmarks}
-              authenticated={this.props.authenticated}
-              user={this.props.user ? this.props.user.username : ''}
+                loading={this.props.loading}
+                article={article}
+                key={article.id}
+                comments={this.props.comments}
+                getReplies={this.getAllReplies}
+                createComment={this.createComment}
+                deleteComment={this.deleteComment}
+                editComment={this.editComment}
+                postReply={this.postReply}
+                bookmarks={bookmarks}
+                authenticated={this.props.authenticated}
+                getEditHistory={this.props.getEditHistory}
+                user={this.props.user ? this.props.user.username : ''}
             />
           </div>
           <div className="column _75">
@@ -138,6 +135,7 @@ ArticlesDescription.propTypes = {
   createComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
+  getEditHistory: PropTypes.func.isRequired,
 };
 
 export const mapStateToProps = ({
@@ -164,5 +162,6 @@ export default connect(
     deleteComment,
     editComment,
     postReply,
+    getEditHistory,
   },
 )(ArticlesDescription);
