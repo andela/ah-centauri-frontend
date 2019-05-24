@@ -9,13 +9,14 @@ import {
   DELETE_COMMENT_SUCCESS,
   EDIT_COMMENT_FAILURE,
   EDIT_COMMENT_SUCCESS,
-  POST_REPLY_FAILURE,
+  POST_REPLY_FAILURE, GET_COMMENT_DATA,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   comments: [],
   replies: [],
   errorMessage: '',
+  GET_COMMENT_DATA,
 };
 
 export default function (state = INITIAL_STATE, { type, payload }) {
@@ -43,7 +44,7 @@ export default function (state = INITIAL_STATE, { type, payload }) {
     case CREATE_COMMENT_SUCCESS:
       return {
         ...state,
-        comments: [...state.comments, payload]
+        comments: [...state.comments, payload],
       };
     case CREATE_COMMENT_FAILURE:
       return {
@@ -54,25 +55,25 @@ export default function (state = INITIAL_STATE, { type, payload }) {
       return {
         ...state,
         comments: state.comments.filter(comment => comment.id != payload),
-        replies: state.replies.filter(reply => reply.id != payload)
+        replies: state.replies.filter(reply => reply.id != payload),
       };
     case DELETE_COMMENT_FAILURE:
       return {
         ...state,
         errorMessage: payload,
       };
-    case EDIT_COMMENT_SUCCESS: 
-      const updatedComments = state.comments.map(item => {
-        if(item.id === payload.id){
-          return { ...item, ...payload}
+    case EDIT_COMMENT_SUCCESS:
+      const updatedComments = state.comments.map((item) => {
+        if (item.id === payload.id) {
+          return { ...item, ...payload };
         }
-        return item
+        return item;
       });
-      const updatedReplies = state.replies.map(item => {
-        if(item.id === payload.id){
-          return { ...item, ...payload}
+      const updatedReplies = state.replies.map((item) => {
+        if (item.id === payload.id) {
+          return { ...item, ...payload };
         }
-        return item
+        return item;
       });
       return {
         ...state,
@@ -88,6 +89,24 @@ export default function (state = INITIAL_STATE, { type, payload }) {
       return {
         ...state,
         errorMessage: payload,
+      };
+    case GET_COMMENT_DATA:
+      const likedComments = state.comments.map((item) => {
+        if (item.id === payload.id) {
+          return { ...item, ...payload };
+        }
+        return item;
+      });
+      const likedReplies = state.replies.map((item) => {
+        if (item.id === payload.id) {
+          return { ...item, ...payload };
+        }
+        return item;
+      });
+      return {
+        ...state,
+        comments: likedComments,
+        replies: likedReplies,
       };
     default:
       return state;

@@ -52,7 +52,7 @@ export class CommentComponent extends Component {
 
   render() {
     const {
-      slug, comments, getReplies, user, deleteComment, editComment, postReply,
+      slug, comments, getReplies, user, deleteComment, editComment, postReply, authenticated,
     } = this.props;
     return (
       <Comment.Group>
@@ -65,25 +65,27 @@ export class CommentComponent extends Component {
             deleteComment={deleteComment}
             editComment={editComment}
             postReply={postReply}
+            authenticated={authenticated}
             replies={this.state.replies}
             user={user}
           />
         ))}
-        <Form
-          reply
-          onSubmit={this.handleSubmit}
-        >
-          <Form.TextArea
-            onChange={this.handleChange}
-          />
-          <Button
-            content="Add Comment"
-            labelPosition="left"
-            icon="edit"
-            primary
-            type="submit"
-          />
-        </Form>
+        {authenticated?
+          <Form
+            reply
+            onSubmit={this.handleSubmit}
+          >
+            <Form.TextArea
+              onChange={this.handleChange}
+            />
+            <Button
+              content="Add Comment"
+              labelPosition="left"
+              icon="edit"
+              primary
+              type="submit"
+            />
+          </Form>: ''}
       </Comment.Group>
 
     );

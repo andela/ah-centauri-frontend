@@ -1,18 +1,20 @@
 import React from 'react';
-import {Divider, Dropdown, Grid, Message, Tab, TextArea,} from 'semantic-ui-react';
+import {
+  Divider, Dropdown, Grid, Message, Tab, TextArea,
+} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import CustomForm from '../../components/CustomForm/CustomForm';
 import countryOptions from '../../utils/profile.constants';
-import {getMyProfileAction, updateMyProfileAction} from '../../actions/profileActions';
+import { getMyProfileAction, updateMyProfileAction } from '../../actions/profileActions';
 import Avatar from '../../components/Profile/Avatar';
 import CountLabel from '../../components/Profile/CountLabel';
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import Footer from '../../components/layout/Footer';
-import {setToastMessage} from '../../utils/errorMessage';
+import { setToastMessage } from '../../utils/errorMessage';
 import requireAuth from '../../HOC/requireAuth';
 import BookmarkList from '../../components/Bookmarks/BookmarksList';
-import {getAllbookmarkedArticles} from '../../actions/bookmarksActions';
+import { getAllbookmarkedArticles } from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
 
 // Create component class to load user highlight details in an accordion.
@@ -86,9 +88,10 @@ export class ProfilePage extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const {
-      first_name, last_name, bio, website, country, phone, city,
+      first_name, last_name, bio, website, country, phone, city, username,
     } = this.state;
     this.props.updateMyProfileAction({
+      username,
       first_name,
       last_name,
       bio,
@@ -127,27 +130,27 @@ export class ProfilePage extends React.Component {
     const bookmarksList = () => {
       if (bookmarks.bookmarks && bookmarks.bookmarks.length > 0) {
         return (
-            <BookmarkList size="large" bookmarks={bookmarks.bookmarks}/>
+          <BookmarkList size="large" bookmarks={bookmarks.bookmarks} />
         );
       }
       if (bookmarks.message && bookmarks.bookmarks.length < 1) {
         return (
-            <Message type="info">
+          <Message type="info">
               No bookmarks.
-            </Message>
+          </Message>
         );
       }
       if (!isEmpty(bookmarks.errorMessage)) {
         return (
-            <Message type="info">
+          <Message type="info">
               No bookmarks.
-            </Message>
+          </Message>
         );
       }
       return (
-          <Message type="info">
+        <Message type="info">
             No bookmarks.
-          </Message>
+        </Message>
       );
     };
 
@@ -166,16 +169,16 @@ export class ProfilePage extends React.Component {
           onChange: this.handleInputChange,
           error: errorMessage && errorMessage.username,
         }, {
-        fluid: true,
-        name: 'first_name',
-        id: 'profileFirstName',
-        placeholder: 'First name',
-        label: 'First name',
-        type: 'text',
-        value: this.state.first_name,
-        onChange: this.handleInputChange,
-        error: errorMessage && errorMessage.first_name,
-      },
+          fluid: true,
+          name: 'first_name',
+          id: 'profileFirstName',
+          placeholder: 'First name',
+          label: 'First name',
+          type: 'text',
+          value: this.state.first_name,
+          onChange: this.handleInputChange,
+          error: errorMessage && errorMessage.first_name,
+        },
         {
           fluid: true,
           name: 'last_name',
@@ -261,8 +264,8 @@ export class ProfilePage extends React.Component {
       />
     );
     const panes = [
-      {menuItem: 'Basic Info', pane: <Tab.Pane id="ProfileBasicInfoTab" attached={false}>{profileForm}</Tab.Pane>},
-      {menuItem: 'Highlights', pane: <Tab.Pane id="ProfileHighlightsTab" attached={false}/>},
+      { menuItem: 'Basic Info', pane: <Tab.Pane id="ProfileBasicInfoTab" attached={false}>{profileForm}</Tab.Pane> },
+      { menuItem: 'Highlights', pane: <Tab.Pane id="ProfileHighlightsTab" attached={false} /> },
       {
         menuItem: 'Bookmarks',
         pane: <Tab.Pane id="ProfileBookmarksTab" attached={false}>{bookmarksList()}</Tab.Pane>,
@@ -293,7 +296,7 @@ export class ProfilePage extends React.Component {
               <Grid.Row>
                 <Grid.Column>
                   {/* User Profile form tab that has all the user Profile data loaded from the Profile */}
-                  <Tab renderActiveOnly={false} menu={{secondary: true, pointing: true}} panes={panes}/>
+                  <Tab renderActiveOnly={false} menu={{ secondary: true, pointing: true }} panes={panes} />
                 </Grid.Column>
               </Grid.Row>
             </Grid>

@@ -183,6 +183,7 @@ export class SingleArticleItem extends Component {
               deleteComment={deleteComment}
               editComment={editComment}
               postReply={postReply}
+              authenticated={authenticated}
               user={user}
           />
         </article>

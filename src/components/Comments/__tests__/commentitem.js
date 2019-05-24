@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme/build';
 import expect from 'expect';
 
-import CommentItemComponent from '../CommentItem';
+import { CommentItemComponent } from '../CommentItem';
 
 
 const setUp = () => {
@@ -24,7 +24,7 @@ const setUp = () => {
 };
 
 describe('Comment item component', () => {
-  const {wrapper, props} = setUp();
+  const { wrapper, props}  = setUp();
   
   it(' should handle edit ', () => {
     wrapper.instance()
