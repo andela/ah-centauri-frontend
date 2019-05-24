@@ -9,6 +9,7 @@ import {getUserNotifications, updateNotifications,} from '../../actions/notifica
 
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import requireAuth from '../../HOC/requireAuth';
+import Footer from '../../components/layout/Footer';
 
 
 export class SettingsPage extends Component {
@@ -153,6 +154,7 @@ export class SettingsPage extends Component {
             </div>
           </div>
         </div>
+        <Footer/>
       </section>
     );
   }

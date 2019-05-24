@@ -10,6 +10,7 @@ import UpdateArticlesPage from '../views/ArticlesPage/UpdateArticlesPage';
 import NotFoundPage from '../views/NotFoundPage/NotFoundPage';
 import SettingsPage from '../views/SettingsPage/SettingsPage';
 import SingleProfile from '../views/ProfilePage/SingleProfile';
+import StatsPage from '../views/StatsPage/StatsPage';
 
 const routes = [
   {
@@ -57,6 +58,10 @@ const routes = [
   {
     path: '/profile/:username',
     component: SingleProfile,
+  },
+  {
+    path: '/me/stats',
+    component: StatsPage,
   },
   {
     path: '/not-found',

@@ -1,16 +1,24 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {Header} from 'semantic-ui-react';
-import {SemanticToastContainer} from 'react-semantic-toasts';
-import {Login} from '../../views/Login/Login';
+import { Link } from 'react-router-dom';
+import { Header } from 'semantic-ui-react';
+import { SemanticToastContainer } from 'react-semantic-toasts';
+import { Login } from '../../views/Login/Login';
 import Search from '../Search/Search';
-import {RegisterPage} from '../../views/RegisterPage/RegisterPage';
-import {loginAction, signoutAction, signUpAction} from '../../actions/authActions';
-import {getMyProfileAction} from '../../actions/profileActions';
-import {facebookLogin, googleLogin, twitterLogin} from '../../actions/socialAuthActions';
+import { RegisterPage } from '../../views/RegisterPage/RegisterPage';
+import {
+  loginAction,
+  signoutAction,
+  signUpAction,
+} from '../../actions/authActions';
+import { getMyProfileAction } from '../../actions/profileActions';
+import {
+  facebookLogin,
+  googleLogin,
+  twitterLogin,
+} from '../../actions/socialAuthActions';
 
 
 export class HeaderLayout extends Component {
@@ -23,6 +31,11 @@ export class HeaderLayout extends Component {
       first_name: '',
       last_name: '',
     };
+  }
+
+  componentDidMount() {
+    // Set the token for use in accessing the protected get Profile endpoint
+    this.props.getMyProfileAction();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -38,11 +51,6 @@ export class HeaderLayout extends Component {
     }
 
     return null;
-  }
-
-  componentDidMount() {
-    // Set the token for use in accessing the protected get Profile endpoint
-    this.props.getMyProfileAction();
   }
 
   handleSignOut = (e) => {
@@ -75,14 +83,9 @@ export class HeaderLayout extends Component {
             onClick={this.handleToggle}
           />
           <nav className={classNames({ active: toggle })}>
-            <ul>
-              <li><Search /></li>
-              <li><Link to="/about">About</Link></li>
-              <li><Link to="/services">Services</Link></li>
-              <li><Link to="/team">Team</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
-              
-              {authenticated ? (
+            {authenticated ? (
+              <ul>
+                <li><a href="/create-article">New Story</a></li>
                 <li className="menu-item-has-children">
                   <a href="#">
                     <img
@@ -98,18 +101,20 @@ export class HeaderLayout extends Component {
                     {username}
                   </a>
                   <ul className="sub-menu">
-                    <li><a href="/create-article">New Story</a></li>
                     <li><a href={`/me/stories/drafts/${username}`}>Stories</a></li>
+                    <li><a href="/me/stats">Stats</a></li>
                     <li><a href="/profile">Profile</a></li>
                     <li><a href="/me/settings">Settings</a></li>
                     <li><a onClick={this.handleSignOut} href="#">Signout</a></li>
                   </ul>
                 </li>
-              ) : (
+              </ul>
+            ) : (
+              <ul>
+                <li><Search/></li>
                 <li><button onClick={this.handleModal}>Login</button></li>
-              )}
-
-            </ul>
+              </ul>
+            )}
           </nav>
           <div className="clearfix" />
         </header>
@@ -135,10 +140,10 @@ export class HeaderLayout extends Component {
                     Login
                 </Header>
                 <Login
-                    loading={loading}
-                    errorMessage={errorMessage}
-                    loginAction={this.props.loginAction}
-                    {...this.props}
+                  loading={loading}
+                  errorMessage={errorMessage}
+                  loginAction={this.props.loginAction}
+                  {...this.props}
                 />
               </div>
               <div id="tab-two-panel" className="panel">
@@ -149,10 +154,10 @@ export class HeaderLayout extends Component {
                     Register
                 </Header>
                 <RegisterPage
-                    loading={loading}
-                    errorMessage={errorMessage}
-                    signUpAction={this.props.signUpAction}
-                    {...this.props}
+                  loading={loading}
+                  errorMessage={errorMessage}
+                  signUpAction={this.props.signUpAction}
+                  {...this.props}
                 />
               </div>
             </div>
