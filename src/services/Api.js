@@ -33,6 +33,7 @@ export const api = {
     likeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/like/`),
     dislikeArticle: slug => axios.post(`${API_HOST}/articles/${slug}/dislike/`),
     updateArticleRating: data => axios.post(`${API_HOST}/articles/${data.rating.slug}/ratings/`, data),
+    searchArticles: data => axios.get(`${API_HOST}/articles/q?${data.key}=${data.value}`),
   },
   bookmarks: {
     getAllBookmarkArticle: () => axios.get(`${API_HOST}/bookmarks/`),

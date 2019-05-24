@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import {Header} from 'semantic-ui-react';
 import {SemanticToastContainer} from 'react-semantic-toasts';
 import {Login} from '../../views/Login/Login';
+import Search from '../Search/Search';
 import {RegisterPage} from '../../views/RegisterPage/RegisterPage';
 import {loginAction, signoutAction, signUpAction} from '../../actions/authActions';
 import {getMyProfileAction} from '../../actions/profileActions';
@@ -75,11 +76,12 @@ export class HeaderLayout extends Component {
           />
           <nav className={classNames({ active: toggle })}>
             <ul>
-              <li><Link to="/" className="active">Home</Link></li>
+              <li><Search /></li>
               <li><Link to="/about">About</Link></li>
               <li><Link to="/services">Services</Link></li>
               <li><Link to="/team">Team</Link></li>
               <li><Link to="/contact">Contact</Link></li>
+              
               {authenticated ? (
                 <li className="menu-item-has-children">
                   <a href="#">
