@@ -14,7 +14,7 @@ export class MyArticleDraftItem extends Component {
   };
 
   render() {
-    const { article } = this.props;
+    const { article, loading } = this.props;
 
     return (
       <div className="column">
@@ -82,11 +82,13 @@ export class MyArticleDraftItem extends Component {
 
 MyArticleDraftItem.defautProps = {
   article: {},
+  loading: false,
 };
 
 MyArticleDraftItem.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   article: PropTypes.object,
+  loading: PropTypes.bool,
   deleteArticle: PropTypes.func.isRequired,
 };
 

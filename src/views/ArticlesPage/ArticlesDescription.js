@@ -48,19 +48,19 @@ export class ArticlesDescription extends Component {
 
   createComment = (data) => {
     this.props.createComment(data);
-  }
+  };
 
   deleteComment = (data) => {
     this.props.deleteComment(data);
-  }
+  };
 
   editComment = (data) => {
     this.props.editComment(data);
-  }
+  };
 
   postReply = (data) => {
     this.props.postReply(data);
-  }
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.article !== prevState.article
@@ -86,6 +86,7 @@ export class ArticlesDescription extends Component {
         <div className="row home">
           <div className="column _25">
             <SingleArticleItem
+              loading={this.props.loading}
               article={article}
               key={article.id}
               comments={this.props.comments}
@@ -118,6 +119,7 @@ ArticlesDescription.defautProps = {
   bookmarks: [],
   article: {},
   authenticated: false,
+  loading: false,
 };
 
 ArticlesDescription.propTypes = {
@@ -127,6 +129,7 @@ ArticlesDescription.propTypes = {
   authenticated: PropTypes.bool,
   comments: PropTypes.array,
   user: PropTypes.string,
+  loading: PropTypes.bool,
   getAllArticles: PropTypes.func.isRequired,
   getAllReplies: PropTypes.func.isRequired,
   getSingleArticles: PropTypes.func.isRequired,
@@ -152,6 +155,14 @@ export const mapStateToProps = ({
 export default connect(
   mapStateToProps,
   {
-    getAllArticles, getSingleArticles, getAllbookmarkedArticles, getAllComments, getAllReplies, createComment, deleteComment, editComment, postReply,
+    getAllArticles,
+    getSingleArticles,
+    getAllbookmarkedArticles,
+    getAllComments,
+    getAllReplies,
+    createComment,
+    deleteComment,
+    editComment,
+    postReply,
   },
 )(ArticlesDescription);

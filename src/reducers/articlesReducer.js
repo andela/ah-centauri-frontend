@@ -5,8 +5,8 @@ import {
   CREATE_SINGLE_ARTICLE,
   DELETE_SINGLE_ARTICLE,
   SET_PAGE,
-  LOADING_PROGRESS,
   SEARCH_ARTICLES,
+  ARTICLE_LOADING_PROGRESS,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, actions) {
   switch (actions.type) {
-    case LOADING_PROGRESS:
+    case ARTICLE_LOADING_PROGRESS:
       return {
         ...state,
         loading: true,
@@ -74,6 +74,7 @@ export default function (state = INITIAL_STATE, actions) {
       return {
         ...state,
         currentPage: actions.payload,
+        loading: false,
       };
     default:
       return state;

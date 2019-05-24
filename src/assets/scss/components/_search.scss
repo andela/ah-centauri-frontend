@@ -37,6 +37,7 @@ header {
     input {
        height: 4rem;
        width: 35rem;
+      margin-right: 3rem;
        padding: 0 1rem;
     //    outline: none;
     //    border: none;
@@ -73,6 +74,7 @@ header {
     select {
         height: 4rem;
         width: 10rem;
+        margin-right: 3rem;
         padding: 0 1rem;
         border-radius: 5%;
         cursor: pointer;
@@ -87,15 +89,20 @@ header {
 }
 
 @media only screen and (max-width: $bp-small) {
+  .ui.modal > .header {
+    height: 11rem;
+  }
   .search_form {
     display: block;
     input {
+      margin-right: 1rem;
       height: 4rem;
       width: 25rem;
    }
     select {
       height: 4rem;
       width: fit-content;
+      margin-right: 1rem;
       padding: 0 1rem;
       border-radius: 5%;
       cursor: pointer;

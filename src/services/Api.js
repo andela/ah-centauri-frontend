@@ -54,5 +54,9 @@ export const api = {
     getSingleComment: data => axios.get(`${API_HOST}/articles/${data.slug}/comments/${data.id}/`),
     likeComment: id => axios.post(`${API_HOST}/articles/comments/${id}/like/`),
     dislikeComment: id => axios.post(`${API_HOST}/articles/comments/${id}/dislike/`),
-  }
+  },
+  analytics: {
+    getMyViewedArticleStats: () => axios.get(`${API_HOST}/analytics`),
+    getMyArticleViewsStats: () => axios.get(`${API_HOST}/analytics/me`),
+  },
 };
