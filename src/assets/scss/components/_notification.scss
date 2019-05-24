@@ -1,0 +1,78 @@
+
+/* Notifications */
+
+.notification {
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+    padding: 1rem 1.5rem;
+    background: var(--color-grey-dark-1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.notification::before,
+.notification::after {
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.notification::before {
+    display: block;
+    content: "\f0f3";
+    font-family: "FontAwesome";
+    transform-origin: top center;
+}
+
+.notification::after {
+    font-family: Arial;
+    font-size: 0.7em;
+    font-weight: 700;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    padding: 5px 8px;
+    line-height: 100%;
+    border: 2px #fff solid;
+    border-radius: 60px;
+    background: var(--color-primary);
+    opacity: 0;
+    content: attr(data-count);
+    opacity: 0;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    transition: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+.notification.notify::before {
+    -webkit-animation: ring 1.5s ease;
+    animation: ring 1.5s ease;
+}
+
+.notification.show-count::after {
+    -webkit-transform: translate(-10px, 5px) scale(1);
+    transform: translate(-10px, 5px) scale(0.7);
+    opacity: 1;
+}
+
+.notification-list {
+    display: none;
+    max-height: 400px;
+    min-width: 300px;
+    transform: translate(-25rem, 0);
+    overflow-y: scroll;
+    position: absolute;
+    background: white;
+    margin-top: 0;
+    box-shadow: 0 0.8rem 4.5rem rgba(13, 88, 145, 0.15);
+    border-radius: 3px;
+}
+
+.show-notfications {
+    display: block;
+}
+
+nav ul span {
+    padding: 1.2rem;
+}

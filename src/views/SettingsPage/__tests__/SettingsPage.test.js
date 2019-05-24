@@ -9,8 +9,8 @@ const setUp = () => {
   const props = {
     notifications: {},
     signoutAction: jest.fn(),
-    getUserNotifications: jest.fn(),
-    updateNotifications: jest.fn(),
+    getUserNotificationSettings: jest.fn(),
+    updateNotificationSettings: jest.fn(),
   };
 
   const wrapper = shallow(<SettingsPage {...props} />);
@@ -43,7 +43,7 @@ describe('SettingsPage page test', () => {
         }
       });
 
-    expect(props.updateNotifications).toBeCalledTimes(1);
+    expect(props.updateNotificationSettings).toBeCalledTimes(1);
   });
 
   it(' handle handleInApptoggle event', () => {
@@ -53,7 +53,7 @@ describe('SettingsPage page test', () => {
         }
       });
 
-    expect(props.updateNotifications).toBeCalledTimes(2);
+    expect(props.updateNotificationSettings).toBeCalledTimes(2);
   });
 
   it(' handle handleSignOut event', () => {

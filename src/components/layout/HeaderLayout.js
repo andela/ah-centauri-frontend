@@ -7,19 +7,11 @@ import { Header } from 'semantic-ui-react';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import { Login } from '../../views/Login/Login';
 import Search from '../Search/Search';
-import { RegisterPage } from '../../views/RegisterPage/RegisterPage';
-import {
-  loginAction,
-  signoutAction,
-  signUpAction,
-} from '../../actions/authActions';
-import { getMyProfileAction } from '../../actions/profileActions';
-import {
-  facebookLogin,
-  googleLogin,
-  twitterLogin,
-} from '../../actions/socialAuthActions';
-
+import {RegisterPage} from '../../views/RegisterPage/RegisterPage';
+import {loginAction, signoutAction, signUpAction} from '../../actions/authActions';
+import {getMyProfileAction} from '../../actions/profileActions';
+import {facebookLogin, googleLogin, twitterLogin} from '../../actions/socialAuthActions';
+import UserNotifications from '../UserNotifications/UserNotifications';
 
 export class HeaderLayout extends Component {
   constructor(props) {
@@ -73,7 +65,6 @@ export class HeaderLayout extends Component {
     const { toggle, opened, username } = this.state;
     const { authenticated, loading, errorMessage } = this.props;
 
-
     return (
       <div id="header-menu" className="sticky">
         <header>
@@ -84,9 +75,10 @@ export class HeaderLayout extends Component {
           />
           <nav className={classNames({ active: toggle })}>
             {authenticated ? (
-              <ul>          
+              <ul>
                 <li><Search/></li>
                 <li><a href="/create-article">New Story</a></li>
+                <UserNotifications />
                 <li className="menu-item-has-children">
                   <a href="#">
                     <img
@@ -195,11 +187,12 @@ HeaderLayout.propTypes = {
   loading: PropTypes.bool,
 };
 
-export const mapStateToProps = ({ auth, profile }) => ({
+export const mapStateToProps = ({ auth, profile, notifications }) => ({
   authenticated: auth.authenticated,
   errorMessage: auth.errorMessage,
   loading: auth.loading,
   profile: profile.current_profile,
+  notifications,
 });
 
 export default connect(mapStateToProps, {
