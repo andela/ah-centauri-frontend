@@ -43,7 +43,7 @@ class Search extends Component {
     const { articleSearchResults, count } = this.props;
     return (
       <div>
-        <SearchModal
+        <SearchModal 
           handleInputChange={this.handleInputChange}
           handleSubmit={this.handleSubmit}
           articles={articleSearchResults}
