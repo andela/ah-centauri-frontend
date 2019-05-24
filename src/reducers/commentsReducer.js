@@ -1,26 +1,49 @@
 import {
-  ERROR_FETCHING_COMMENTS,
-  FETCH_ALL_COMMENTS,
-  ERROR_FETCHING_REPLIES,
-  FETCH_ALL_REPLIES,
-  CREATE_COMMENT_SUCCESS,
+  AUTH_SIGNOUT,
+  COMMENT_HISTORY_LOADING_PROGRESS,
   CREATE_COMMENT_FAILURE,
+  CREATE_COMMENT_SUCCESS,
   DELETE_COMMENT_FAILURE,
   DELETE_COMMENT_SUCCESS,
   EDIT_COMMENT_FAILURE,
   EDIT_COMMENT_SUCCESS,
-  POST_REPLY_FAILURE, GET_COMMENT_DATA,
+  ERROR_FETCHING_COMMENTS,
+  ERROR_FETCHING_REPLIES,
+  FETCH_ALL_COMMENTS,
+  FETCH_ALL_REPLIES,
+  FETCH_COMMENT_HISTORY_ERROR,
+  FETCH_COMMENT_HISTORY_SUCCESS,
+  GET_COMMENT_DATA,
+  POST_REPLY_FAILURE,
 } from '../actions/types';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   comments: [],
   replies: [],
   errorMessage: '',
   GET_COMMENT_DATA,
+  editHistory: [],
 };
 
 export default function (state = INITIAL_STATE, { type, payload }) {
   switch (type) {
+    case COMMENT_HISTORY_LOADING_PROGRESS:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_COMMENT_HISTORY_SUCCESS:
+      return {
+        ...state,
+        editHistory: payload.comments,
+        loading: false,
+      };
+    case FETCH_COMMENT_HISTORY_ERROR:
+      return {
+        ...state,
+        editHistory: [],
+        loading: false,
+      };
     case FETCH_ALL_COMMENTS:
       return {
         ...state,
@@ -107,6 +130,12 @@ export default function (state = INITIAL_STATE, { type, payload }) {
         ...state,
         comments: likedComments,
         replies: likedReplies,
+      };
+    case AUTH_SIGNOUT:
+      return {
+        ...state,
+        editHistory: [],
+        loading: false,
       };
     default:
       return state;

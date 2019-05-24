@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  Button, Comment, Form, Header,
-} from 'semantic-ui-react';
+import {Button, Comment, Form, Header,} from 'semantic-ui-react';
 import CommentItemComponent from './CommentItem';
-import { setToastMessage } from '../../utils/errorMessage';
+import {setToastMessage} from '../../utils/errorMessage';
 
 export class CommentComponent extends Component {
   constructor(props) {
@@ -24,14 +22,14 @@ export class CommentComponent extends Component {
     }
     return null;
   }
-  
+
   componentDidUpdate(prevProps) {
     if (this.props.errorMessage != prevProps.errorMessage) {
       setToastMessage(this.props.errorMessage);
     }
   }
-  
-  
+
+
   handleChange = (e) => {
     e.preventDefault();
     this.setState({comment: e.target.value});
@@ -52,22 +50,24 @@ export class CommentComponent extends Component {
 
   render() {
     const {
-      slug, comments, getReplies, user, deleteComment, editComment, postReply, authenticated,
+      slug, comments, getReplies, user, deleteComment, editComment, getEditHistory, postReply, authenticated,
     } = this.props;
     return (
       <Comment.Group>
         <Header as="h3" dividing>Comments</Header>
         {comments.map(comment => (
           <CommentItemComponent
-            comment={comment}
-            slug={slug}
-            getReplies={getReplies}
-            deleteComment={deleteComment}
-            editComment={editComment}
-            postReply={postReply}
-            authenticated={authenticated}
-            replies={this.state.replies}
-            user={user}
+              comment={comment}
+              slug={slug}
+              getReplies={getReplies}
+              deleteComment={deleteComment}
+              editComment={editComment}
+              getEditHistoryAction={getEditHistory}
+              postReply={postReply}
+              authenticated={authenticated}
+              replies={this.state.replies}
+              user={user}
+              editHistory={this.props.editHistory}
           />
         ))}
         {authenticated?
@@ -104,11 +104,14 @@ CommentComponent.propTypes = {
   createComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
+  getEditHistory: PropTypes.func.isRequired,
+  editHistory: PropTypes.array.isRequired,
 };
 
 export const mapStateToProps = ({ comments }) => ({
   replies: comments.replies,
   errorMessage: comments.errorMessage,
+  editHistory: comments.editHistory,
 });
 
 export default connect(

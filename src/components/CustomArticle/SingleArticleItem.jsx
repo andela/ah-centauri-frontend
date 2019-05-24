@@ -1,23 +1,19 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Button, Popup } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {Placeholder} from 'semantic-ui-react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import moment from 'moment';
 import parse from 'html-react-parser';
 import classNames from 'classnames';
 
 import _ from 'lodash';
-import { Placeholder } from 'semantic-ui-react';
 import LikeDislikeButtons from '../like/like';
 import CircularSocial from '../SocialShareLinks/SocialShareLinks';
 import SocialShareLinksVertical from '../SocialShareLinks/SocialShareLinksVertical';
 import ArticleRating from '../ArticleRating/ArticleRating';
 import CommentsComponent from '../Comments/Comments';
-import {
-  bookmarkArticle,
-  removeBookmark,
-} from '../../actions/bookmarksActions';
+import {bookmarkArticle, removeBookmark,} from '../../actions/bookmarksActions';
 import isEmpty from '../../utils/is_empty';
 import ReportArticleModal from '../ReportArticle/ReportArticleModal';
 
@@ -47,6 +43,7 @@ export class SingleArticleItem extends Component {
       postReply,
       user,
       loading,
+      getEditHistory,
     } = this.props;
 
     const imgRegex = /<img[^>]+src="(http:\/\/[^">]+)"/g;
@@ -244,6 +241,7 @@ export class SingleArticleItem extends Component {
               getReplies={getReplies}
               createComment={createComment}
               deleteComment={deleteComment}
+              getEditHistory={getEditHistory}
               editComment={editComment}
               postReply={postReply}
               authenticated={authenticated}

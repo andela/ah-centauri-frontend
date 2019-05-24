@@ -3,18 +3,20 @@ import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
-import { API_HOST } from '../../services/Api';
+import {API_HOST} from '../../services/Api';
 import {
-  ERROR_FETCHING_COMMENTS,
-  FETCH_ALL_COMMENTS,
-  ERROR_FETCHING_REPLIES,
-  FETCH_ALL_REPLIES,
-  CREATE_COMMENT_SUCCESS,
   CREATE_COMMENT_FAILURE,
+  CREATE_COMMENT_SUCCESS,
   DELETE_COMMENT_FAILURE,
   DELETE_COMMENT_SUCCESS,
   EDIT_COMMENT_FAILURE,
   EDIT_COMMENT_SUCCESS,
+  ERROR_FETCHING_COMMENTS,
+  ERROR_FETCHING_REPLIES,
+  FETCH_ALL_COMMENTS,
+  FETCH_ALL_REPLIES,
+  FETCH_COMMENT_HISTORY_ERROR,
+  FETCH_COMMENT_HISTORY_SUCCESS,
   POST_REPLY_FAILURE,
 } from '../types';
 import * as actions from '../commentsActions';
@@ -24,7 +26,34 @@ const mockStore = configureMockStore(middleware);
 
 const store = mockStore();
 
-describe('Reset Actions', () => {
+describe('Test comment actions', () => {
+  it('should handle fetch all comment edit history successfully', () => {
+    const payload = {
+      comments: [
+        {
+          id: 25,
+        },
+      ],
+      commentCount: 2,
+    };
+    const successAction = actions.successEditHistory(payload);
+    const expectedAction = {
+      type: FETCH_COMMENT_HISTORY_SUCCESS,
+      payload,
+    };
+    expect(successAction).toEqual(expectedAction);
+  });
+
+  it('should handle fetch all comment edit history error', () => {
+    const failPayload = {errors: 'something goes wrong'};
+    const failAction = actions.errorEditHistory(failPayload);
+    const expectedAction = {
+      type: FETCH_COMMENT_HISTORY_ERROR,
+      payload: failPayload,
+    };
+    expect(failAction).toEqual(expectedAction);
+  });
+
   it('should handle fetch all comments successfully', () => {
     const payload = {
       comments: [
@@ -188,11 +217,11 @@ describe('Test commenting axios actions', () => {
   beforeEach(() => {
     moxios.install();
   });
-  
+
   afterEach(() => {
     moxios.uninstall();
   });
-  
+
   const slug = 'path';
   const data = {
     slug: 'path',
@@ -217,225 +246,263 @@ describe('Test commenting axios actions', () => {
       comment: {},
     },
   };
-  
+
   it('creates FETCH_ALL_COMMENTS when fetch all comments is successful', async (done) => {
     const payload = {
       comments: [{id: 25}],
     };
-    
+
     const expectedActions = actions.successMessage(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${slug}/comments/`, {
       status: 200,
       response: {
         comments: [{id: 25}],
       },
     });
-    
+
     await store.dispatch(actions.getAllComments(slug));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
+  it('creates FETCH_COMMENT_HISTORY_SUCCESS when fetch all editHistory is successful', async (done) => {
+    const payload = {
+      comments: [{id: 25}],
+    };
+
+    const expectedActions = actions.successEditHistory(payload);
+
+    moxios.stubRequest(`${API_HOST}/comments/52/history`, {
+      status: 200,
+      response: {
+        comments: [{id: 25}],
+      },
+    });
+
+    await store.dispatch(actions.getEditHistory(52));
+    expect(store.getActions()).toContainEqual(expectedActions);
+    done();
+  });
+
+  it('creates FETCH_COMMENT_HISTORY_ERROR when fetch all editHistory is successful', async (done) => {
+    const payload = {
+      errors: 'Auth credentials not found',
+    };
+
+    const expectedActions = actions.errorEditHistory(payload);
+
+    moxios.stubRequest(`${API_HOST}/comments/52/history`, {
+      status: 400,
+      response: {
+        errors: 'Auth credentials not found',
+      },
+    });
+
+    await store.dispatch(actions.getEditHistory(52));
+    expect(store.getActions()).toContainEqual(expectedActions);
+    done();
+  });
+
   it('creates ERROR_FETCHING_COMMENTS when fetch all comments is unsuccessful', async (done) => {
     const payload = {
       errors: 'something goes wrong',
     };
-    
+
     const expectedActions = actions.errorMessage(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${slug}/comments/`, {
       status: 400,
       response: {
         errors: 'something goes wrong',
       },
     });
-    
+
     await store.dispatch(actions.getAllComments(slug));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates FETCH_ALL_REPLIES when fetch all replies is successful', async (done) => {
     const payload = {
       comments: [{id: 25}],
     };
-    
+
     const expectedActions = actions.successReplies(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${data.slug}/comments/?parent=${data.parent_id}`, {
       status: 200,
       response: {
         comments: [{id: 25}],
       },
     });
-    
+
     await store.dispatch(actions.getAllReplies(data));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates ERROR_FETCHING_REPLIES when fetch all replies is unsuccessful', async (done) => {
     const payload = {
       errors: 'something goes wrong',
     };
-    
+
     const expectedActions = actions.errorReplies(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${data.slug}/comments/?parent=${data.parent_id}`, {
       status: 400,
       response: {
         errors: 'something goes wrong',
       },
     });
-    
+
     await store.dispatch(actions.getAllReplies(data));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates CREATE_COMMENT_SUCCESS when create comment is successful', async (done) => {
     const payload = {
       comment: [{id: 25}],
     };
-    
+
     const expectedActions = actions.createCommentSuccess(payload.comment);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${createCommentData.slug}/comments/`, {
       status: 200,
       response: {
         comment: [{id: 25}],
       },
     });
-    
+
     await store.dispatch(actions.createComment(createCommentData));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates CREATE_COMMENT_FAILURE when create comment is unsuccessful', async (done) => {
     const payload = {
       errors: 'something goes wrong',
     };
-    
+
     const expectedActions = actions.createCommentFailure(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${createCommentData.slug}/comments/`, {
       status: 400,
       response: {
         errors: 'something goes wrong',
       },
     });
-    
+
     await store.dispatch(actions.createComment(createCommentData));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates EDIT_COMMENT_SUCCESS when edit comment is successful', async (done) => {
     const payload = {
       comment: [{id: 25}],
     };
-    
+
     const expectedActions = actions.editCommentSuccess(payload.comment);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${editData.slug}/comments/${editData.comment_id}/`, {
       status: 200,
       response: {
         comment: [{id: 25}],
       },
     });
-    
+
     await store.dispatch(actions.editComment(editData));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates EDIT_COMMENT_FAILURE when create comment is unsuccessful', async (done) => {
     const payload = {
       errors: 'something goes wrong',
     };
-    
+
     const expectedActions = actions.editCommentFailure(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${editData.slug}/comments/${editData.comment_id}/`, {
       status: 400,
       response: {
         errors: 'something goes wrong',
       },
     });
-    
+
     await store.dispatch(actions.editComment(editData));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates DELETE_COMMENT_SUCCESS when delete comment is successful', async (done) => {
     const expectedActions = actions.deleteCommentSuccess(deleteData.comment_id);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${deleteData.slug}/comments/${deleteData.comment_id}/`, {
       status: 200,
       response: {
         message: 'success',
       },
     });
-    
+
     await store.dispatch(actions.deleteComment(deleteData));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates DELETE_COMMENT_FAILURE when delete comment is unsuccessful', async (done) => {
     const payload = {
       errors: 'something goes wrong',
     };
     const expectedActions = actions.deleteCommentFailure(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${deleteData.slug}/comments/${deleteData.comment_id}/`, {
       status: 400,
       response: {
         errors: 'something goes wrong',
       },
     });
-    
+
     await store.dispatch(actions.deleteComment(deleteData));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates FETCH_ALL_COMMENTS when post reply is successful', async (done) => {
     const payload = {
       comments: [{id: 25}],
     };
-    
+
     const expectedActions = actions.successMessage(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${postReplyData.slug}/comments/`, {
       status: 200,
       response: {
         message: 'success',
       },
     });
-    
+
     await store.dispatch(actions.postReply(postReplyData));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
   });
-  
+
   it('creates POST_REPLY_FAILURE when post reply is unsuccessful', async (done) => {
     const payload = {
       errors: 'something goes wrong',
     };
-    
+
     const expectedActions = actions.postReplyFailure(payload);
-    
+
     moxios.stubRequest(`${API_HOST}/articles/${postReplyData.slug}/comments/`, {
       status: 400,
       response: {
         errors: 'something goes wrong',
       },
     });
-    
+
     await store.dispatch(actions.postReply(postReplyData));
     expect(store.getActions()).toContainEqual(expectedActions);
     done();
