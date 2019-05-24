@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
 import { getSingleArticles } from '../../actions/articlesActions';
 import { likeArticle, dislikeArticle } from '../../actions/likeActions';
 

@@ -1,17 +1,21 @@
-
-i.icon, i.icons {
+//
+header {
+  i.icon, i.icons {
     font-size: 1.5em;
-}
-i.icon {
+  }
+
+  i.icon {
     display: inline-block;
     opacity: 1;
     margin: 1.6rem 1.45rem 0.89rem 0.9rem;
     transition: all .3s;
+
     &:hover {
-        cursor: pointer;
-        color: var(--color-primary);
-        transition: all .3s;
-      }
+      cursor: pointer;
+      color: var(--color-primary);
+      transition: all .3s;
+    }
+  }
 }
 .ui.active.modal{
     overflow-x: hidden !important;
@@ -19,7 +23,7 @@ i.icon {
 
 .post-meta {
     padding-top: .8rem;
-    padding-bottom: 0rem; 
+    padding-bottom: 0rem;
     margin-top: 0;
     margin-bottom: 0rem;
     font-family: "Montserrat", sans-serif;
