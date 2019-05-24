@@ -91,18 +91,18 @@ nav{
       & button{
         display: block;
         margin: 1rem 0;
+        position: relative;
+        top: 3.85%;
         padding: 1rem 2rem;
         text-decoration: none;
-        color: var(--color-grey-dark-2);
+        color: var(--color-primary);
         font-size: 1.6rem;
-        border-radius: 3rem;
         background: transparent;
-        border: .1rem solid var(--color-grey-dark-2);
-        box-shadow: 0 0.2rem 0.5rem var(--color-grey-dark-2);
+        border: .1rem solid var(--color-primary);
 
         &:hover{
           color: var(--color-grey-light-1);
-          background-color: var(--color-grey-dark-1);
+          background-color: var(--color-primary);
           font-weight: 500;
           transition: 0.5s;
         }
@@ -178,7 +178,7 @@ nav{
 
   /* don't need to go crazy with z-index here, just sits over .modal-guts */
   z-index: 1;
-
+  cursor: pointer;
   top: 1.0rem;
 
   /* needs to look OK with or without scrollbar */
@@ -248,7 +248,7 @@ nav{
 #tab-two:checked ~ .tabs #tab-two-label{
   background-color: #fff;
   cursor: default;
-  border-left-color: #69be28;
+  border-left-color: var(--color-primary);
 }
 
 #tab-one:checked ~ .tabs #tab-one-panel,
@@ -336,4 +336,18 @@ ul.sub-menu li {
 
 ul.sub-menu a {
   font-size: 1.4rem;
+}
+
+.ui.inverted.primary.button, .ui.inverted.primary.buttons .button {
+    background-color: transparent;
+    box-shadow: 0 0 0 2px var(--color-primary) inset!important;
+    // border: 0px solid var(--color-primary);
+    transition: all .5s;
+    outline: none;
+    color: var(--color-primary);
+    &:hover{
+      background-color: var(--color-primary);
+      transition: all .5s;
+      color: var(--color-grey-light-1);
+    }
 }
