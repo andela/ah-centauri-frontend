@@ -84,7 +84,8 @@ export class HeaderLayout extends Component {
           />
           <nav className={classNames({ active: toggle })}>
             {authenticated ? (
-              <ul>
+              <ul>          
+                <li><Search/></li>
                 <li><a href="/create-article">New Story</a></li>
                 <li className="menu-item-has-children">
                   <a href="#">
