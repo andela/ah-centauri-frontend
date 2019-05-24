@@ -44,12 +44,10 @@ describe('SearchFeed page test', () => {
   const { wrapper, props } = setUp();
 
   it(' render article section exists', () => {
-    // const articleSection = wrapper.find('article');
     expect(
       wrapper.containsMatchingElement(
         <SearchItem />,
       ),
     ).toBeTruthy();
-    // expect(articleSection.exists()).toBe(true);
   });
 });

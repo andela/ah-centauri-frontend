@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'semantic-ui-react';
+import {Checkbox} from 'semantic-ui-react';
 
-import { Link } from 'react-router-dom';
-import { signoutAction } from '../../actions/authActions';
-import {
-  getUserNotifications,
-  updateNotifications,
-} from '../../actions/notificationsActions';
+import {Link} from 'react-router-dom';
+import {signoutAction} from '../../actions/authActions';
+import {getUserNotifications, updateNotifications,} from '../../actions/notificationsActions';
 
 import HeaderLayout from '../../components/layout/HeaderLayout';
 import requireAuth from '../../HOC/requireAuth';
@@ -97,9 +94,9 @@ export class SettingsPage extends Component {
                       {user ? user.email : '...'}
                       {' '}
                     </p>
-                    <span>Provide a valid email address with which to receive notifications.</span>
+                    <span>Ensure a valid email address is provided to receive notifications.</span>
                   </div>
-                  <Link to="/profile">Edit email</Link>
+                  <Link to="/profile">Edit details</Link>
                 </li>
                 <li className="list-item">
                   <div className="list-item__content">

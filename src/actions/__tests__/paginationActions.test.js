@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { SET_PAGE } from '../types';
+import {SET_PAGE} from '../types';
 import * as actions from '../paginationActions';
 
 describe('Pagination Actions', () => {

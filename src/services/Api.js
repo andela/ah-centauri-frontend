@@ -38,7 +38,7 @@ export const api = {
   bookmarks: {
     getAllBookmarkArticle: () => axios.get(`${API_HOST}/bookmarks/`),
     bookmarkArticle: slug => axios.post(`${API_HOST}/bookmarks/${slug}/`),
-    unBookmarkArticle: id => axios.delete(`${API_HOST}/bookmarks/${id}/`),
+    removeBookmark: id => axios.delete(`${API_HOST}/bookmarks/${id}/`),
   },
   notifications: {
     getUserNotifications: () => axios.get(`${API_HOST}/notification/settings`),

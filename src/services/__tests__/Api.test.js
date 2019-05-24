@@ -305,7 +305,7 @@ describe('Api service function test: ', () => {
     mock.onDelete(`${API_HOST}/bookmarks/${data.response.id}/`)
       .reply(200, data);
 
-    api.bookmarks.unBookmarkArticle(data.response.id)
+    api.bookmarks.removeBookmark(data.response.id)
       .then((response) => {
         expect(response.data)
           .toEqual(data);

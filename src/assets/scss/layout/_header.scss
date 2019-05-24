@@ -35,6 +35,13 @@ header {
   float: left;
   font-weight: 700;
   text-decoration: none;
+  transition: all .3s;
+}
+
+.logo:hover {
+  color: rgba(253, 111, 111, 0.63) !important;
+  text-decoration: none;
+  transition: all .3s;
 }
 
 nav{
