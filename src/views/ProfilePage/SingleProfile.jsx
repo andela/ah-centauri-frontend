@@ -130,7 +130,7 @@ export class SingleProfile extends Component {
                   <h2>
                     {profile.username}
                   </h2>
-                  <p>{profile.bio ? profile.bio : 'BIO is Empty'}</p>
+                  <p>{profile.bio ? profile.bio : 'Bio is Empty'}</p>
                   <span>
                     {FollowCountLabels}
                   </span>
