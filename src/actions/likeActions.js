@@ -1,13 +1,6 @@
-import { api } from '../services/Api';
-import {
-  LIKE_ARTICLE,
-  DISLIKE_ARTICLE,
-  LIKE_DISLIKE_ERROR,
-  GET_ARTICLE_DATA,
-  GET_COMMENT_DATA,
-  GET_COMMENT_ERROR,
-} from './types';
-import { getSingleArticles } from './articlesActions';
+import {api} from '../services/Api';
+import {DISLIKE_ARTICLE, GET_COMMENT_DATA, GET_COMMENT_ERROR, LIKE_ARTICLE, LIKE_DISLIKE_ERROR,} from './types';
+import {getSingleArticles} from './articlesActions';
 
 
 export const likeArticleAction = data => ({
@@ -20,10 +13,7 @@ export const dislikeArticleAction = data => ({
   payload: data,
 });
 
-export const fetchArticleDataAction = data => ({
-  type: GET_ARTICLE_DATA,
-  payload: data,
-});
+
 
 export const likeErrorAction = data => ({
   type: LIKE_DISLIKE_ERROR,
@@ -75,7 +65,7 @@ export const likeComment = data => (dispatch) => {
     .catch((error) => {
       dispatch(likeErrorAction(error.response.data));
     });
-}
+};
 
 export const dislikeComment = data => (dispatch) => {
   return api.comments.dislikeComment(data.id)
@@ -85,5 +75,5 @@ export const dislikeComment = data => (dispatch) => {
     .catch((error) => {
       dispatch(likeErrorAction(error.response.data));
     });
-}
+};
 

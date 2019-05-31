@@ -1,8 +1,8 @@
 import {
   FETCH_NOTIFICATIONS,
-  LOADING_PROGRESS,
-  NOTIFICATION_LIST_UPDATED,
   FRESH_NOTIFICATIONS_LIST,
+  NOTIFICATION_LIST_UPDATED,
+  NOTIFICATIONS_LOADING_PROGRESS,
   RESET_NOTIFICATIONS_COUNT,
 } from '../actions/types';
 
@@ -18,7 +18,7 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, actions) {
   switch (actions.type) {
-    case LOADING_PROGRESS:
+    case NOTIFICATIONS_LOADING_PROGRESS:
       return {
         ...state,
         loading: true,

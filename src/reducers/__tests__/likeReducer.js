@@ -1,10 +1,7 @@
 import expect from 'expect';
 import reducer from '../likeReducers';
-import {
-  likeArticleAction,
-  dislikeArticleAction,
-  fetchArticleDataAction,
-} from '../../actions/likeActions';
+import {dislikeArticleAction, likeArticleAction,} from '../../actions/likeActions';
+import {fetchArticleDataAction} from '../../actions/articlesActions';
 
 
 const INITIAL_STATE = {

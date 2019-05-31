@@ -1,9 +1,8 @@
 import expect from 'expect';
 import notificationsReducer from '../notificationsReducer';
-import {
-  notificationsSuccessMessage,
-} from '../../actions/notificationsActions';
-import { loadingMessage } from '../../actions/articlesActions';
+import {notificationsSuccessMessage,} from '../../actions/notificationsActions';
+import {loadingMessage} from '../../actions/articlesActions';
+import {NOTIFICATIONS_LOADING_PROGRESS} from '../../actions/types';
 
 
 const INITIAL_STATE = {
@@ -21,7 +20,7 @@ describe('Test Notifications Reducer ', () => {
   });
 
   it('should handle LOADING_PROGRESS', () => {
-    const loadingMessageAction = loadingMessage();
+    const loadingMessageAction = loadingMessage(NOTIFICATIONS_LOADING_PROGRESS);
     const expectedState = {
       ...INITIAL_STATE,
       loading: true,

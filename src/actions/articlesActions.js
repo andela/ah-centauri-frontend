@@ -5,12 +5,16 @@ import {
   ERROR_FETCHING_ARTICLES,
   FETCH_ALL_ARTICLES,
   FETCH_SINGLE_ARTICLE,
-  LOADING_PROGRESS,
+  GET_ARTICLE_DATA,
 } from './types';
-import { api } from '../services/Api';
-import { fetchArticleDataAction } from './likeActions';
+import {api} from '../services/Api';
 
-export const loadingMessage = (type = LOADING_PROGRESS) => ({
+export const fetchArticleDataAction = data => ({
+  type: GET_ARTICLE_DATA,
+  payload: data,
+});
+
+export const loadingMessage = (type = ARTICLE_LOADING_PROGRESS) => ({
   type,
 });
 

@@ -1,7 +1,6 @@
-import { toast } from 'react-toastify';
-import { REPORT_SUCCESS, REPORT_FAILED, REPORTED_ARTICLE, LOADING_REPORT } from './types';
-import { api } from '../services/Api';
-import { loadingMessage } from './articlesActions';
+import {LOADING_REPORT, REPORT_FAILED, REPORT_SUCCESS} from './types';
+import {api} from '../services/Api';
+import {loadingMessage} from './articlesActions';
 
 export function successMessage(responseData) {
   return { type: REPORT_SUCCESS, payload: responseData };
