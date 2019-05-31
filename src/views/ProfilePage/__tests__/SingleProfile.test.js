@@ -1,8 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme/build';
+import {shallow} from 'enzyme/build';
 import expect from 'expect';
 
-import { SingleProfile } from '../SingleProfile';
+import {SingleProfile} from '../SingleProfile';
 
 
 const setUp = () => {
@@ -16,6 +16,7 @@ const setUp = () => {
     message: '',
     errorMessage: {},
     articles: {},
+    getEditHistory: jest.fn(),
     getSingleUserProfileAction: jest.fn(),
     handleFollow: jest.fn(),
     handleUnFollow: jest.fn(),
